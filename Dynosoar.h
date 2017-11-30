@@ -1,17 +1,13 @@
 //
-//  Dynosoar.m
+//  Dynosoar.h
 //  Dynosoar
 //
 //  Created by Bailey Seymour on 11/29/17.
 //  Copyright © 2017 Bailey Seymour. All rights reserved.
 //
 
-#import "Dynosoar.h"
+#import <Foundation/Foundation.h>
 
-@implementation Dynosoar
-
-//+ (instancetype)dynosoarWithObject:(id)obj {
-//    
-//}
+@interface Dynosoar : NSObject
 
 @end

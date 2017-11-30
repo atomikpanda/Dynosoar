@@ -7,6 +7,7 @@
 //
 
 #import "AppDelegate.h"
+#import "JSNRContext.h"
 
 @interface AppDelegate ()
 
@@ -17,6 +18,7 @@
 
 - (void)applicationDidFinishLaunching:(NSNotification *)aNotification {
     // Insert code here to initialize your application
+    NSLog(@"This is ORIG@!!!!!!!!!!!!!!!!!!!");
 }
 
 
@@ -24,5 +26,23 @@
     // Insert code here to tear down your application
 }
 
-
+- (void)makeRed {
+    [self.window setBackgroundColor:[NSColor redColor]];
+}
+- (void)makePurple:(NSString *)anArg {
+    self.window.title = anArg;
+    [self.window setBackgroundColor:[NSColor purpleColor]];
+}
 @end
+
+__attribute__((constructor))
+static void init_hooks() {
+    NSError *error = nil;
+    
+    NSString *scriptContents = [NSString stringWithContentsOfFile:[[NSBundle mainBundle] pathForResource:@"test.js" ofType:@""] encoding:NSUTF8StringEncoding error:&error];
+    if (error) NSLog(@"script contents err: %@", error);
+    
+    JSNRContext *context = [JSNRContext sharedInstance];
+    
+    JSValue *retval = [context evaluateScript:scriptContents];
+}

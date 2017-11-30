@@ -7,9 +7,14 @@
 //
 
 #import <Foundation/Foundation.h>
+#import <JavaScriptCore/JavaScriptCore.h>
 
 @interface JSNRClassMap : NSObject
-
++ (instancetype)classMap;
 @property (nonatomic, retain) NSMutableDictionary *map;
 
+@end
+
+@interface NSObject (_JSNRClassMap)
++ (JSNRClassMap *)_JSNRClassMap;
 @end

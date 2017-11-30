@@ -7,7 +7,17 @@
 //
 
 #import <Foundation/Foundation.h>
+#import <JavaScriptCore/JavaScriptCore.h>
+@class JSContext, JSNRClassMap;
 
 @interface JSNRContext : NSObject
+
++ (instancetype)sharedInstance;
+- (JSValue *)evaluateScript:(NSString *)contents;
+- (JSNRClassMap *)mapForClass:(Class)cls;
+
+@property (nonatomic, retain) JSContext *coreContext;
+@property (nonatomic, copy) NSString *scriptContents;
+@property (nonatomic, retain) NSMutableDictionary *allMaps;
 
 @end

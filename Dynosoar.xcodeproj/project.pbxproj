@@ -7,13 +7,64 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		665608631FCF5C7000DC7916 /* Dynosoar.h in Headers */ = {isa = PBXBuildFile; fileRef = 665608611FCF5C7000DC7916 /* Dynosoar.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		6656086B1FCF5CA000DC7916 /* Dynosoar.h in Headers */ = {isa = PBXBuildFile; fileRef = 665608691FCF5CA000DC7916 /* Dynosoar.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		6656086C1FCF5CA000DC7916 /* Dynosoar.m in Sources */ = {isa = PBXBuildFile; fileRef = 6656086A1FCF5CA000DC7916 /* Dynosoar.m */; };
+		665608731FCF5D4800DC7916 /* DynoBundle.h in Headers */ = {isa = PBXBuildFile; fileRef = 665608711FCF5D4800DC7916 /* DynoBundle.h */; };
+		665608741FCF5D4800DC7916 /* DynoBundle.m in Sources */ = {isa = PBXBuildFile; fileRef = 665608721FCF5D4800DC7916 /* DynoBundle.m */; };
+		6656087E1FCF5F3600DC7916 /* JavaScriptNativeRuntime.h in Headers */ = {isa = PBXBuildFile; fileRef = 6656087C1FCF5F3600DC7916 /* JavaScriptNativeRuntime.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		665608841FCF5F7D00DC7916 /* JSNRContext.h in Headers */ = {isa = PBXBuildFile; fileRef = 665608821FCF5F7D00DC7916 /* JSNRContext.h */; };
+		665608851FCF5F7D00DC7916 /* JSNRContext.m in Sources */ = {isa = PBXBuildFile; fileRef = 665608831FCF5F7D00DC7916 /* JSNRContext.m */; };
+		665608891FCF5FED00DC7916 /* JavaScriptNativeRuntime.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6656087A1FCF5F3600DC7916 /* JavaScriptNativeRuntime.framework */; };
+		665608921FCF613C00DC7916 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 665608911FCF613C00DC7916 /* AppDelegate.m */; };
+		665608941FCF613C00DC7916 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 665608931FCF613C00DC7916 /* Assets.xcassets */; };
+		665608971FCF613C00DC7916 /* MainMenu.xib in Resources */ = {isa = PBXBuildFile; fileRef = 665608951FCF613C00DC7916 /* MainMenu.xib */; };
+		6656089A1FCF613C00DC7916 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 665608991FCF613C00DC7916 /* main.m */; };
+		665608A11FCF616300DC7916 /* JavaScriptNativeRuntime.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6656087A1FCF5F3600DC7916 /* JavaScriptNativeRuntime.framework */; };
+		665608A31FCF678400DC7916 /* test.js in Resources */ = {isa = PBXBuildFile; fileRef = 665608A21FCF678400DC7916 /* test.js */; };
+		665608A61FCF6C6300DC7916 /* JSNRClassMap.h in Headers */ = {isa = PBXBuildFile; fileRef = 665608A41FCF6C6300DC7916 /* JSNRClassMap.h */; };
+		665608A71FCF6C6300DC7916 /* JSNRClassMap.m in Sources */ = {isa = PBXBuildFile; fileRef = 665608A51FCF6C6300DC7916 /* JSNRClassMap.m */; };
 /* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		665608861FCF5FE900DC7916 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 665608551FCF5C7000DC7916 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 665608791FCF5F3600DC7916;
+			remoteInfo = JavaScriptNativeRuntime;
+		};
+		6656089F1FCF615D00DC7916 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 665608551FCF5C7000DC7916 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 665608791FCF5F3600DC7916;
+			remoteInfo = JavaScriptNativeRuntime;
+		};
+/* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
 		6656085E1FCF5C7000DC7916 /* Dynosoar.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Dynosoar.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		665608611FCF5C7000DC7916 /* Dynosoar.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Dynosoar.h; sourceTree = "<group>"; };
 		665608621FCF5C7000DC7916 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		665608691FCF5CA000DC7916 /* Dynosoar.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Dynosoar.h; sourceTree = SOURCE_ROOT; };
+		6656086A1FCF5CA000DC7916 /* Dynosoar.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = Dynosoar.m; sourceTree = "<group>"; };
+		665608711FCF5D4800DC7916 /* DynoBundle.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DynoBundle.h; sourceTree = "<group>"; };
+		665608721FCF5D4800DC7916 /* DynoBundle.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = DynoBundle.m; sourceTree = "<group>"; };
+		6656087A1FCF5F3600DC7916 /* JavaScriptNativeRuntime.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = JavaScriptNativeRuntime.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		6656087C1FCF5F3600DC7916 /* JavaScriptNativeRuntime.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = JavaScriptNativeRuntime.h; sourceTree = "<group>"; };
+		6656087D1FCF5F3600DC7916 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		665608821FCF5F7D00DC7916 /* JSNRContext.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = JSNRContext.h; sourceTree = "<group>"; };
+		665608831FCF5F7D00DC7916 /* JSNRContext.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = JSNRContext.m; sourceTree = "<group>"; };
+		6656088E1FCF613C00DC7916 /* JSNRExample.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = JSNRExample.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		665608901FCF613C00DC7916 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
+		665608911FCF613C00DC7916 /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
+		665608931FCF613C00DC7916 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		665608961FCF613C00DC7916 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/MainMenu.xib; sourceTree = "<group>"; };
+		665608981FCF613C00DC7916 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		665608991FCF613C00DC7916 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
+		6656089B1FCF613C00DC7916 /* JSNRExample.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = JSNRExample.entitlements; sourceTree = "<group>"; };
+		665608A21FCF678400DC7916 /* test.js */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.javascript; path = test.js; sourceTree = "<group>"; };
+		665608A41FCF6C6300DC7916 /* JSNRClassMap.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = JSNRClassMap.h; sourceTree = "<group>"; };
+		665608A51FCF6C6300DC7916 /* JSNRClassMap.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = JSNRClassMap.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -21,6 +72,22 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				665608891FCF5FED00DC7916 /* JavaScriptNativeRuntime.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		665608761FCF5F3600DC7916 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		6656088B1FCF613C00DC7916 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				665608A11FCF616300DC7916 /* JavaScriptNativeRuntime.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -30,8 +97,13 @@
 		665608541FCF5C7000DC7916 = {
 			isa = PBXGroup;
 			children = (
+				665608711FCF5D4800DC7916 /* DynoBundle.h */,
+				665608721FCF5D4800DC7916 /* DynoBundle.m */,
 				665608601FCF5C7000DC7916 /* Dynosoar */,
+				6656087B1FCF5F3600DC7916 /* JavaScriptNativeRuntime */,
+				6656088F1FCF613C00DC7916 /* JSNRExample */,
 				6656085F1FCF5C7000DC7916 /* Products */,
+				665608881FCF5FED00DC7916 /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -39,6 +111,8 @@
 			isa = PBXGroup;
 			children = (
 				6656085E1FCF5C7000DC7916 /* Dynosoar.framework */,
+				6656087A1FCF5F3600DC7916 /* JavaScriptNativeRuntime.framework */,
+				6656088E1FCF613C00DC7916 /* JSNRExample.app */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -46,10 +120,46 @@
 		665608601FCF5C7000DC7916 /* Dynosoar */ = {
 			isa = PBXGroup;
 			children = (
-				665608611FCF5C7000DC7916 /* Dynosoar.h */,
+				665608691FCF5CA000DC7916 /* Dynosoar.h */,
+				6656086A1FCF5CA000DC7916 /* Dynosoar.m */,
 				665608621FCF5C7000DC7916 /* Info.plist */,
 			);
 			path = Dynosoar;
+			sourceTree = "<group>";
+		};
+		6656087B1FCF5F3600DC7916 /* JavaScriptNativeRuntime */ = {
+			isa = PBXGroup;
+			children = (
+				6656087C1FCF5F3600DC7916 /* JavaScriptNativeRuntime.h */,
+				6656087D1FCF5F3600DC7916 /* Info.plist */,
+				665608821FCF5F7D00DC7916 /* JSNRContext.h */,
+				665608831FCF5F7D00DC7916 /* JSNRContext.m */,
+				665608A41FCF6C6300DC7916 /* JSNRClassMap.h */,
+				665608A51FCF6C6300DC7916 /* JSNRClassMap.m */,
+			);
+			path = JavaScriptNativeRuntime;
+			sourceTree = "<group>";
+		};
+		665608881FCF5FED00DC7916 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		6656088F1FCF613C00DC7916 /* JSNRExample */ = {
+			isa = PBXGroup;
+			children = (
+				665608901FCF613C00DC7916 /* AppDelegate.h */,
+				665608911FCF613C00DC7916 /* AppDelegate.m */,
+				665608A21FCF678400DC7916 /* test.js */,
+				665608931FCF613C00DC7916 /* Assets.xcassets */,
+				665608951FCF613C00DC7916 /* MainMenu.xib */,
+				665608981FCF613C00DC7916 /* Info.plist */,
+				665608991FCF613C00DC7916 /* main.m */,
+				6656089B1FCF613C00DC7916 /* JSNRExample.entitlements */,
+			);
+			path = JSNRExample;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -59,7 +169,18 @@
 			isa = PBXHeadersBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				665608631FCF5C7000DC7916 /* Dynosoar.h in Headers */,
+				665608731FCF5D4800DC7916 /* DynoBundle.h in Headers */,
+				6656086B1FCF5CA000DC7916 /* Dynosoar.h in Headers */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		665608771FCF5F3600DC7916 /* Headers */ = {
+			isa = PBXHeadersBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				6656087E1FCF5F3600DC7916 /* JavaScriptNativeRuntime.h in Headers */,
+				665608841FCF5F7D00DC7916 /* JSNRContext.h in Headers */,
+				665608A61FCF6C6300DC7916 /* JSNRClassMap.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -78,11 +199,48 @@
 			buildRules = (
 			);
 			dependencies = (
+				665608871FCF5FE900DC7916 /* PBXTargetDependency */,
 			);
 			name = Dynosoar;
 			productName = Dynosoar;
 			productReference = 6656085E1FCF5C7000DC7916 /* Dynosoar.framework */;
 			productType = "com.apple.product-type.framework";
+		};
+		665608791FCF5F3600DC7916 /* JavaScriptNativeRuntime */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 6656087F1FCF5F3600DC7916 /* Build configuration list for PBXNativeTarget "JavaScriptNativeRuntime" */;
+			buildPhases = (
+				665608751FCF5F3600DC7916 /* Sources */,
+				665608761FCF5F3600DC7916 /* Frameworks */,
+				665608771FCF5F3600DC7916 /* Headers */,
+				665608781FCF5F3600DC7916 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = JavaScriptNativeRuntime;
+			productName = JavaScriptNativeRuntime;
+			productReference = 6656087A1FCF5F3600DC7916 /* JavaScriptNativeRuntime.framework */;
+			productType = "com.apple.product-type.framework";
+		};
+		6656088D1FCF613C00DC7916 /* JSNRExample */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 6656089C1FCF613C00DC7916 /* Build configuration list for PBXNativeTarget "JSNRExample" */;
+			buildPhases = (
+				6656088A1FCF613C00DC7916 /* Sources */,
+				6656088B1FCF613C00DC7916 /* Frameworks */,
+				6656088C1FCF613C00DC7916 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				665608A01FCF615D00DC7916 /* PBXTargetDependency */,
+			);
+			name = JSNRExample;
+			productName = JSNRExample;
+			productReference = 6656088E1FCF613C00DC7916 /* JSNRExample.app */;
+			productType = "com.apple.product-type.application";
 		};
 /* End PBXNativeTarget section */
 
@@ -97,6 +255,14 @@
 						CreatedOnToolsVersion = 9.1;
 						ProvisioningStyle = Automatic;
 					};
+					665608791FCF5F3600DC7916 = {
+						CreatedOnToolsVersion = 9.1;
+						ProvisioningStyle = Automatic;
+					};
+					6656088D1FCF613C00DC7916 = {
+						CreatedOnToolsVersion = 9.1;
+						ProvisioningStyle = Automatic;
+					};
 				};
 			};
 			buildConfigurationList = 665608581FCF5C7000DC7916 /* Build configuration list for PBXProject "Dynosoar" */;
@@ -105,6 +271,7 @@
 			hasScannedForEncodings = 0;
 			knownRegions = (
 				en,
+				Base,
 			);
 			mainGroup = 665608541FCF5C7000DC7916;
 			productRefGroup = 6656085F1FCF5C7000DC7916 /* Products */;
@@ -112,6 +279,8 @@
 			projectRoot = "";
 			targets = (
 				6656085D1FCF5C7000DC7916 /* Dynosoar */,
+				665608791FCF5F3600DC7916 /* JavaScriptNativeRuntime */,
+				6656088D1FCF613C00DC7916 /* JSNRExample */,
 			);
 		};
 /* End PBXProject section */
@@ -124,6 +293,23 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		665608781FCF5F3600DC7916 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		6656088C1FCF613C00DC7916 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				665608A31FCF678400DC7916 /* test.js in Resources */,
+				665608941FCF613C00DC7916 /* Assets.xcassets in Resources */,
+				665608971FCF613C00DC7916 /* MainMenu.xib in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
@@ -131,10 +317,54 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				6656086C1FCF5CA000DC7916 /* Dynosoar.m in Sources */,
+				665608741FCF5D4800DC7916 /* DynoBundle.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		665608751FCF5F3600DC7916 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				665608851FCF5F7D00DC7916 /* JSNRContext.m in Sources */,
+				665608A71FCF6C6300DC7916 /* JSNRClassMap.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		6656088A1FCF613C00DC7916 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				6656089A1FCF613C00DC7916 /* main.m in Sources */,
+				665608921FCF613C00DC7916 /* AppDelegate.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		665608871FCF5FE900DC7916 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 665608791FCF5F3600DC7916 /* JavaScriptNativeRuntime */;
+			targetProxy = 665608861FCF5FE900DC7916 /* PBXContainerItemProxy */;
+		};
+		665608A01FCF615D00DC7916 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 665608791FCF5F3600DC7916 /* JavaScriptNativeRuntime */;
+			targetProxy = 6656089F1FCF615D00DC7916 /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
+/* Begin PBXVariantGroup section */
+		665608951FCF613C00DC7916 /* MainMenu.xib */ = {
+			isa = PBXVariantGroup;
+			children = (
+				665608961FCF613C00DC7916 /* Base */,
+			);
+			name = MainMenu.xib;
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
 
 /* Begin XCBuildConfiguration section */
 		665608641FCF5C7000DC7916 /* Debug */ = {
@@ -288,6 +518,80 @@
 			};
 			name = Release;
 		};
+		665608801FCF5F3600DC7916 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CLANG_ENABLE_OBJC_ARC = NO;
+				CODE_SIGN_IDENTITY = "";
+				CODE_SIGN_STYLE = Automatic;
+				COMBINE_HIDPI_IMAGES = YES;
+				DEFINES_MODULE = YES;
+				DEVELOPMENT_TEAM = CMADB5PKU7;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				FRAMEWORK_VERSION = A;
+				INFOPLIST_FILE = JavaScriptNativeRuntime/Info.plist;
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks @loader_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = com.baileyseymour.JavaScriptNativeRuntime;
+				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
+				SKIP_INSTALL = YES;
+			};
+			name = Debug;
+		};
+		665608811FCF5F3600DC7916 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CLANG_ENABLE_OBJC_ARC = NO;
+				CODE_SIGN_IDENTITY = "";
+				CODE_SIGN_STYLE = Automatic;
+				COMBINE_HIDPI_IMAGES = YES;
+				DEFINES_MODULE = YES;
+				DEVELOPMENT_TEAM = CMADB5PKU7;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				FRAMEWORK_VERSION = A;
+				INFOPLIST_FILE = JavaScriptNativeRuntime/Info.plist;
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks @loader_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = com.baileyseymour.JavaScriptNativeRuntime;
+				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
+				SKIP_INSTALL = YES;
+			};
+			name = Release;
+		};
+		6656089D1FCF613C00DC7916 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_ENTITLEMENTS = JSNRExample/JSNRExample.entitlements;
+				CODE_SIGN_STYLE = Automatic;
+				COMBINE_HIDPI_IMAGES = YES;
+				DEVELOPMENT_TEAM = CMADB5PKU7;
+				INFOPLIST_FILE = JSNRExample/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = com.baileyseymour.JSNRExample;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Debug;
+		};
+		6656089E1FCF613C00DC7916 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_ENTITLEMENTS = JSNRExample/JSNRExample.entitlements;
+				CODE_SIGN_STYLE = Automatic;
+				COMBINE_HIDPI_IMAGES = YES;
+				DEVELOPMENT_TEAM = CMADB5PKU7;
+				INFOPLIST_FILE = JSNRExample/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = com.baileyseymour.JSNRExample;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Release;
+		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
@@ -305,6 +609,24 @@
 			buildConfigurations = (
 				665608671FCF5C7000DC7916 /* Debug */,
 				665608681FCF5C7000DC7916 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		6656087F1FCF5F3600DC7916 /* Build configuration list for PBXNativeTarget "JavaScriptNativeRuntime" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				665608801FCF5F3600DC7916 /* Debug */,
+				665608811FCF5F3600DC7916 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		6656089C1FCF613C00DC7916 /* Build configuration list for PBXNativeTarget "JSNRExample" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				6656089D1FCF613C00DC7916 /* Debug */,
+				6656089E1FCF613C00DC7916 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;

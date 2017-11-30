@@ -6,7 +6,8 @@
 //  Copyright © 2017 Bailey Seymour. All rights reserved.
 //
 
-#import "JSNRHookedMap.h"
+#import "JSNRClassMap.h"
+#import "JSNRContext.h"
 #import <objc/runtime.h>
 
 @implementation JSNRClassMap
@@ -30,18 +31,16 @@
 
 @end
 
-@interface NSObject (JSNRHookedMap)
-+ (JSNRHookedMap *)_JSNRMap;
-@end
-
-@implementation NSObject (JSNRHookedMap)
-+ (JSNRHookedMap *)_JSNRMap {
-    
+@implementation NSObject (_JSNRClassMap)
++ (JSNRClassMap *)_JSNRClassMap {
+    JSNRContext *context = [JSNRContext sharedInstance];
+   return [context mapForClass:self];
 }
+
 @end
 
 //__attribute__((constructor))
 //static void init_map_system() {
-//    class_addMethod(NSClassFromString(@"NSObject"), @selector(_JSNRMap), <#IMP  _Nonnull imp#>, <#const char * _Nullable types#>)
+//    class_addMethod(NSClassFromString(@"NSObject"), @selector(_JSNRClassMap), <#IMP  _Nonnull imp#>, <#const char * _Nullable types#>)
 //}
 
