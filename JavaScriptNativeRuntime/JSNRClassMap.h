@@ -6,8 +6,7 @@
 //  Copyright © 2017 Bailey Seymour. All rights reserved.
 //
 
-#import <Foundation/Foundation.h>
-#import <JavaScriptCore/JavaScriptCore.h>
+#import "JSNRInternal.h"
 
 @interface JSNRClassMap : NSObject
 + (instancetype)classMap;

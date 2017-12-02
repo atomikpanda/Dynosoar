@@ -7,7 +7,7 @@
 //
 
 #import "AppDelegate.h"
-#import "JSNRContext.h"
+#import "JavaScriptNativeRuntime.h"
 
 @interface AppDelegate ()
 
@@ -25,13 +25,18 @@
 - (void)applicationWillTerminate:(NSNotification *)aNotification {
     // Insert code here to tear down your application
 }
-
+- (void)number:(double)theNum {
+    printf("theNum: %g\n", theNum);
+}
 - (void)makeRed {
     [self.window setBackgroundColor:[NSColor redColor]];
 }
 - (void)makePurple:(NSString *)anArg {
     self.window.title = anArg;
     [self.window setBackgroundColor:[NSColor purpleColor]];
+}
+- (void)twoArgMethod:(id)arg1 arg2:(id)arg2 {
+    NSLog(@"arg1=%@;arg2=%@;",arg1,arg2);
 }
 @end
 

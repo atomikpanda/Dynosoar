@@ -1,0 +1,60 @@
+{
+  'version': 0,
+  'case-sensitive': 'false',
+  'roots': [
+    {
+      'type': 'directory',
+      'name': "/Users/atomikpanda/Documents/Personal Projects/Dynosoar/build/Release/Dynosoar.framework/Headers",
+      'contents': [
+        {
+          'type': 'file',
+          'name': "Dynosoar-Swift.h",
+          'external-contents': "/Users/atomikpanda/Documents/Personal Projects/Dynosoar/build/Release/Dynosoar.framework/Versions/A/Headers/Dynosoar-Swift.h"
+        },
+        {
+          'type': 'file',
+          'name': "Dynosoar.h",
+          'external-contents': "/Users/atomikpanda/Documents/Personal Projects/Dynosoar/Dynosoar.h"
+        }
+      ]
+    },
+    {
+      'type': 'directory',
+      'name': "/Users/atomikpanda/Documents/Personal Projects/Dynosoar/build/Release/Dynosoar.framework/Modules",
+      'contents': [
+        {
+          'type': 'file',
+          'name': "module.modulemap",
+          'external-contents': "/Users/atomikpanda/Documents/Personal Projects/Dynosoar/build/Dynosoar.build/Release/Dynosoar.build/module.modulemap"
+        }
+      ]
+    },
+    {
+      'type': 'directory',
+      'name': "/Users/atomikpanda/Documents/Personal Projects/Dynosoar/build/Release/JavaScriptNativeRuntime.framework/Headers",
+      'contents': [
+        {
+          'type': 'file',
+          'name': "JavaScriptNativeRuntime-Swift.h",
+          'external-contents': "/Users/atomikpanda/Documents/Personal Projects/Dynosoar/build/Release/JavaScriptNativeRuntime.framework/Versions/A/Headers/JavaScriptNativeRuntime-Swift.h"
+        },
+        {
+          'type': 'file',
+          'name': "JavaScriptNativeRuntime.h",
+          'external-contents': "/Users/atomikpanda/Documents/Personal Projects/Dynosoar/JavaScriptNativeRuntime/JavaScriptNativeRuntime.h"
+        }
+      ]
+    },
+    {
+      'type': 'directory',
+      'name': "/Users/atomikpanda/Documents/Personal Projects/Dynosoar/build/Release/JavaScriptNativeRuntime.framework/Modules",
+      'contents': [
+        {
+          'type': 'file',
+          'name': "module.modulemap",
+          'external-contents': "/Users/atomikpanda/Documents/Personal Projects/Dynosoar/build/Dynosoar.build/Release/JavaScriptNativeRuntime.build/module.modulemap"
+        }
+      ]
+    }
+  ]
+}

@@ -10,24 +10,9 @@
 #import <objc/runtime.h>
 #import <objc/message.h>
 #import <AppKit/AppKit.h>
+#import "JavaScriptNativeRuntime.h"
+#import "JSNRObjectiveClass.h"
 #import "JSNRClassMap.h"
-
-void JSValuePrint(
-                  JSContextRef ctx,
-                  JSValueRef value,
-                  JSValueRef *exception)
-{
-    JSStringRef string = JSValueToStringCopy(ctx, value, exception);
-    size_t length = JSStringGetLength(string);
-    
-    char *buffer = malloc(length+1);
-    JSStringGetUTF8CString(string, buffer, length+1);
-    JSStringRelease(string);
-    
-    puts(buffer);
-    
-    free(buffer);
-}
 
 @implementation JSNRContext
 @synthesize coreContext, scriptContents, allMaps;
@@ -42,6 +27,9 @@ void JSValuePrint(
     });
     return sharedInstance;
 }
++(void)printy {
+    NSLog(@"PRINTY has been called");
+}
 
 - (id)init {
     self = [super init];
@@ -54,9 +42,44 @@ void JSValuePrint(
         }];
         
         [self insertNativeBridge];
+        [self createClassWithName:@"Filesystem"];
+        [self createClassWithName:@"NSBundle"];
+        [self createClassWithName:@"JSNRContext"];
+        
+        JSGlobalContextRef ctx = self.coreContext.JSGlobalContextRef;
+        JSObjectRef globalObject = JSContextGetGlobalObject(ctx);
+        
+//        JSObjectRef objCClass = JSObjectMake(ctx, JSNRObjCClass(), NULL);
+//        JSObjectSetProperty(ctx, globalObject, JSStringCreateWithUTF8CString("ObjCClass"), objCClass, kJSPropertyAttributeNone, NULL);
+        
+        JSClassRef base = JSNR::BaseClass::classRef();
+        
+        JSObjectRef baseCls = JSObjectMake(ctx, base, NULL);
+        JSObjectSetProperty(ctx, globalObject, JSStringCreateWithUTF8CString("Base"), baseCls, kJSPropertyAttributeNone, NULL);
+        
+        JSClassRef subclass = JSNR::ObjCClass::classRef();
+        
+        JSObjectRef baseSubCls = JSObjectMake(ctx, subclass, NULL);
+        JSObjectSetProperty(ctx, globalObject, JSStringCreateWithUTF8CString("ObjCClass"), baseSubCls, kJSPropertyAttributeNone, NULL);
+        
     }
     
     return self;
+}
+
+- (void)createClassWithName:(NSString *)classNameNS {
+    const char *className = [classNameNS UTF8String];
+    
+    JSGlobalContextRef ctx = self.coreContext.JSGlobalContextRef;
+    JSObjectRef globalObject = JSContextGetGlobalObject(ctx);
+
+    JSObjectRef filesystemObject = JSObjectMake(ctx, JSNRObjectiveClass(className), NULL);
+    JSObjectSetProperty(ctx, globalObject, JSStringCreateWithUTF8CString(className), filesystemObject, kJSPropertyAttributeNone, NULL);
+    JSValueRef internalClassName = JSValueMakeString(ctx, JSStringCreateWithUTF8CString(className));
+    JSStringRef propertyName = JSStringCreateWithUTF8CString("internalClassName");
+    JSStringRetain(propertyName);
+    JSObjectSetProperty(ctx, filesystemObject, propertyName, internalClassName, kJSPropertyAttributeNone, NULL);
+    
 }
 
 - (NSObject *)one:(id)o1 two:(id)o2 three:(id)o3 four:(id)o4 five:(id)o5 six:(id)o6 seven:(id)o7 eight:(id)o8 nine:(id)o9 ten:(id)o10 {
@@ -82,8 +105,17 @@ void JSValuePrint(
         if (o9 && numberOfArgs >= 9) [actualArgs addObject:o9];
         if (o10 && numberOfArgs >= 10) [actualArgs addObject:o10];
     }
+    JSContextRef ctx = [JSNRContext sharedInstance].coreContext.JSGlobalContextRef;
     
-    [actualArgs insertObject:self atIndex:0];
+//    JSObjectRef selfObj; //= JSNRObjCClassObjectFromId(ctx, self);
+    JSObjectRef selfObj = JSNR::ObjCClass::instanceWithObject(ctx, self);
+//    JSNRObjCObjectInfo *selfInfo = new JSNRObjCObjectInfo(self, "");
+//    JSObjectSetPrivate(selfObj, selfInfo);
+//    JSValueRef objConstArgs[1];
+//    objConstArgs[0] =
+//    JSObjectCallAsConstructor(ctx, obj, 1, <#const JSValueRef *arguments#>, <#JSValueRef *exception#>)
+    [actualArgs insertObject:[JSValue valueWithJSValueRef:selfObj inContext:[JSNRContext sharedInstance].coreContext] atIndex:0];
+//    [actualArgs insertObject:self atIndex:0];
     [actualArgs insertObject:selectorString atIndex:1];
     
     
@@ -102,14 +134,14 @@ void JSValuePrint(
         
 //        return (NSColor *)nscolor;
         
-        JSPropertyNameArrayRef arr = JSObjectCopyPropertyNames([JSNRContext sharedInstance].coreContext.JSGlobalContextRef, returnVal.JSValueRef);
-        NSUInteger length = JSPropertyNameArrayGetCount(arr);
-        for (NSUInteger i=0; i<length; i++) {
-            JSStringRef name = JSPropertyNameArrayGetNameAtIndex(arr, i);
-            NSString *nsname = (NSString *)CFBridgingRelease(JSStringCopyCFString(kCFAllocatorDefault, name));
-            NSLog(@"%@", nsname);
-            
-        }
+//        JSPropertyNameArrayRef arr = JSObjectCopyPropertyNames([JSNRContext sharedInstance].coreContext.JSGlobalContextRef, returnVal.JSValueRef);
+//        NSUInteger length = JSPropertyNameArrayGetCount(arr);
+//        for (NSUInteger i=0; i<length; i++) {
+//            JSStringRef name = JSPropertyNameArrayGetNameAtIndex(arr, i);
+//            NSString *nsname = (NSString *)CFBridgingRelease(JSStringCopyCFString(kCFAllocatorDefault, name));
+//            NSLog(@"%@", nsname);
+//
+//        }
         
         return returnVal.toObject;
     }
@@ -137,8 +169,45 @@ void JSValuePrint(
         return [JSValue valueWithObject:objc_getClass(name.UTF8String) inContext:[JSContext currentContext]];
     };
     
-    self.coreContext[@"hook"] = ^(JSValue *class, NSString *selectorString, JSValue *newFn) {
-        Class classToBeHooked = [class toObject];
+    self.coreContext[@"include"] = ^JSValue *(NSString *file) {
+        NSError *error = nil;
+        
+        NSString *scriptContents = [NSString stringWithContentsOfFile:file encoding:NSUTF8StringEncoding error:&error];
+        if (error) NSLog(@"include() script contents err: %@", error);
+        if (scriptContents)
+            return [[JSContext currentContext] evaluateScript:scriptContents];
+        else
+            return [JSValue valueWithNullInContext:[JSContext currentContext]];
+    };
+    
+    self.coreContext[@"interface"] = ^JSValue *(NSString *className, NSString *aliasName) {
+        JSContextRef ctx = [JSContext currentContext].JSGlobalContextRef;
+        JSObjectRef globalObject = (JSObjectRef)[JSContext currentContext].globalObject.JSValueRef;
+        JSObjectRef classObject = JSNR::ObjCClass::instanceWithObject(ctx, nil);
+        JSValueRef arguments[1];
+        
+        JSStringRef classNameJSString = JSNR::String(className.UTF8String).JSStringRef();
+        JSStringRef aliasNameJSString = nullptr;
+        BOOL usesAliasName = NO;
+        if (aliasName != nil && ![aliasName isEqualToString:@"undefined"]) {
+            usesAliasName = YES;
+            aliasNameJSString = JSNR::String(aliasName.UTF8String).JSStringRef();
+        }
+        
+        arguments[0] = JSValueMakeString(ctx, classNameJSString);
+        // this should now be equivilent to new ObjCClass("className")
+        JSStringRef classNameAsCanBeReferencedInJS = usesAliasName ? aliasNameJSString : classNameJSString;
+        JSObjectRef classObjectInJS = JSObjectCallAsConstructor(ctx, classObject, 1, arguments, NULL);
+        JSObjectSetProperty(ctx, globalObject, classNameAsCanBeReferencedInJS, classObjectInJS, kJSPropertyAttributeNone, NULL);
+        
+        return [JSValue valueWithJSValueRef:classObjectInJS inContext:[JSContext currentContext]];
+    };
+    
+    self.coreContext[@"hook"] = ^(JSValue *classObjCObject, NSString *selectorString, JSValue *newFn) {
+        JSObjectRef objCObjectRef = (JSObjectRef)classObjCObject.JSValueRef;
+        JSNR::ObjCInvokeInfo *info = static_cast<JSNR::ObjCInvokeInfo *>(JSObjectGetPrivate(objCObjectRef));
+        Class classToBeHooked = info->target;
+        
         SEL selector = NSSelectorFromString(selectorString);
         Method method = class_getInstanceMethod(classToBeHooked, selector);
         Method methodWow = class_getInstanceMethod(__self.class, NSSelectorFromString(@"one:two:three:four:five:six:seven:eight:nine:ten:"));
@@ -162,7 +231,7 @@ void JSValuePrint(
         if (numberOfArgs != args.count) {
             method = [method stringByReplacingOccurrencesOfString:@"$$" withString:@":"];
         }
-//        NSLog(@"meth: %@", method);
+        NSLog(@"meth: %@,%@,%@", onThis, method, args);
         
         NSMethodSignature *signature;
 //        if (isClassMethod) {
@@ -207,7 +276,7 @@ void JSValuePrint(
             [invocation getReturnValue:&ret];
         JSValue *val = [JSValue valueWithObject:ret inContext:[JSContext currentContext]];
         if (val.isObject) {
-            JSObjectRef obj = val.JSValueRef;
+            JSObjectRef obj = (JSObjectRef)val.JSValueRef;
             char str[16+1];
             sprintf(str,"%p",ret);
             val[@"addr"] = @(str);

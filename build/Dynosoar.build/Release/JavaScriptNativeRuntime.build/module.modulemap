@@ -1,0 +1,6 @@
+framework module JavaScriptNativeRuntime {
+  umbrella header "JavaScriptNativeRuntime.h"
+
+  export *
+  module * { export * }
+}

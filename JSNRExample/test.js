@@ -1,57 +1,66 @@
+include("/Users/atomikpanda/Documents/Personal Projects/Dynosoar/JSNRExample/Foundation.js")
+interface("AppDelegate")
+interface("JSNRContext")
 
-var AppDelegate = cls("AppDelegate");
-var __proxyBody;
-__proxyBody = {
-  get(target,name,receiver){
-    if (name == "toString") {
-      return function(){
-        var returnValue = __invoke( target,"description", [])
-        return returnValue;
-      }
-    }
-     else {
+// var base = new Base()
+var something = Base.getSth
+console.log("it is is sL: "+something)
+// var somethin2 = BaseSub.getSth
+// console.log("subsub: "+somethin2);
 
-        return function(){
-          console.log("calling: "+name+" on "+target)
-          var returnValue = __invoke(target, name, arguments)
-          console.log("got "+returnValue)
-          if (typeof returnValue === 'object' && returnValue !== null)
-            return new Proxy(returnValue, __proxyBody);
-          else
-            return returnValue
-        }
-      }
-    },
-    set (target, name, value) {
-         name = "set"+name.substr(0, 1).toUpperCase() + name.substr(1)+":";
+// var arr = NSArray.arrayWithObject$$("hui")
+// console.log(arr.objectAtIndex$$(0))
 
-        console.log("setting: "+name)
-      __invoke(target, name, [value])
-      return true
-    }
+var bundleCls = new ObjCClass("NSBundle")
+var initedVersion = bundleCls()
+console.log("somethjing: "+initedVersion)
+var mainBundle = new ObjCClass("NSBundle").mainBundle();
+var bundleIdentifier = mainBundle.bundleIdentifier()
+console.log("bid: "+bundleIdentifier)
+/*
+var f = Filesystem("ytt")
+var hello = Filesystem.helloWorld
+var bundle = JSNRContext().mainBundle;
+console.log("it is: "+hello)
+console.log("fromJS "+Filesystem().internalClassName)
+*/
+// hook(cls("NSWindow"),"backgroundColor",function(self,cmd){
+//     return NSColor.blueColor()
+// })
+function showAlert() {
+
+  var alert = NSAlert()
+  alert.addButtonWithTitle$("OK")
+  alert.addButtonWithTitle$("Cancel")
+  alert.messageText = "Delete the record?"
+  alert.informativeText = "Deleted records cannot be restored."
+
+  alert.alertStyle = NSAlertStyleWarning;
+  alert.runModal()
+  alert.release()
 }
 
-Object.prototype.__defineGetter__("$",function(){
-      var proxy = new Proxy(this, __proxyBody);
-      return proxy;
-})
+hook(AppDelegate,"applicationDidFinishLaunching:", function(self,cmd,notification){
 
-var C = new Proxy(this, {
-  get (target, name, receiver) {
-    return cls(name).$
-  }
-})
+  // showAlert()
+  self.number$(25);
+  console.log("myselfA: "+self);
+  self.makePurple$("ello wolrd");
+  console.log("myselfZ: "+self);
+  self.makeRed()
+  var win = self.window();
+  console.log("win is: "+win);
+  var color = NSColor.yellowColor();
+  console.log("color: "+color);
+  win.setBackgroundColor$(color)
 
-hook(cls("NSWindow"),"backgroundColor",function(self,cmd){
-    // self = self.$
-    // var color = C.NSColor.colorWithRed$$green$$blue$$alpha$$(1,1,1,1)
-    var color = C.NSColor.redColor();
-    console.log(color.description())
-    console.log(color.addr)
-    // console.log("returning:::: "+color.description())
-    return color
-})
-
+  self.window().alphaValue = 0.5
+  self.twoArgMethod$arg2$("me","notme")
+  // self.window().setBackgroundColor$(NSColor.orangeColor())
+  self.window().backgroundColor = NSColor.orangeColor();
+  self.window().title = NSString.alloc().initWithString$("qwerty/yuoip").autorelease().lastPathComponent()
+  console.log("cmd == "+cmd)
+});
 // hook(AppDelegate,"applicationDidFinishLaunching:", function(self,cmd,notification){
 //
 //      self.$.makeRed();

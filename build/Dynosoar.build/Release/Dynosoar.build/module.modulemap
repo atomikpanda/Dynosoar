@@ -1,0 +1,6 @@
+framework module Dynosoar {
+  umbrella header "Dynosoar.h"
+
+  export *
+  module * { export * }
+}
