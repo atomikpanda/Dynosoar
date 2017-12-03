@@ -13,6 +13,7 @@
 #import "JavaScriptNativeRuntime.h"
 #import "JSNRObjectiveClass.h"
 #import "JSNRClassMap.h"
+#import "JSNRInstance.h"
 
 @implementation JSNRContext
 @synthesize coreContext, scriptContents, allMaps;
@@ -57,10 +58,15 @@
         JSObjectRef baseCls = JSObjectMake(ctx, base, NULL);
         JSObjectSetProperty(ctx, globalObject, JSStringCreateWithUTF8CString("Base"), baseCls, kJSPropertyAttributeNone, NULL);
         
-        JSClassRef subclass = JSNR::ObjCClass::classRef();
+        JSClassRef ObjCClassRef = JSNR::ObjCClass::classRef();
         
-        JSObjectRef baseSubCls = JSObjectMake(ctx, subclass, NULL);
-        JSObjectSetProperty(ctx, globalObject, JSStringCreateWithUTF8CString("ObjCClass"), baseSubCls, kJSPropertyAttributeNone, NULL);
+        JSObjectRef ObjCClassObject = JSObjectMake(ctx, ObjCClassRef, NULL);
+        JSObjectSetProperty(ctx, globalObject, JSStringCreateWithUTF8CString("ObjCClass"), ObjCClassObject, kJSPropertyAttributeNone, NULL);
+        
+        JSClassRef InstanceClassRef = JSNR::Instance::classRef();
+        
+        JSObjectRef InstanceClassObject = JSObjectMake(ctx, InstanceClassRef, NULL);
+        JSObjectSetProperty(ctx, globalObject, JSStringCreateWithUTF8CString("Instance"), InstanceClassObject, kJSPropertyAttributeNone, NULL);
         
     }
     

@@ -106,7 +106,7 @@ id JSValueRefToObjCType(JSContextRef ctx, JSValueRef value) {
     
     return @"LOLZ WE AREHEREXXZ";
 }
-template<class T>
+template<typename T>
 T JSValueRefToPrimitive(JSContextRef ctx, JSValueRef value) {
     if (JSValueIsNumber(ctx, value)) {
         return JSValueToNumber(ctx, value, NULL);

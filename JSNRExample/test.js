@@ -36,13 +36,17 @@ function showAlert() {
   alert.informativeText = "Deleted records cannot be restored."
 
   alert.alertStyle = NSAlertStyleWarning;
-  alert.runModal()
+  var re = alert.runModal()
+  if (re==1000) {
+    //ok pressed
+    console.log("ok!!!!!!!!!!!!!!!!!!");
+  }
   alert.release()
 }
 
 hook(AppDelegate,"applicationDidFinishLaunching:", function(self,cmd,notification){
 
-  // showAlert()
+  showAlert()
   self.number$(25);
   console.log("myselfA: "+self);
   self.makePurple$("ello wolrd");
@@ -58,8 +62,9 @@ hook(AppDelegate,"applicationDidFinishLaunching:", function(self,cmd,notificatio
   self.twoArgMethod$arg2$("me","notme")
   // self.window().setBackgroundColor$(NSColor.orangeColor())
   self.window().backgroundColor = NSColor.orangeColor();
-  self.window().title = NSString.alloc().initWithString$("qwerty/yuoip").autorelease().lastPathComponent()
+  // self.window().title = NSString.alloc().initWithString$("qwerty/yuoip").autorelease().lastPathComponent()
   console.log("cmd == "+cmd)
+  // self.boolSet$(true);
 });
 // hook(AppDelegate,"applicationDidFinishLaunching:", function(self,cmd,notification){
 //

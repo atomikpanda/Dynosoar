@@ -12,10 +12,10 @@
 #import "JSNRInternal.h"
 #import <string>
 
-template<class T>
-T JSValueRefToPrimitive(JSContextRef ctx, JSValueRef value);
+//template<typename T>
+//T JSValueRefToPrimitive(JSContextRef ctx, JSValueRef value);
 bool JSValueRefShouldConvertToPrimitive(JSContextRef ctx, JSValueRef value);
-id JSValueRefToObjCType(JSContextRef ctx, JSValueRef value);
+//id JSValueRefToObjCType(JSContextRef ctx, JSValueRef value);
 
 class JSNRObjCObjectInfo {
     

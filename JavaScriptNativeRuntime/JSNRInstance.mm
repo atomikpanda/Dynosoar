@@ -6,7 +6,7 @@
 //  Copyright © 2017 Bailey Seymour. All rights reserved.
 //
 
-#import "ExampleSubclass.h"
+#import "JSNRInstance.h"
 #import "JSNRInternal.h"
 #import "JavaScriptNativeRuntime.h"
 #import <iostream>
@@ -211,7 +211,7 @@ JSValueRef invokeFunction2(JSContextRef ctx, JSObjectRef function, JSObjectRef t
 
 
 namespace JSNR {
-    typedef ObjCClass thisClass;
+    typedef Instance thisClass;
     
     JSValueRef thisClass::getCallback(JSContextRef ctx, JSObjectRef objectRef, JSStringRef propertyNameRef, JSValueRef *exceptionRef)
     { JSNRGetCallbackCast
@@ -347,7 +347,7 @@ namespace JSNR {
         if (!ref) {
             JSClassDefinition classDef = kJSClassDefinitionEmpty;
             
-            classDef.className = "ObjCClass";
+            classDef.className = "Instance";
             classDef.attributes = kJSClassAttributeNone;
             classDef.parentClass = BaseClass::classRef();
             

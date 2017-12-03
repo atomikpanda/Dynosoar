@@ -8,4 +8,5 @@ dependencies: \
   /Users/atomikpanda/Documents/Personal\ Projects/Dynosoar/JavaScriptNativeRuntime/JSNRValue.h \
   /Users/atomikpanda/Documents/Personal\ Projects/Dynosoar/JavaScriptNativeRuntime/JSNRString.h \
   /Users/atomikpanda/Documents/Personal\ Projects/Dynosoar/JavaScriptNativeRuntime/JSNRContext.h \
-  /Users/atomikpanda/Documents/Personal\ Projects/Dynosoar/JavaScriptNativeRuntime/JSNRObjCClass.h
+  /Users/atomikpanda/Documents/Personal\ Projects/Dynosoar/JavaScriptNativeRuntime/JSNRObjCClass.h \
+  /Users/atomikpanda/Documents/Personal\ Projects/Dynosoar/JavaScriptNativeRuntime/JSNRPrimitiveTypeHandler.mm
