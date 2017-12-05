@@ -14,6 +14,7 @@
 #import "JSNRObjectiveClass.h"
 #import "JSNRClassMap.h"
 #import "JSNRInstance.h"
+#import "JSNRInvoke.h"
 
 @implementation JSNRContext
 @synthesize coreContext, scriptContents, allMaps;
@@ -43,9 +44,6 @@
         }];
         
         [self insertNativeBridge];
-        [self createClassWithName:@"Filesystem"];
-        [self createClassWithName:@"NSBundle"];
-        [self createClassWithName:@"JSNRContext"];
         
         JSGlobalContextRef ctx = self.coreContext.JSGlobalContextRef;
         JSObjectRef globalObject = JSContextGetGlobalObject(ctx);
@@ -114,7 +112,7 @@
     JSContextRef ctx = [JSNRContext sharedInstance].coreContext.JSGlobalContextRef;
     
 //    JSObjectRef selfObj; //= JSNRObjCClassObjectFromId(ctx, self);
-    JSObjectRef selfObj = JSNR::ObjCClass::instanceWithObject(ctx, self);
+    JSObjectRef selfObj = JSNR::Instance::instanceWithObject(ctx, self);
 //    JSNRObjCObjectInfo *selfInfo = new JSNRObjCObjectInfo(self, "");
 //    JSObjectSetPrivate(selfObj, selfInfo);
 //    JSValueRef objConstArgs[1];
@@ -156,8 +154,8 @@
 }
 
 - (void)insertNativeBridge {
-    [self.coreContext.globalObject setValue:self forProperty:@"__self"];
-    #define __self ((JSNRContext *)([[JSContext currentContext][@"__self"] toObject]))
+    [self.coreContext.globalObject setValue:self forProperty:@"__self__"];
+    #define __self ((JSNRContext *)([[JSContext currentContext][@"__self__"] toObject]))
     
     self.coreContext[@"console"][@"log"] = ^(JSValue *str){
         if (str.isNumber) {
@@ -187,9 +185,10 @@
     };
     
     self.coreContext[@"interface"] = ^JSValue *(NSString *className, NSString *aliasName) {
+        // here we pass the className string to the ObjCClass constructor
         JSContextRef ctx = [JSContext currentContext].JSGlobalContextRef;
         JSObjectRef globalObject = (JSObjectRef)[JSContext currentContext].globalObject.JSValueRef;
-        JSObjectRef classObject = JSNR::ObjCClass::instanceWithObject(ctx, nil);
+        JSObjectRef classObject = JSNR::ObjCClass::instanceWithObjCClass(ctx, nil);
         JSValueRef arguments[1];
         
         JSStringRef classNameJSString = JSNR::String(className.UTF8String).JSStringRef();
@@ -211,7 +210,7 @@
     
     self.coreContext[@"hook"] = ^(JSValue *classObjCObject, NSString *selectorString, JSValue *newFn) {
         JSObjectRef objCObjectRef = (JSObjectRef)classObjCObject.JSValueRef;
-        JSNR::ObjCInvokeInfo *info = static_cast<JSNR::ObjCInvokeInfo *>(JSObjectGetPrivate(objCObjectRef));
+        JSNR::InvokeInfo *info = static_cast<JSNR::InvokeInfo *>(JSObjectGetPrivate(objCObjectRef));
         Class classToBeHooked = info->target;
         
         SEL selector = NSSelectorFromString(selectorString);
@@ -229,65 +228,6 @@
         
         JSNRClassMap *clsMap = [__self.allMaps objectForKey:NSStringFromClass(classToBeHooked)];
         [clsMap.map setObject:newFn forKey:selectorString];
-    };
-    
-    self.coreContext[@"__invoke"] = ^NSObject *( JSValue *onThis, NSString *method, NSArray *args){
-        NSUInteger numberOfArgs = [method componentsSeparatedByString:@":"].count;
-        if ([method rangeOfString:@":"].location == NSNotFound) numberOfArgs = 0;
-        if (numberOfArgs != args.count) {
-            method = [method stringByReplacingOccurrencesOfString:@"$$" withString:@":"];
-        }
-        NSLog(@"meth: %@,%@,%@", onThis, method, args);
-        
-        NSMethodSignature *signature;
-//        if (isClassMethod) {
-        id target = nil;
-        if (onThis.isNull || onThis.isUndefined || !onThis.isObject) {
-            target = nil;
-        } else {
-            target = [onThis toObject];
-        }
-        if (!target) return nil;
-        
-        if (![[target class] instancesRespondToSelector:NSSelectorFromString(method)]) {
-            signature = [target methodSignatureForSelector:NSSelectorFromString(method)];
-            target = [target class];
-        }else
-//        if () {
-//
-//        }
-        
-//        } else {
-        {
-            if (![target respondsToSelector:NSSelectorFromString(method)]) return nil;
-            
-            signature = [[target class] instanceMethodSignatureForSelector:NSSelectorFromString(method)];
-            
-        }
-        NSInvocation *invocation = [NSInvocation invocationWithMethodSignature:signature];
-        
-        [invocation setTarget:target];
-        [invocation setSelector:NSSelectorFromString(method)];
-        for (int i=0; i < args.count; i++) {
-            NSObject *anArg = [args objectAtIndex:i];
-            
-            [invocation setArgument:&anArg atIndex:i+2];
-        }
-        [invocation retainArguments];
-        [invocation invoke];
-//        NSLog(@"args: %@",args);
-        
-        id ret = nil;
-        if (signature.methodReturnLength != 0)
-            [invocation getReturnValue:&ret];
-        JSValue *val = [JSValue valueWithObject:ret inContext:[JSContext currentContext]];
-        if (val.isObject) {
-            JSObjectRef obj = (JSObjectRef)val.JSValueRef;
-            char str[16+1];
-            sprintf(str,"%p",ret);
-            val[@"addr"] = @(str);
-        }
-        return val;
     };
     
     self.coreContext[@"orig"] = ^JSValue *() {

@@ -16,6 +16,7 @@
 #import "ExampleSubclass.h"
 #import "JSNRContext.h"
 #import "JSNRObjCClass.h"
+#import "JSNRInstance.h"
 
 //#import "JSNRUtility.h"
 

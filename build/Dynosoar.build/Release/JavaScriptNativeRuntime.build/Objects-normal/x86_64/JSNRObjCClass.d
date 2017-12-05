@@ -8,4 +8,5 @@ dependencies: \
   /Users/atomikpanda/Documents/Personal\ Projects/Dynosoar/JavaScriptNativeRuntime/BaseClass.h \
   /Users/atomikpanda/Documents/Personal\ Projects/Dynosoar/JavaScriptNativeRuntime/JSNRCCallback.h \
   /Users/atomikpanda/Documents/Personal\ Projects/Dynosoar/JavaScriptNativeRuntime/ExampleSubclass.h \
-  /Users/atomikpanda/Documents/Personal\ Projects/Dynosoar/JavaScriptNativeRuntime/JSNRContext.h
+  /Users/atomikpanda/Documents/Personal\ Projects/Dynosoar/JavaScriptNativeRuntime/JSNRContext.h \
+  /Users/atomikpanda/Documents/Personal\ Projects/Dynosoar/JavaScriptNativeRuntime/JSNRInstance.h

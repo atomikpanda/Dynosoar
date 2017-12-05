@@ -11,6 +11,7 @@
 
 #import "JSNRInternal.h"
 #import <string>
+#import "JSNRInvoke.h"
 
 //template<typename T>
 //T JSValueRefToPrimitive(JSContextRef ctx, JSValueRef value);

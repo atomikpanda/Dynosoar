@@ -1,0 +1,254 @@
+//
+//  JSNRSigType.hpp
+//  Dynosoar
+//
+//  Created by Bailey Seymour on 12/4/17.
+//  Copyright © 2017 Bailey Seymour. All rights reserved.
+//
+
+#ifndef JSNRSigType_h
+#define JSNRSigType_h
+
+#define _CPUnsignedOrSigned(TYPE, EXPR) (this->isUnsigned ? SigType::createPointer<unsigned TYPE>(EXPR) : SigType::createPointer<TYPE>(EXPR));
+#define _CP(TYPE, EXPR) SigType::createPointer<TYPE>(EXPR)
+
+namespace JSNR {
+class SigType {
+public:
+    typedef enum {
+        ENCTypeUnknown,
+        // Numbers
+        ENCTypeInt,
+        ENCTypeShort,
+        ENCTypeLong,
+        ENCTypeLongLong,
+        ENCTypeFloat,
+        ENCTypeDouble,
+        // Strings
+        ENCTypeChar,
+        ENCTypeCharPointer,
+        // Booleans
+        ENCTypeBool,
+        // Other objects
+        ENCTypeObject,
+        ENCTypeClass,
+        ENCTypeSelector,
+    } ENCType;
+    
+    struct Encoding {
+        static const char Int = 'i';
+        static const char Short = 's';
+        static const char Long = 'l';
+        static const char LongLong = 'q';
+        static const char Float = 'f';
+        static const char Double = 'd';
+        static const char Char = 'c';
+        static const char CharPointer = '*';
+        static const char Bool = 'B';
+        static const char Object = '@';
+        static const char Class = '#';
+        static const char Selector = ':';
+    };
+    
+    bool isConst;
+    bool isUnsigned;
+    ENCType type;
+    char encoding;
+    
+    bool isEncodingNumber() {
+        char _enc = tolower(encoding);
+        return (_enc==Encoding::Int||_enc==Encoding::Short||_enc==Encoding::Long
+                ||_enc==Encoding::LongLong||_enc==Encoding::Float||_enc==Encoding::Double);
+    }
+    
+    bool isEncodingBoolean() {
+        return (encoding==Encoding::Bool||encoding==Encoding::Char);
+    }
+    
+    bool isEncodingString() {
+        return (encoding==Encoding::Char||encoding==Encoding::CharPointer);
+    }
+    
+    bool isEncodingInstanceOrClass() {
+        return (encoding==Encoding::Object||encoding==Encoding::Class);
+    }
+    
+    bool isEncodingSelector() {
+        return (encoding==Encoding::Selector);
+    }
+
+    
+    SigType(std::string sigStr) {
+        NSString *string = [NSString stringWithFormat:@"%s", sigStr.c_str()];
+        
+        
+        if ([string containsString:@"r"]) {
+            isConst = true;
+            string = [string stringByReplacingOccurrencesOfString:@"r" withString:@""];
+        }
+        // at this point it should only be the type id ex. 'd' for double
+        
+        if (string.length == 1) {
+            char typeId = [string characterAtIndex:0];
+            encoding = typeId;
+            
+            if (isupper(typeId) && isEncodingNumber()) {
+              isUnsigned = true;
+                typeId = tolower(typeId);
+            }
+        
+            
+            switch (typeId) {
+                case Encoding::Int:
+                    type = ENCTypeInt;
+                    break;
+                case Encoding::Short:
+                    type = ENCTypeShort;
+                    break;
+                case Encoding::Long:
+                    type = ENCTypeLong;
+                    break;
+                case Encoding::LongLong:
+                    type = ENCTypeLongLong;
+                    break;
+                case Encoding::Float:
+                    type = ENCTypeFloat;
+                    break;
+                case Encoding::Double:
+                    type = ENCTypeDouble;
+                    break;
+                case Encoding::Char:
+                    type = ENCTypeChar;
+                    break;
+                case Encoding::CharPointer:
+                    type = ENCTypeCharPointer;
+                    break;
+                case Encoding::Bool:
+                    type = ENCTypeBool;
+                    break;
+                case Encoding::Object:
+                    type = ENCTypeObject;
+                    break;
+                case Encoding::Class:
+                    type = ENCTypeClass;
+                    break;
+                case Encoding::Selector:
+                    type = ENCTypeSelector;
+                    break;
+                default:
+                    type = ENCTypeUnknown;
+                    break;
+            }
+        }
+        else {
+            type = ENCTypeUnknown;
+            printf("*** ERROR: UNABLE TO PARSE TYPE: '%s'\n", sigStr.c_str());
+        }
+        
+        
+    }
+    
+    template<typename Type_, typename Type2_>
+    static void* createPointer(Type2_ inVar) {
+        Type_ *pointer = static_cast<Type_*>(malloc(sizeof(Type_)));
+        
+        *pointer = static_cast<Type_>(inVar);
+        
+        return reinterpret_cast<Type_ *>(pointer);
+    }
+    
+    void *boolToSig(JSNR::Value val) {
+        void *ptr = NULL;
+        
+        bool boolValue = val.toBoolean();
+        
+        switch (type) {
+            case ENCTypeBool:
+                ptr = _CP(bool, boolValue);
+                break;
+            case ENCTypeChar:
+                ptr = _CP(char, boolValue);
+                break;
+                
+            default:
+                assert(ptr != NULL);
+                break;
+        }
+        
+        assert(ptr != NULL);
+        
+        return ptr;
+    }
+    
+    void *stringToSig(JSNR::Value val) {
+        void *ptr = NULL;
+        JSNR::String str = JSNR::String(val);
+        
+        switch (type) {
+            case ENCTypeChar:
+                ptr = _CPUnsignedOrSigned(char, [str.NSString() characterAtIndex:0]);
+                break;
+            case ENCTypeCharPointer:{
+                const char *cstring = [str.NSString() UTF8String];
+                if (isConst) {
+                    ptr = _CP(const char *, cstring);
+                } else {
+                    ptr = _CP(char *, const_cast<char *>(cstring));
+                }
+                break;
+            }
+            case ENCTypeObject: // handle js string to NSString
+                ptr = _CP(NSString *, [NSString stringWithCString:str.string().c_str() encoding:NSUTF8StringEncoding]);
+                break;
+            default:
+                assert(ptr != NULL);
+                break;
+        }
+        
+        assert(&ptr != NULL);
+        
+        return ptr;
+    }
+    
+    void *numberToSig(JSNR::Value val) {
+        void *ptr = NULL;
+        double num = val.toNumber();
+        switch (type) {
+                
+            case ENCTypeInt:
+                ptr = _CPUnsignedOrSigned(int, num);
+                break;
+            case ENCTypeShort:
+                ptr = _CPUnsignedOrSigned(short, num);
+                break;
+            case ENCTypeLong:
+                ptr = _CPUnsignedOrSigned(long, num);
+                break;
+            case ENCTypeLongLong:
+                ptr = _CPUnsignedOrSigned(long long, num);
+                break;
+            case ENCTypeFloat:
+                ptr = _CP(float, num);
+                break;
+            case ENCTypeDouble:
+                ptr = _CP(double, num);
+                break;
+            default:
+                assert(ptr != NULL);
+                break;
+        }
+        assert(ptr != NULL);
+        
+        return ptr;
+    }
+    
+    void *instanceOrClassToSig(JSNR::Value val) {
+        void *ptr = NULL;
+        id object = val.toObjCTypeObject(*this);
+        ptr = createPointer<NSObject *>(object);
+        // assert(ptr != NULL); //allow nil and NULL objects
+        return ptr;
+    }
+};
+};
+#endif /* JSNRSigType_h */

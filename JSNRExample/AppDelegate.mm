@@ -34,7 +34,7 @@
 - (void)boolSet:(bool)aBool {
     self.window.title = aBool ? @"YES" : @"NO";
 }
-- (void)makePurple:(char *)anArg {
+- (void)makePurple:(const char *)anArg {
     self.window.title = @(anArg);
     [self.window setBackgroundColor:[NSColor purpleColor]];
 }

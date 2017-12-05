@@ -7,6 +7,8 @@
 //
 
 #import "JavaScriptNativeRuntime.h"
+#import "JSNRInvoke.h"
+#import "JSNRSigType.hpp"
 
 namespace JSNR {
     
@@ -56,6 +58,10 @@ namespace JSNR {
         return JSValueIsNull(this->context, this->valueRef);
     }
     
+    bool Value::isUndefined() {
+        return JSValueIsUndefined(context, valueRef);
+    }
+    
     double Value::toNumber() {
         return JSValueToNumber(context, valueRef, NULL);
     }
@@ -64,13 +70,22 @@ namespace JSNR {
         return JSValueToBoolean(context, valueRef);
     }
     
+    bool Value::isClass() {
+        return JSValueIsObjectOfClass(context, objectRef, ObjCClass::classRef());
+    }
+    
+    bool Value::isInstance() {
+        return JSValueIsObjectOfClass(context, objectRef, Instance::classRef());
+    }
+    
     NSString *Value::toString() {
         return String(*this).NSString();
     }
     
     id Value::toObject() {
-        if (JSValueIsObjectOfClass(context, objectRef, ObjCClass::classRef())) {
-            ObjCInvokeInfo *info = static_cast<ObjCInvokeInfo *>(getPrivate());
+        if (isClass() || isInstance()) {
+            InvokeInfo *info = static_cast<InvokeInfo *>(getPrivate());
+            
             id target = info->target;
             
             return target;
@@ -80,12 +95,12 @@ namespace JSNR {
     }
     
     
-    id Value::toObjCTypeObject(std::string signatureType) {
+    id Value::toObjCTypeObject(SigType sigInfo) {
         // handles number types to NSNumber
         
-        if (signatureType == "@") {
-            
-            if (JSValueIsObjectOfClass(context, objectRef, ObjCClass::classRef())) {
+        if (sigInfo.type == SigType::ENCTypeObject || sigInfo.type == SigType::ENCTypeClass) {
+            // convert the JSValue to the corresponding signature type which is object
+            if (isClass() || isInstance()) {
                 
                 return toObject();
             } else if (isString()) {
@@ -105,7 +120,7 @@ namespace JSNR {
 //        if (isObject()) {
 //
 //            if (JSValueIsObjectOfClass(ctx, objectRef, ObjCClass::classRef())) {
-//                ObjCInvokeInfo *info = static_cast<ObjCInvokeInfo *>(getPrivate());
+//                InvokeInfo *info = static_cast<InvokeInfo *>(getPrivate());
 //                id target = info->target;
 //
 //                return target;

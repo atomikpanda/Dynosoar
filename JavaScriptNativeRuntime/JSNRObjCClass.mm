@@ -22,7 +22,7 @@ JSNRObjCObjectInfo::JSNRObjCObjectInfo(id target, std::string selector) {
 
 JSObjectRef JSNRObjCClassObjectFromId( JSContextRef ctx, id objcObject) {
     JSObjectRef obj = JSObjectMake(ctx, JSNR::ObjCClass::classRef(), NULL);
-    JSNR::ObjCInvokeInfo *objectInfo = new JSNR::ObjCInvokeInfo(objcObject, "");
+    JSNR::InvokeInfo *objectInfo = new JSNR::InvokeInfo(objcObject, "");
     JSObjectSetPrivate(obj, objectInfo);
     return obj;
 }
@@ -90,7 +90,7 @@ id JSValueRefToObjCType(JSContextRef ctx, JSValueRef value) {
     if (JSValueIsObject(ctx, value)) {
         JSObjectRef object = (JSObjectRef)value;
         if (JSValueIsObjectOfClass(ctx, value, JSNR::ObjCClass::classRef())) {
-            JSNR::ObjCInvokeInfo *info = static_cast<JSNR::ObjCInvokeInfo *>(JSObjectGetPrivate(object));
+            JSNR::InvokeInfo *info = static_cast<JSNR::InvokeInfo *>(JSObjectGetPrivate(object));
             id target = info->target;
             
             return target;

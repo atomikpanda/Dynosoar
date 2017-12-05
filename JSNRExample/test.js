@@ -30,6 +30,7 @@ console.log("fromJS "+Filesystem().internalClassName)
 function showAlert() {
 
   var alert = NSAlert()
+  console.log("ISKOFK: "+alert.isKindOfClass$(NSAlert))
   alert.addButtonWithTitle$("OK")
   alert.addButtonWithTitle$("Cancel")
   alert.messageText = "Delete the record?"
@@ -52,19 +53,22 @@ hook(AppDelegate,"applicationDidFinishLaunching:", function(self,cmd,notificatio
   self.makePurple$("ello wolrd");
   console.log("myselfZ: "+self);
   self.makeRed()
+
   var win = self.window();
   console.log("win is: "+win);
   var color = NSColor.yellowColor();
   console.log("color: "+color);
   win.setBackgroundColor$(color)
 
-  self.window().alphaValue = 0.5
+  self.window().alphaValue = 0.76
   self.twoArgMethod$arg2$("me","notme")
   // self.window().setBackgroundColor$(NSColor.orangeColor())
   self.window().backgroundColor = NSColor.orangeColor();
+  self.window().setFrame$display$({x:700,y:700,width:700,height:700}, true);
+
   // self.window().title = NSString.alloc().initWithString$("qwerty/yuoip").autorelease().lastPathComponent()
   console.log("cmd == "+cmd)
-  // self.boolSet$(true);
+  self.boolSet$(true);
 });
 // hook(AppDelegate,"applicationDidFinishLaunching:", function(self,cmd,notification){
 //

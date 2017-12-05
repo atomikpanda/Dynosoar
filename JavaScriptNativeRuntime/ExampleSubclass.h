@@ -25,17 +25,17 @@ namespace JSNR {
         static void finalize(JSObjectRef objectRef);
         static JSValueRef getCallback(JSContextRef ctx, JSObjectRef objectRef, JSStringRef propertyNameRef, JSValueRef *exceptionRef);
         static bool setCallback(JSContextRef ctx, JSObjectRef objectRef, JSStringRef propertyNameRef, JSValueRef valueRef, JSValueRef *exceptionRef);
-        static JSObjectRef instanceWithObject( JSContextRef ctx, id objcObject);
+        static JSObjectRef instanceWithObjCClass(JSContextRef ctx, Class objCClass);
     };
     
-    class ObjCInvokeInfo {
-        
-    public:
-        id target;
-        std::string selector;
-        bool targetIsClass;
-        
-        ObjCInvokeInfo(id target, std::string selector, bool targetIsClass=false);
-    };
+//    class InvokeInfo {
+//        
+//    public:
+//        id target;
+//        std::string selector;
+//        bool targetIsClass;
+//        
+//        InvokeInfo(id target, std::string selector, bool targetIsClass=false);
+//    };
 }
 #endif /* JSNRExampleSubclass_hpp */

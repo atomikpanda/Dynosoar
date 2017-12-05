@@ -42,6 +42,8 @@
 		66D79CCA1FD486D900B297E0 /* JSNRPrimitive.h in Headers */ = {isa = PBXBuildFile; fileRef = 66D79CC81FD486D900B297E0 /* JSNRPrimitive.h */; };
 		66D79CD11FD49FD800B297E0 /* JSNRInstance.mm in Sources */ = {isa = PBXBuildFile; fileRef = 66D79CCF1FD49FD800B297E0 /* JSNRInstance.mm */; };
 		66D79CD21FD49FD800B297E0 /* JSNRInstance.h in Headers */ = {isa = PBXBuildFile; fileRef = 66D79CD01FD49FD800B297E0 /* JSNRInstance.h */; };
+		66D79CD51FD4A7EB00B297E0 /* JSNRInvoke.mm in Sources */ = {isa = PBXBuildFile; fileRef = 66D79CD31FD4A7EB00B297E0 /* JSNRInvoke.mm */; };
+		66D79CD61FD4A7EB00B297E0 /* JSNRInvoke.h in Headers */ = {isa = PBXBuildFile; fileRef = 66D79CD41FD4A7EB00B297E0 /* JSNRInvoke.h */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -106,6 +108,9 @@
 		66D79CC81FD486D900B297E0 /* JSNRPrimitive.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = JSNRPrimitive.h; sourceTree = "<group>"; };
 		66D79CCF1FD49FD800B297E0 /* JSNRInstance.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = JSNRInstance.mm; sourceTree = "<group>"; };
 		66D79CD01FD49FD800B297E0 /* JSNRInstance.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JSNRInstance.h; sourceTree = "<group>"; };
+		66D79CD31FD4A7EB00B297E0 /* JSNRInvoke.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = JSNRInvoke.mm; sourceTree = "<group>"; };
+		66D79CD41FD4A7EB00B297E0 /* JSNRInvoke.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = JSNRInvoke.h; sourceTree = "<group>"; };
+		66D79CD71FD5FBE700B297E0 /* JSNRSigType.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = JSNRSigType.hpp; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -186,6 +191,9 @@
 				665608B81FD226E400DC7916 /* BaseClass.mm */,
 				665608C31FD249EE00DC7916 /* ExampleSubclass.h */,
 				665608C21FD249EE00DC7916 /* ExampleSubclass.mm */,
+				66D79CD41FD4A7EB00B297E0 /* JSNRInvoke.h */,
+				66D79CD31FD4A7EB00B297E0 /* JSNRInvoke.mm */,
+				66D79CD71FD5FBE700B297E0 /* JSNRSigType.hpp */,
 				66D79CD01FD49FD800B297E0 /* JSNRInstance.h */,
 				66D79CCF1FD49FD800B297E0 /* JSNRInstance.mm */,
 				66D79CC51FD388A900B297E0 /* JSNRPrimitiveTypeHandler.mm */,
@@ -243,6 +251,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				665608AB1FD087D000DC7916 /* JSNRObjectiveClass.h in Headers */,
+				66D79CD61FD4A7EB00B297E0 /* JSNRInvoke.h in Headers */,
 				665608AF1FD0D70900DC7916 /* JSNRObjCClass.h in Headers */,
 				665608B31FD0DB9500DC7916 /* Ultility.h in Headers */,
 				665608B71FD21F5C00DC7916 /* JSNRValue.h in Headers */,
@@ -412,6 +421,7 @@
 				665608AA1FD087D000DC7916 /* JSNRObjectiveClass.mm in Sources */,
 				665608C41FD249EE00DC7916 /* ExampleSubclass.mm in Sources */,
 				66D79CD11FD49FD800B297E0 /* JSNRInstance.mm in Sources */,
+				66D79CD51FD4A7EB00B297E0 /* JSNRInvoke.mm in Sources */,
 				665608B21FD0DB9500DC7916 /* Utility.mm in Sources */,
 				665608BA1FD226E400DC7916 /* BaseClass.mm in Sources */,
 				665608AE1FD0D70900DC7916 /* JSNRObjCClass.mm in Sources */,
