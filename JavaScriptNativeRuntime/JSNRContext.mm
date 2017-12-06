@@ -172,7 +172,7 @@
         // this causes crash
 //        return returnVal.toObject;
         // this return null
-        return (NSObject *)JSNR::Value::null(ctx).valueRef;
+
     }
     
     return nil;
