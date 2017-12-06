@@ -43,6 +43,37 @@
 		66D79CD51FD4A7EB00B297E0 /* JSNRInvoke.mm in Sources */ = {isa = PBXBuildFile; fileRef = 66D79CD31FD4A7EB00B297E0 /* JSNRInvoke.mm */; };
 		66D79CD61FD4A7EB00B297E0 /* JSNRInvoke.h in Headers */ = {isa = PBXBuildFile; fileRef = 66D79CD41FD4A7EB00B297E0 /* JSNRInvoke.h */; };
 		66D79CD91FD7895E00B297E0 /* tweak.js in Resources */ = {isa = PBXBuildFile; fileRef = 66D79CD81FD7895E00B297E0 /* tweak.js */; };
+		66D79CE31FD844F500B297E0 /* JSNRIOS.h in Headers */ = {isa = PBXBuildFile; fileRef = 66D79CE11FD844F500B297E0 /* JSNRIOS.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		66D79CE71FD8451000B297E0 /* JSNRContext.mm in Sources */ = {isa = PBXBuildFile; fileRef = 665608831FCF5F7D00DC7916 /* JSNRContext.mm */; };
+		66D79CE81FD8451700B297E0 /* String.mm in Sources */ = {isa = PBXBuildFile; fileRef = 665608BC1FD2281E00DC7916 /* String.mm */; };
+		66D79CE91FD8451D00B297E0 /* BaseClass.mm in Sources */ = {isa = PBXBuildFile; fileRef = 665608B81FD226E400DC7916 /* BaseClass.mm */; };
+		66D79CEA1FD8452100B297E0 /* ExampleSubclass.mm in Sources */ = {isa = PBXBuildFile; fileRef = 665608C21FD249EE00DC7916 /* ExampleSubclass.mm */; };
+		66D79CEB1FD8452600B297E0 /* JSNRInvoke.mm in Sources */ = {isa = PBXBuildFile; fileRef = 66D79CD31FD4A7EB00B297E0 /* JSNRInvoke.mm */; };
+		66D79CEC1FD8452C00B297E0 /* JSNRInstance.mm in Sources */ = {isa = PBXBuildFile; fileRef = 66D79CCF1FD49FD800B297E0 /* JSNRInstance.mm */; };
+		66D79CED1FD8453400B297E0 /* Value.mm in Sources */ = {isa = PBXBuildFile; fileRef = 665608B41FD21F5C00DC7916 /* Value.mm */; };
+		66D79CEE1FD8453A00B297E0 /* JSNRClassMap.mm in Sources */ = {isa = PBXBuildFile; fileRef = 665608A51FCF6C6300DC7916 /* JSNRClassMap.mm */; };
+		66D79CEF1FD8454100B297E0 /* JSNRContext.h in Headers */ = {isa = PBXBuildFile; fileRef = 665608821FCF5F7D00DC7916 /* JSNRContext.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		66D79CF01FD8454500B297E0 /* JSNRObjCClass.h in Headers */ = {isa = PBXBuildFile; fileRef = 665608AD1FD0D70900DC7916 /* JSNRObjCClass.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		66D79CF11FD8454800B297E0 /* JSNRString.h in Headers */ = {isa = PBXBuildFile; fileRef = 665608BD1FD2281E00DC7916 /* JSNRString.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		66D79CF21FD8454D00B297E0 /* JSNRCCallback.h in Headers */ = {isa = PBXBuildFile; fileRef = 66D79CC41FD3030B00B297E0 /* JSNRCCallback.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		66D79CF31FD8455000B297E0 /* BaseClass.h in Headers */ = {isa = PBXBuildFile; fileRef = 665608B91FD226E400DC7916 /* BaseClass.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		66D79CF41FD8455600B297E0 /* ExampleSubclass.h in Headers */ = {isa = PBXBuildFile; fileRef = 665608C31FD249EE00DC7916 /* ExampleSubclass.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		66D79CF51FD8455900B297E0 /* JSNRInvoke.h in Headers */ = {isa = PBXBuildFile; fileRef = 66D79CD41FD4A7EB00B297E0 /* JSNRInvoke.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		66D79CF61FD8455D00B297E0 /* JSNRSigType.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 66D79CD71FD5FBE700B297E0 /* JSNRSigType.hpp */; settings = {ATTRIBUTES = (Public, ); }; };
+		66D79CF71FD8456100B297E0 /* JSNRInstance.h in Headers */ = {isa = PBXBuildFile; fileRef = 66D79CD01FD49FD800B297E0 /* JSNRInstance.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		66D79CF81FD8456400B297E0 /* JSNRValue.h in Headers */ = {isa = PBXBuildFile; fileRef = 665608B51FD21F5C00DC7916 /* JSNRValue.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		66D79CF91FD8456C00B297E0 /* JSNRObjectiveClass.h in Headers */ = {isa = PBXBuildFile; fileRef = 665608A91FD087D000DC7916 /* JSNRObjectiveClass.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		66D79CFA1FD8457000B297E0 /* JSNRClassMap.h in Headers */ = {isa = PBXBuildFile; fileRef = 665608A41FCF6C6300DC7916 /* JSNRClassMap.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		66D79CFC1FD8479100B297E0 /* JavaScriptCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 66D79CFB1FD8478300B297E0 /* JavaScriptCore.framework */; };
+		66D79CFD1FD847A000B297E0 /* JSNRObjectiveClass.mm in Sources */ = {isa = PBXBuildFile; fileRef = 665608A81FD087D000DC7916 /* JSNRObjectiveClass.mm */; };
+		66D79D061FD847BE00B297E0 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 66D79D051FD847BE00B297E0 /* AppDelegate.m */; };
+		66D79D091FD847BE00B297E0 /* ViewController.mm in Sources */ = {isa = PBXBuildFile; fileRef = 66D79D081FD847BE00B297E0 /* ViewController.mm */; };
+		66D79D0C1FD847BE00B297E0 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 66D79D0A1FD847BE00B297E0 /* Main.storyboard */; };
+		66D79D0E1FD847BE00B297E0 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 66D79D0D1FD847BE00B297E0 /* Assets.xcassets */; };
+		66D79D111FD847BE00B297E0 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 66D79D0F1FD847BE00B297E0 /* LaunchScreen.storyboard */; };
+		66D79D141FD847BE00B297E0 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 66D79D131FD847BE00B297E0 /* main.m */; };
+		66D79D1A1FD847D300B297E0 /* JSNRIOS.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 66D79CDF1FD844F500B297E0 /* JSNRIOS.framework */; };
+		66D79D1C1FD847F300B297E0 /* iostest.js in Resources */ = {isa = PBXBuildFile; fileRef = 66D79D1B1FD847F300B297E0 /* iostest.js */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -59,6 +90,13 @@
 			proxyType = 1;
 			remoteGlobalIDString = 665608791FCF5F3600DC7916;
 			remoteInfo = JavaScriptNativeRuntime;
+		};
+		66D79D181FD847CB00B297E0 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 665608551FCF5C7000DC7916 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 66D79CDE1FD844F500B297E0;
+			remoteInfo = JSNRIOS;
 		};
 /* End PBXContainerItemProxy section */
 
@@ -109,6 +147,21 @@
 		66D79CD41FD4A7EB00B297E0 /* JSNRInvoke.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = JSNRInvoke.h; sourceTree = "<group>"; };
 		66D79CD71FD5FBE700B297E0 /* JSNRSigType.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = JSNRSigType.hpp; sourceTree = "<group>"; };
 		66D79CD81FD7895E00B297E0 /* tweak.js */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.javascript; path = tweak.js; sourceTree = "<group>"; };
+		66D79CDF1FD844F500B297E0 /* JSNRIOS.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = JSNRIOS.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		66D79CE11FD844F500B297E0 /* JSNRIOS.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = JSNRIOS.h; sourceTree = "<group>"; };
+		66D79CE21FD844F500B297E0 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		66D79CFB1FD8478300B297E0 /* JavaScriptCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = JavaScriptCore.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS11.1.sdk/System/Library/Frameworks/JavaScriptCore.framework; sourceTree = DEVELOPER_DIR; };
+		66D79D021FD847BE00B297E0 /* JSNRIOSExample.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = JSNRIOSExample.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		66D79D041FD847BE00B297E0 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
+		66D79D051FD847BE00B297E0 /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
+		66D79D071FD847BE00B297E0 /* ViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ViewController.h; sourceTree = "<group>"; };
+		66D79D081FD847BE00B297E0 /* ViewController.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = ViewController.mm; sourceTree = "<group>"; };
+		66D79D0B1FD847BE00B297E0 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
+		66D79D0D1FD847BE00B297E0 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		66D79D101FD847BE00B297E0 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
+		66D79D121FD847BE00B297E0 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		66D79D131FD847BE00B297E0 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
+		66D79D1B1FD847F300B297E0 /* iostest.js */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.javascript; path = iostest.js; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -136,6 +189,22 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		66D79CDB1FD844F500B297E0 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				66D79CFC1FD8479100B297E0 /* JavaScriptCore.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		66D79CFF1FD847BE00B297E0 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				66D79D1A1FD847D300B297E0 /* JSNRIOS.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
@@ -147,6 +216,8 @@
 				665608601FCF5C7000DC7916 /* Dynosoar */,
 				6656087B1FCF5F3600DC7916 /* JavaScriptNativeRuntime */,
 				6656088F1FCF613C00DC7916 /* JSNRExample */,
+				66D79CE01FD844F500B297E0 /* JSNRIOS */,
+				66D79D031FD847BE00B297E0 /* JSNRIOSExample */,
 				6656085F1FCF5C7000DC7916 /* Products */,
 				665608881FCF5FED00DC7916 /* Frameworks */,
 			);
@@ -158,6 +229,8 @@
 				6656085E1FCF5C7000DC7916 /* Dynosoar.framework */,
 				6656087A1FCF5F3600DC7916 /* JavaScriptNativeRuntime.framework */,
 				6656088E1FCF613C00DC7916 /* JSNRExample.app */,
+				66D79CDF1FD844F500B297E0 /* JSNRIOS.framework */,
+				66D79D021FD847BE00B297E0 /* JSNRIOSExample.app */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -210,6 +283,7 @@
 		665608881FCF5FED00DC7916 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				66D79CFB1FD8478300B297E0 /* JavaScriptCore.framework */,
 				665608C01FD2443F00DC7916 /* JavaScriptCore.framework */,
 			);
 			name = Frameworks;
@@ -229,6 +303,32 @@
 				6656089B1FCF613C00DC7916 /* JSNRExample.entitlements */,
 			);
 			path = JSNRExample;
+			sourceTree = "<group>";
+		};
+		66D79CE01FD844F500B297E0 /* JSNRIOS */ = {
+			isa = PBXGroup;
+			children = (
+				66D79CE11FD844F500B297E0 /* JSNRIOS.h */,
+				66D79CE21FD844F500B297E0 /* Info.plist */,
+			);
+			path = JSNRIOS;
+			sourceTree = "<group>";
+		};
+		66D79D031FD847BE00B297E0 /* JSNRIOSExample */ = {
+			isa = PBXGroup;
+			children = (
+				66D79D041FD847BE00B297E0 /* AppDelegate.h */,
+				66D79D051FD847BE00B297E0 /* AppDelegate.m */,
+				66D79D071FD847BE00B297E0 /* ViewController.h */,
+				66D79D081FD847BE00B297E0 /* ViewController.mm */,
+				66D79D1B1FD847F300B297E0 /* iostest.js */,
+				66D79D0A1FD847BE00B297E0 /* Main.storyboard */,
+				66D79D0D1FD847BE00B297E0 /* Assets.xcassets */,
+				66D79D0F1FD847BE00B297E0 /* LaunchScreen.storyboard */,
+				66D79D121FD847BE00B297E0 /* Info.plist */,
+				66D79D131FD847BE00B297E0 /* main.m */,
+			);
+			path = JSNRIOSExample;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -259,6 +359,26 @@
 				665608BF1FD2281E00DC7916 /* JSNRString.h in Headers */,
 				665608841FCF5F7D00DC7916 /* JSNRContext.h in Headers */,
 				665608A61FCF6C6300DC7916 /* JSNRClassMap.h in Headers */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		66D79CDC1FD844F500B297E0 /* Headers */ = {
+			isa = PBXHeadersBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				66D79CE31FD844F500B297E0 /* JSNRIOS.h in Headers */,
+				66D79CEF1FD8454100B297E0 /* JSNRContext.h in Headers */,
+				66D79CF01FD8454500B297E0 /* JSNRObjCClass.h in Headers */,
+				66D79CF11FD8454800B297E0 /* JSNRString.h in Headers */,
+				66D79CF21FD8454D00B297E0 /* JSNRCCallback.h in Headers */,
+				66D79CF31FD8455000B297E0 /* BaseClass.h in Headers */,
+				66D79CF41FD8455600B297E0 /* ExampleSubclass.h in Headers */,
+				66D79CF51FD8455900B297E0 /* JSNRInvoke.h in Headers */,
+				66D79CF61FD8455D00B297E0 /* JSNRSigType.hpp in Headers */,
+				66D79CF71FD8456100B297E0 /* JSNRInstance.h in Headers */,
+				66D79CF81FD8456400B297E0 /* JSNRValue.h in Headers */,
+				66D79CF91FD8456C00B297E0 /* JSNRObjectiveClass.h in Headers */,
+				66D79CFA1FD8457000B297E0 /* JSNRClassMap.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -320,6 +440,42 @@
 			productReference = 6656088E1FCF613C00DC7916 /* JSNRExample.app */;
 			productType = "com.apple.product-type.application";
 		};
+		66D79CDE1FD844F500B297E0 /* JSNRIOS */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 66D79CE41FD844F500B297E0 /* Build configuration list for PBXNativeTarget "JSNRIOS" */;
+			buildPhases = (
+				66D79CDA1FD844F500B297E0 /* Sources */,
+				66D79CDB1FD844F500B297E0 /* Frameworks */,
+				66D79CDC1FD844F500B297E0 /* Headers */,
+				66D79CDD1FD844F500B297E0 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = JSNRIOS;
+			productName = JSNRIOS;
+			productReference = 66D79CDF1FD844F500B297E0 /* JSNRIOS.framework */;
+			productType = "com.apple.product-type.framework";
+		};
+		66D79D011FD847BE00B297E0 /* JSNRIOSExample */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 66D79D151FD847BE00B297E0 /* Build configuration list for PBXNativeTarget "JSNRIOSExample" */;
+			buildPhases = (
+				66D79CFE1FD847BE00B297E0 /* Sources */,
+				66D79CFF1FD847BE00B297E0 /* Frameworks */,
+				66D79D001FD847BE00B297E0 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				66D79D191FD847CB00B297E0 /* PBXTargetDependency */,
+			);
+			name = JSNRIOSExample;
+			productName = JSNRIOSExample;
+			productReference = 66D79D021FD847BE00B297E0 /* JSNRIOSExample.app */;
+			productType = "com.apple.product-type.application";
+		};
 /* End PBXNativeTarget section */
 
 /* Begin PBXProject section */
@@ -346,6 +502,14 @@
 							};
 						};
 					};
+					66D79CDE1FD844F500B297E0 = {
+						CreatedOnToolsVersion = 9.1;
+						ProvisioningStyle = Automatic;
+					};
+					66D79D011FD847BE00B297E0 = {
+						CreatedOnToolsVersion = 9.1;
+						ProvisioningStyle = Automatic;
+					};
 				};
 			};
 			buildConfigurationList = 665608581FCF5C7000DC7916 /* Build configuration list for PBXProject "Dynosoar" */;
@@ -364,6 +528,8 @@
 				6656085D1FCF5C7000DC7916 /* Dynosoar */,
 				665608791FCF5F3600DC7916 /* JavaScriptNativeRuntime */,
 				6656088D1FCF613C00DC7916 /* JSNRExample */,
+				66D79CDE1FD844F500B297E0 /* JSNRIOS */,
+				66D79D011FD847BE00B297E0 /* JSNRIOSExample */,
 			);
 		};
 /* End PBXProject section */
@@ -391,6 +557,24 @@
 				665608941FCF613C00DC7916 /* Assets.xcassets in Resources */,
 				665608971FCF613C00DC7916 /* MainMenu.xib in Resources */,
 				66D79CD91FD7895E00B297E0 /* tweak.js in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		66D79CDD1FD844F500B297E0 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		66D79D001FD847BE00B297E0 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				66D79D1C1FD847F300B297E0 /* iostest.js in Resources */,
+				66D79D111FD847BE00B297E0 /* LaunchScreen.storyboard in Resources */,
+				66D79D0E1FD847BE00B297E0 /* Assets.xcassets in Resources */,
+				66D79D0C1FD847BE00B297E0 /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -433,6 +617,32 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		66D79CDA1FD844F500B297E0 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				66D79CFD1FD847A000B297E0 /* JSNRObjectiveClass.mm in Sources */,
+				66D79CEC1FD8452C00B297E0 /* JSNRInstance.mm in Sources */,
+				66D79CE71FD8451000B297E0 /* JSNRContext.mm in Sources */,
+				66D79CE81FD8451700B297E0 /* String.mm in Sources */,
+				66D79CE91FD8451D00B297E0 /* BaseClass.mm in Sources */,
+				66D79CEA1FD8452100B297E0 /* ExampleSubclass.mm in Sources */,
+				66D79CEB1FD8452600B297E0 /* JSNRInvoke.mm in Sources */,
+				66D79CED1FD8453400B297E0 /* Value.mm in Sources */,
+				66D79CEE1FD8453A00B297E0 /* JSNRClassMap.mm in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		66D79CFE1FD847BE00B297E0 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				66D79D091FD847BE00B297E0 /* ViewController.mm in Sources */,
+				66D79D141FD847BE00B297E0 /* main.m in Sources */,
+				66D79D061FD847BE00B297E0 /* AppDelegate.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
@@ -446,6 +656,11 @@
 			target = 665608791FCF5F3600DC7916 /* JavaScriptNativeRuntime */;
 			targetProxy = 6656089F1FCF615D00DC7916 /* PBXContainerItemProxy */;
 		};
+		66D79D191FD847CB00B297E0 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 66D79CDE1FD844F500B297E0 /* JSNRIOS */;
+			targetProxy = 66D79D181FD847CB00B297E0 /* PBXContainerItemProxy */;
+		};
 /* End PBXTargetDependency section */
 
 /* Begin PBXVariantGroup section */
@@ -455,6 +670,22 @@
 				665608961FCF613C00DC7916 /* Base */,
 			);
 			name = MainMenu.xib;
+			sourceTree = "<group>";
+		};
+		66D79D0A1FD847BE00B297E0 /* Main.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				66D79D0B1FD847BE00B297E0 /* Base */,
+			);
+			name = Main.storyboard;
+			sourceTree = "<group>";
+		};
+		66D79D0F1FD847BE00B297E0 /* LaunchScreen.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				66D79D101FD847BE00B297E0 /* Base */,
+			);
+			name = LaunchScreen.storyboard;
 			sourceTree = "<group>";
 		};
 /* End PBXVariantGroup section */
@@ -687,6 +918,88 @@
 			};
 			name = Release;
 		};
+		66D79CE51FD844F500B297E0 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CLANG_ENABLE_OBJC_ARC = NO;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				CODE_SIGN_STYLE = Automatic;
+				DEFINES_MODULE = YES;
+				DEVELOPMENT_TEAM = CMADB5PKU7;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				INFOPLIST_FILE = JSNRIOS/Info.plist;
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				IPHONEOS_DEPLOYMENT_TARGET = 11.1;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = com.baileyseymour.JSNRIOS;
+				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
+				SDKROOT = iphoneos;
+				SKIP_INSTALL = YES;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		66D79CE61FD844F500B297E0 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CLANG_ENABLE_OBJC_ARC = NO;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				CODE_SIGN_STYLE = Automatic;
+				DEFINES_MODULE = YES;
+				DEVELOPMENT_TEAM = CMADB5PKU7;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				INFOPLIST_FILE = JSNRIOS/Info.plist;
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				IPHONEOS_DEPLOYMENT_TARGET = 11.1;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = com.baileyseymour.JSNRIOS;
+				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
+				SDKROOT = iphoneos;
+				SKIP_INSTALL = YES;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		66D79D161FD847BE00B297E0 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = CMADB5PKU7;
+				INFOPLIST_FILE = JSNRIOSExample/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 11.1;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = com.baileyseymour.JSNRIOSExample;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = iphoneos;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		66D79D171FD847BE00B297E0 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = CMADB5PKU7;
+				INFOPLIST_FILE = JSNRIOSExample/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 11.1;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = com.baileyseymour.JSNRIOSExample;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = iphoneos;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
@@ -722,6 +1035,24 @@
 			buildConfigurations = (
 				6656089D1FCF613C00DC7916 /* Debug */,
 				6656089E1FCF613C00DC7916 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		66D79CE41FD844F500B297E0 /* Build configuration list for PBXNativeTarget "JSNRIOS" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				66D79CE51FD844F500B297E0 /* Debug */,
+				66D79CE61FD844F500B297E0 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		66D79D151FD847BE00B297E0 /* Build configuration list for PBXNativeTarget "JSNRIOSExample" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				66D79D161FD847BE00B297E0 /* Debug */,
+				66D79D171FD847BE00B297E0 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;

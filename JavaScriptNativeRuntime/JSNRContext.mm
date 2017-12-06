@@ -9,7 +9,12 @@
 #import "JSNRContext.h"
 #import <objc/runtime.h>
 #import <objc/message.h>
+#import <TargetConditionals.h>
+
+#if TARGET_OS_IPHONE
+#else
 #import <AppKit/AppKit.h>
+#endif
 #import "JavaScriptNativeRuntime.h"
 #import "JSNRObjectiveClass.h"
 #import "JSNRClassMap.h"
