@@ -160,11 +160,11 @@ public:
     static void *allocateAggregatePointer(Value val, unsigned long *fieldSizes, int numberOfFields) {
         // i think this function works with carrays in addition to working with structs
 //        int numberOfFields = 4;
-        int sizeOfField = sizeof(double); // actually this math only works if all are same type
+//        int sizeOfField = sizeof(double); // actually this math only works if all are same type
 //        int sizeOfStruct = sizeOfField*numberOfFields; // can use a loop to get a correct summation
         int sizeOfStruct = 0;
         for (int i=0; i < numberOfFields; i++) {
-            int aSize = fieldSizes[i];
+            int aSize = (int)fieldSizes[i];
             sizeOfStruct+=aSize;
         }
         
@@ -178,8 +178,8 @@ public:
             // assuming field is double
             mynum = JSValueToNumber(val.context, propAtIdx, NULL);
             
-            void *fieldAddr = ((char *)structPtr)+(sizeOfField*i);
-            memcpy(fieldAddr, &mynum, sizeOfField);
+            void *fieldAddr = ((char *)structPtr)+(fieldSizes[i]*i);
+            memcpy(fieldAddr, &mynum, fieldSizes[i]);
         }
         
         
