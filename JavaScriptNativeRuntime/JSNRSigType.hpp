@@ -342,6 +342,22 @@ public:
         // assert(ptr != NULL); //allow nil and NULL objects
         return ptr;
     }
+    
+    template<typename Type_>
+    double doubleFromPointer(void *pointer) {
+        void *result = malloc(sizeOfType());
+        result = pointer;
+        
+        return (double)reinterpret_cast<Type_ &>(result);
+    }
+    
+    template<typename Type_>
+    bool boolFromPointer(void *pointer) {
+        void *result = malloc(sizeOfType());
+        result = pointer;
+        
+        return (bool)reinterpret_cast<Type_ &>(result);
+    }
 };
 };
 #endif /* JSNRSigType_h */

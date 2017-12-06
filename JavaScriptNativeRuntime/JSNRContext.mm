@@ -16,7 +16,6 @@
 #import <AppKit/AppKit.h>
 #endif
 #import "JavaScriptNativeRuntime.h"
-#import "JSNRObjectiveClass.h"
 #import "JSNRClassMap.h"
 #import "JSNRInstance.h"
 #import "JSNRInvoke.h"
@@ -75,21 +74,6 @@
     }
     
     return self;
-}
-
-- (void)createClassWithName:(NSString *)classNameNS {
-    const char *className = [classNameNS UTF8String];
-    
-    JSGlobalContextRef ctx = self.coreContext.JSGlobalContextRef;
-    JSObjectRef globalObject = JSContextGetGlobalObject(ctx);
-
-    JSObjectRef filesystemObject = JSObjectMake(ctx, JSNRObjectiveClass(className), NULL);
-    JSObjectSetProperty(ctx, globalObject, JSStringCreateWithUTF8CString(className), filesystemObject, kJSPropertyAttributeNone, NULL);
-    JSValueRef internalClassName = JSValueMakeString(ctx, JSStringCreateWithUTF8CString(className));
-    JSStringRef propertyName = JSStringCreateWithUTF8CString("internalClassName");
-    JSStringRetain(propertyName);
-    JSObjectSetProperty(ctx, filesystemObject, propertyName, internalClassName, kJSPropertyAttributeNone, NULL);
-    
 }
 
 - (void *)one:(id)o1 two:(id)o2 three:(id)o3 four:(id)o4 five:(id)o5 six:(id)o6 seven:(id)o7 eight:(id)o8 nine:(id)o9 ten:(id)o10 {

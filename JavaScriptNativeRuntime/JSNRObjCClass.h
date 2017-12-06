@@ -1,42 +1,41 @@
 //
-//  JSNRObjCClass.hpp
+//  JSNRExampleSubclass.hpp
 //  JavaScriptNativeRuntime
 //
-//  Created by Bailey Seymour on 11/30/17.
+//  Created by Bailey Seymour on 12/1/17.
 //  Copyright © 2017 Bailey Seymour. All rights reserved.
 //
 
-#ifndef JSNRObjCClass_hpp
-#define JSNRObjCClass_hpp
+#ifndef JSNRExampleSubclass_hpp
+#define JSNRExampleSubclass_hpp
 
 #import "JSNRInternal.h"
 #import <string>
-#import "JSNRInvoke.h"
 
-//template<typename T>
-//T JSValueRefToPrimitive(JSContextRef ctx, JSValueRef value);
-bool JSValueRefShouldConvertToPrimitive(JSContextRef ctx, JSValueRef value);
-//id JSValueRefToObjCType(JSContextRef ctx, JSValueRef value);
-
-class JSNRObjCObjectInfo {
+#import "BaseClass.h"
+namespace JSNR {
+    class String; class Value;
+    class ObjCClass {
+    public:
+        static JSClassRef classRef();
+        
+        static JSValueRef convertToType(JSContextRef ctx, JSObjectRef objectRef, JSType type, JSValueRef *exceptionRef);
+        static JSObjectRef asConstructor(JSContextRef ctx, JSObjectRef constructorRef, size_t argumentCount, const JSValueRef argumentRefs[], JSValueRef* exception);
+        static JSValueRef asFunction(JSContextRef ctx, JSObjectRef functionRef, JSObjectRef thisObjectRef, size_t argumentCount, const JSValueRef argumentRefs[], JSValueRef* exceptionRef);
+        static void finalize(JSObjectRef objectRef);
+        static JSValueRef getCallback(JSContextRef ctx, JSObjectRef objectRef, JSStringRef propertyNameRef, JSValueRef *exceptionRef);
+        static bool setCallback(JSContextRef ctx, JSObjectRef objectRef, JSStringRef propertyNameRef, JSValueRef valueRef, JSValueRef *exceptionRef);
+        static JSObjectRef instanceWithObjCClass(JSContextRef ctx, Class objCClass);
+    };
     
-public:
-    id target;
-    std::string selector;
-    JSNRObjCObjectInfo(id target, std::string selector);
-};
-class JSNRObjCClass {
-
-    
-public:
-    static JSValueRef JSNRObjCClassGet(JSContextRef ctx, JSObjectRef object, JSStringRef propertyName, JSValueRef *exception);
-};
-//struct JSNRNSObjectWrap {
-//    id target;
-//    const char *selector;
-//};
-//JSNRNSObjectWrap *wrapTargetSelector(id target, const char *selector) ;
-id toObject(JSContextRef ctx, JSValueRef value);
-JSObjectRef JSNRObjCClassObjectFromId( JSContextRef ctx, id objcObject);
-JSClassRef JSNRObjCClass();
-#endif /* JSNRObjCClass_hpp */
+//    class InvokeInfo {
+//        
+//    public:
+//        id target;
+//        std::string selector;
+//        bool targetIsClass;
+//        
+//        InvokeInfo(id target, std::string selector, bool targetIsClass=false);
+//    };
+}
+#endif /* JSNRExampleSubclass_hpp */

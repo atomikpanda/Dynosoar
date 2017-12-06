@@ -42,6 +42,8 @@ namespace JSNR {
         void *toSignatureTypePointer(SigType sigInfo);
         
         Value(JSContextRef ctx, JSValueRef valueRef);
+        Value(JSContextRef ctx, SigType sigInfo, void *methodReturnData);
+        
         static Value null(JSContextRef ctx);
         static Value string(JSContextRef ctx, std::string str);
     };

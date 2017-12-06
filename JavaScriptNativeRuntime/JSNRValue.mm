@@ -17,6 +17,27 @@ namespace JSNR {
         this->valueRef = valueRef;
         this->objectRef = (JSObjectRef)valueRef;
     }
+    // this handles return data from JSNRInvokes
+    Value::Value(JSContextRef ctx, SigType sigInfo, void *methodReturnData) {
+        this->context = ctx;
+        
+        JSValueRef localValueRef = JSValueMakeUndefined(ctx);
+        
+        if (sigInfo.isEncodingBoolean()) {
+            localValueRef = JSValueMakeBoolean(ctx, sigInfo.boolFromPointer<bool>(methodReturnData));
+        } else if (sigInfo.isEncodingInstanceOrClass()) {
+            if (sigInfo.type == SigType::ENCTypeClass) {
+                localValueRef = ObjCClass::instanceWithObjCClass(ctx, (id)methodReturnData);
+            } else if (sigInfo.type == SigType::ENCTypeObject) {
+                localValueRef = Instance::instanceWithObject(ctx, (id)methodReturnData);
+            }
+        } else if (sigInfo.type == SigType::ENCTypeCharPointer) {
+            localValueRef = JSNR::String((const char *)methodReturnData).value(ctx).valueRef;
+        }
+        
+        this->valueRef = localValueRef;
+        this->objectRef = (JSObjectRef)valueRef;
+    }
 
     Value Value::null(JSContextRef ctx) {
         return Value(ctx, JSValueMakeNull(ctx));
@@ -154,26 +175,5 @@ namespace JSNR {
         
         return ptr;
     }
-    
-//    id Value::toObjCType() {
-//        JSContextRef ctx = this->context;
-//
-//        if (isObject()) {
-//
-//            if (JSValueIsObjectOfClass(ctx, objectRef, ObjCClass::classRef())) {
-//                InvokeInfo *info = static_cast<InvokeInfo *>(getPrivate());
-//                id target = info->target;
-//
-//                return target;
-//            } else {
-//                // handle other types like Arrays, Etc
-//            }
-//        }
-//        else if (isString()) {
-//            // totally unsafe
-//            return String(*this).NSString();
-//        }
-//
-//        return @"LOLZ WE AREHEREXXZ";
-//    }
+
 }

@@ -7,9 +7,9 @@ dependencies: \
   /Users/atomikpanda/Documents/Personal\ Projects/Dynosoar/JavaScriptNativeRuntime/JSNRString.h \
   /Users/atomikpanda/Documents/Personal\ Projects/Dynosoar/JavaScriptNativeRuntime/BaseClass.h \
   /Users/atomikpanda/Documents/Personal\ Projects/Dynosoar/JavaScriptNativeRuntime/JSNRCCallback.h \
-  /Users/atomikpanda/Documents/Personal\ Projects/Dynosoar/JavaScriptNativeRuntime/ExampleSubclass.h \
   /Users/atomikpanda/Documents/Personal\ Projects/Dynosoar/JavaScriptNativeRuntime/JSNRObjCClass.h \
   /Users/atomikpanda/Documents/Personal\ Projects/Dynosoar/JavaScriptNativeRuntime/JSNRInstance.h \
   /Users/atomikpanda/Documents/Personal\ Projects/Dynosoar/JavaScriptNativeRuntime/JSNRObjectiveClass.h \
   /Users/atomikpanda/Documents/Personal\ Projects/Dynosoar/JavaScriptNativeRuntime/JSNRClassMap.h \
-  /Users/atomikpanda/Documents/Personal\ Projects/Dynosoar/JavaScriptNativeRuntime/JSNRInvoke.h
+  /Users/atomikpanda/Documents/Personal\ Projects/Dynosoar/JavaScriptNativeRuntime/JSNRInvoke.h \
+  /Users/atomikpanda/Documents/Personal\ Projects/Dynosoar/JavaScriptNativeRuntime/JSNRSigType.hpp

@@ -1,8 +1,7 @@
 dependencies: \
-  /Users/atomikpanda/Documents/Personal\ Projects/Dynosoar/JavaScriptNativeRuntime/JSNRObjectiveClass.mm \
-  /Users/atomikpanda/Documents/Personal\ Projects/Dynosoar/JavaScriptNativeRuntime/JSNRObjectiveClass.h \
-  /Users/atomikpanda/Documents/Personal\ Projects/Dynosoar/JavaScriptNativeRuntime/JSNRInternal.h \
+  /Users/atomikpanda/Documents/Personal\ Projects/Dynosoar/JavaScriptNativeRuntime/JSNRString.mm \
   /Users/atomikpanda/Documents/Personal\ Projects/Dynosoar/JavaScriptNativeRuntime/JavaScriptNativeRuntime.h \
+  /Users/atomikpanda/Documents/Personal\ Projects/Dynosoar/JavaScriptNativeRuntime/JSNRInternal.h \
   /Users/atomikpanda/Documents/Personal\ Projects/Dynosoar/JavaScriptNativeRuntime/JSNRValue.h \
   /Users/atomikpanda/Documents/Personal\ Projects/Dynosoar/JavaScriptNativeRuntime/JSNRString.h \
   /Users/atomikpanda/Documents/Personal\ Projects/Dynosoar/JavaScriptNativeRuntime/BaseClass.h \

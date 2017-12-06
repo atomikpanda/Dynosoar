@@ -175,30 +175,32 @@ namespace JSNR {
             if (signature.methodReturnLength != 0) {
                 cout << "method returns type "+std::string(signature.methodReturnType)<<endl;
                 
-                if (std::string(signature.methodReturnType) == "@") {
-                    void *result = nil;
-                    [invocation getReturnValue:&result];
-                    JSObjectRef newResultObject = Instance::instanceWithObject(ctx, (id)result);
-                    
-                    return newResultObject;
-                } else {
-                    //                result = malloc(signature.methodReturnLength);
-                    //                unsigned long *result = (unsigned long *) malloc(sizeof(double));
-                    //                void *result = malloc(signature.methodReturnLength);
-                    //                [invocation getReturnValue:&result];
-                    if (std::string(signature.methodReturnType) == "B"||std::string(signature.methodReturnType) == "c") {
-                        void *result = NULL;
-                        [invocation getReturnValue:&result];
-                        
-                        
-                        return JSValueMakeBoolean(ctx, Prim::boolFromPointer<char>(result, signature.methodReturnLength));
-                    } else {
-                        void *result = NULL;
-                        [invocation getReturnValue:&result];
-                        
-                        return JSValueMakeNumber(ctx, Prim::doubleFromPointer<unsigned long>(result, signature.methodReturnLength));
-                    }
-                }
+                SigType sigInfo = SigType(signature.methodReturnType);
+                
+                void *result = nil;
+                [invocation getReturnValue:&result];
+                return Value(ctx, sigInfo, result).valueRef;
+//                if (sigInfo.isEncodingInstanceOrClass()) {
+//                    void *result = nil;
+//                    [invocation getReturnValue:&result];
+//                    JSObjectRef newResultObject = Instance::instanceWithObject(ctx, (id)result);
+//
+//                    return newResultObject;
+//                } else {
+//
+//                    if (std::string(signature.methodReturnType) == "B"||std::string(signature.methodReturnType) == "c") {
+//                        void *result = NULL;
+//                        [invocation getReturnValue:&result];
+//
+//
+//                        return JSValueMakeBoolean(ctx, Prim::boolFromPointer<char>(result, signature.methodReturnLength));
+//                    } else {
+//                        void *result = NULL;
+//                        [invocation getReturnValue:&result];
+//
+//                        return JSValueMakeNumber(ctx, Prim::doubleFromPointer<unsigned long>(result, signature.methodReturnLength));
+//                    }
+//                }
             }
             return JSValueMakeNull(ctx);
             

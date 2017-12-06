@@ -13,12 +13,9 @@
 #import "JSNRValue.h"
 #import "JSNRString.h"
 #import "BaseClass.h"
-#import "ExampleSubclass.h"
-#import "JSNRContext.h"
 #import "JSNRObjCClass.h"
-
-//#import "JSNRUtility.h"
-
+#import "JSNRContext.h"
+#import "JSNRInstance.h"
 
 //! Project version number for JavaScriptNativeRuntime.
 //FOUNDATION_EXPORT double JavaScriptNativeRuntimeVersionNumber;
