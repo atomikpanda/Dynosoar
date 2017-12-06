@@ -152,20 +152,13 @@ namespace JSNR {
                 std::string signatureType = [signature getArgumentTypeAtIndex:i+2];
                 printf("arg at index %d is of type %s\n\n", i, [signature getArgumentTypeAtIndex:i+2]);
                 
-                //            const char a ='a';
-                //            [invocation setArgument:Prim::convert(a) atIndex:0];
-                
-//                if (signatureType != "@" && signatureType != "#") {
-                
-#include "JSNRPrimitiveTypeHandler.mm"
-                    
-//                }
-//                else {
-//                    id anArg = val.toObjCTypeObject(signatureType);
-                
-//                    [invocation setArgument:&anArg atIndex:i+2];
-//                }
+
+                SigType sigInfo = SigType(signatureType);
+                void *ptr = val.toSignatureTypePointer(sigInfo);
+                [invocation setArgument:ptr atIndex:i+2];
+
             }
+            
             // good for debugging crashes in invoke due to types
 //            if ([method isEqualToString:@"makePurple:"]) {
 //                void *arg1 = NULL;

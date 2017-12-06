@@ -20,9 +20,9 @@ if (val.isNumber()) {
 else if (val.isString()) {
     ptr = sigInfo.stringToSig(val);
 } else if (val.isNull()) {
-    ptr = SigType::createPointer<long>(NULL);
+    ptr = sigInfo.createPointer<long>(NULL);
 } else if (val.isUndefined()) {
-    ptr = ptr = SigType::createPointer<nullptr_t>(nil); // ???????
+    ptr = ptr = sigInfo.createPointer<nullptr_t>(nil); // ???????
 } else if (val.isObject()) {
     // handle object classes
     if (val.isInstance()) {

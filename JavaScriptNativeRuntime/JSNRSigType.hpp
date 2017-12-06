@@ -9,8 +9,8 @@
 #ifndef JSNRSigType_h
 #define JSNRSigType_h
 
-#define _CPUnsignedOrSigned(TYPE, EXPR) (this->isUnsigned ? SigType::createPointer<unsigned TYPE>(EXPR) : SigType::createPointer<TYPE>(EXPR));
-#define _CP(TYPE, EXPR) SigType::createPointer<TYPE>(EXPR)
+#define _CPUnsignedOrSigned(TYPE, EXPR) (this->isUnsigned ? createPointer<unsigned TYPE>(EXPR) : createPointer<TYPE>(EXPR));
+#define _CP(TYPE, EXPR) createPointer<TYPE>(EXPR)
 
 namespace JSNR {
 class SigType {
@@ -75,6 +75,62 @@ public:
     
     bool isEncodingSelector() {
         return (encoding==Encoding::Selector);
+    }
+    
+    unsigned long sizeOfType() {
+        switch (type) {
+            case ENCTypeInt: {
+                if (isUnsigned) return sizeof(unsigned int);
+                return sizeof(int);
+            }
+                break;
+            case ENCTypeShort: {
+                if (isUnsigned) return sizeof(unsigned short);
+                return sizeof(short);
+            }
+                break;
+                
+            case ENCTypeLong: {
+                if (isUnsigned) return sizeof(unsigned long);
+                return sizeof(long);
+            }
+                break;
+            case ENCTypeLongLong: {
+                if (isUnsigned) return sizeof(unsigned long long);
+                return sizeof(long long);
+            }
+                break;
+            case ENCTypeFloat:
+                return sizeof(float);
+                break;
+            case ENCTypeDouble:
+                return sizeof(double);
+                break;
+            case ENCTypeChar: {
+                if (isUnsigned) return sizeof(unsigned char);
+                return sizeof(char);
+            }
+                break;
+            case ENCTypeCharPointer: {
+                if (isUnsigned) return sizeof(unsigned char *);
+                return sizeof(char *);
+            }
+                break;
+            case ENCTypeObject:
+                return sizeof(id);
+                break;
+            case ENCTypeClass:
+                return sizeof(Class);
+                break;
+            case ENCTypeSelector:
+                return sizeof(SEL);
+                break;
+            default:
+                return 0; // not sure if I should assert size to be greater than 0
+                break;
+        }
+        
+        return 0;
     }
 
     
@@ -148,9 +204,16 @@ public:
         
     }
     
+//    template<typename Type_>
+//    void *allocatePointer(Type2_ inVar) {
+//        void *pointer = malloc(sizeOfType());
+//        *pointer = static_cast<Type_>(inVar);
+//        return pointer;
+//    }
+    
     template<typename Type_, typename Type2_>
-    static void* createPointer(Type2_ inVar) {
-        Type_ *pointer = static_cast<Type_*>(malloc(sizeof(Type_)));
+    void* createPointer(Type2_ inVar) {
+        Type_ *pointer = static_cast<Type_*>(malloc(sizeof(Type_))); //
         
         *pointer = static_cast<Type_>(inVar);
         
@@ -227,7 +290,8 @@ public:
                 break;
             }
             case ENCTypeObject: // handle js string to NSString
-                ptr = _CP(NSString *, [NSString stringWithCString:str.string().c_str() encoding:NSUTF8StringEncoding]);
+                ptr = _CP(NSString *, str.NSString());
+                
                 break;
             default:
                 assert(ptr != NULL);

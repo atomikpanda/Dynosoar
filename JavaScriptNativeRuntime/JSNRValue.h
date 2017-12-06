@@ -39,6 +39,7 @@ namespace JSNR {
         
         
         id toObjCTypeObject(SigType sigInfo);
+        void *toSignatureTypePointer(SigType sigInfo);
         
         Value(JSContextRef ctx, JSValueRef valueRef);
         static Value null(JSContextRef ctx);

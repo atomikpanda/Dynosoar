@@ -92,10 +92,10 @@
     
 }
 
-- (NSObject *)one:(id)o1 two:(id)o2 three:(id)o3 four:(id)o4 five:(id)o5 six:(id)o6 seven:(id)o7 eight:(id)o8 nine:(id)o9 ten:(id)o10 {
-    NSLog(@"WAS CALLED@!!!");
+- (void *)one:(id)o1 two:(id)o2 three:(id)o3 four:(id)o4 five:(id)o5 six:(id)o6 seven:(id)o7 eight:(id)o8 nine:(id)o9 ten:(id)o10 {
     
-//    [[self window] setBackgroundColor:[NSColor greenColor]];
+    NSLog(@"JSNR is calling a javascript hooks new method");
+    
     JSNRClassMap *map = [self.class _JSNRClassMap];
     NSString *selectorString = NSStringFromSelector(_cmd);
     NSUInteger numberOfArgs = [selectorString componentsSeparatedByString:@":"].count;
@@ -117,15 +117,11 @@
     }
     JSContextRef ctx = [JSNRContext sharedInstance].coreContext.JSGlobalContextRef;
     
-//    JSObjectRef selfObj; //= JSNRObjCClassObjectFromId(ctx, self);
+
     JSObjectRef selfObj = JSNR::Instance::instanceWithObject(ctx, self);
-//    JSNRObjCObjectInfo *selfInfo = new JSNRObjCObjectInfo(self, "");
-//    JSObjectSetPrivate(selfObj, selfInfo);
-//    JSValueRef objConstArgs[1];
-//    objConstArgs[0] =
-//    JSObjectCallAsConstructor(ctx, obj, 1, <#const JSValueRef *arguments#>, <#JSValueRef *exception#>)
+    // call the js function with self
     [actualArgs insertObject:[JSValue valueWithJSValueRef:selfObj inContext:[JSNRContext sharedInstance].coreContext] atIndex:0];
-//    [actualArgs insertObject:self atIndex:0];
+    // call the js function with _cmd
     [actualArgs insertObject:selectorString atIndex:1];
     
     
@@ -135,45 +131,17 @@
     
     JSNR::Value val = JSNR::Value(ctx, returnVal.JSValueRef);
     
-    if (!val.isNull() && !val.isUndefined()) {
-        JSObjectRef obj;
-//        void *ptr = NULL;
-//        NSString *strstr = [returnVal[@"addr"] toString];
-//        const char *str = strstr.UTF8String;
-//
-//        scanf(str,"%p",&ptr);
-        
-//        return ptr;
-//        void *nscolor = JSObjectGetPrivate(returnVal.JSValueRef);
-        
-//        return (NSColor *)nscolor;
-        
-//        JSPropertyNameArrayRef arr = JSObjectCopyPropertyNames([JSNRContext sharedInstance].coreContext.JSGlobalContextRef, returnVal.JSValueRef);
-//        NSUInteger length = JSPropertyNameArrayGetCount(arr);
-//        for (NSUInteger i=0; i<length; i++) {
-//            JSStringRef name = JSPropertyNameArrayGetNameAtIndex(arr, i);
-//            NSString *nsname = (NSString *)CFBridgingRelease(JSStringCopyCFString(kCFAllocatorDefault, name));
-//            NSLog(@"%@", nsname);
-//
-//        }
-        // return type info
-        NSMethodSignature *signature = [self methodSignatureForSelector:_cmd];
+    
+    // return type info
+    NSMethodSignature *signature = [self methodSignatureForSelector:_cmd];
+    
+    if (signature.methodReturnLength > 0) {
         const char *returnType = signature.methodReturnType;
         JSNR::SigType sigInfo = JSNR::SigType(returnType);
-        
-        // if the new JS function returns a string
-        if (val.isString()) {
-            
-            // if the Objective-C method returns a NSObject convert the JSString to NSString
-            if (sigInfo.isEncodingInstanceOrClass())
-                return val.toObjCTypeObject(sigInfo);
-        }
-        
-        // this causes crash
-//        return returnVal.toObject;
-        // this return null
-
+    
+        return *reinterpret_cast<void **>(val.toSignatureTypePointer(sigInfo));
     }
+    
     
     return nil;
 }

@@ -114,6 +114,47 @@ namespace JSNR {
         return nil;
     }
     
+    void *Value::toSignatureTypePointer(SigType sigInfo) {
+        void *ptr = NULL;
+        
+        if (isNumber()) {
+            ptr = sigInfo.numberToSig(*this);
+        } else if (isBoolean()) {
+            ptr = sigInfo.boolToSig(*this);
+        }
+        else if (isString()) {
+            ptr = sigInfo.stringToSig(*this);
+        } else if (isNull()) {
+            ptr = sigInfo.createPointer<long>(NULL);
+        } else if (isUndefined()) {
+            ptr = sigInfo.createPointer<nullptr_t>(nil); // ???????
+        } else if (isObject()) {
+            // handle object classes
+            if (isInstance()) {
+                ptr = sigInfo.instanceOrClassToSig(*this);
+            } else if (isClass()) {
+                ptr = sigInfo.instanceOrClassToSig(*this);
+            } else if (sigInfo.type == SigType::ENCTypeUnknown) {
+                
+                // essentially if {CGRect={CGPoint=dd}{CGSize=dd}} pull out the types and add the sizeof(d)
+                int numberOfFields = 4;
+                unsigned long *fieldSizes = (unsigned long *)malloc(sizeof(unsigned long)*numberOfFields);
+                memset(fieldSizes, 0, sizeof(unsigned long)*numberOfFields);
+                
+                for(int i=0; i < numberOfFields; i++) {
+                    
+                    unsigned long aSize = sizeof(CGFloat); // here we would access some array of field sizes that was parsed from sigInfo
+                    memcpy(((char *)fieldSizes)+(sizeof(unsigned long)*i), &aSize, sizeof(unsigned long));
+                }
+                
+                ptr = SigType::allocateAggregatePointer(*this, fieldSizes, numberOfFields);
+            }
+        }
+        assert(ptr != NULL);
+        
+        return ptr;
+    }
+    
 //    id Value::toObjCType() {
 //        JSContextRef ctx = this->context;
 //
