@@ -21,8 +21,8 @@ using std::cout; using std::endl;
 
 class Prim {
 public:
-    
-    
+
+
     template<typename Type_>
     static Type_ pointerToNonPointerType(void *pointer) {
         Type_ d;
@@ -30,47 +30,33 @@ public:
         memcpy(&d, &pointer, sizeof d);
         return d;
     }
-    
+
     template<typename Type_>
     static double doubleFromPointer(void *pointer, unsigned long size) {
         void *result = malloc(size);
         result = pointer;
-        
+
         return (double)reinterpret_cast<Type_ &>(result);
     }
-    
+
     template<typename Type_>
     static bool boolFromPointer(void *pointer, unsigned long size) {
         void *result = malloc(size);
         result = pointer;
-        
+
         return (bool)reinterpret_cast<Type_ &>(result);
     }
-    
+
 
 };
-
-template<typename Type_, typename Type2_>
-void setArg(Type2_ expr, NSInvocation *invocation, int i) {
-    Type_ anArg = static_cast<Type_>(expr);
-    [invocation setArgument:&anArg atIndex:i+2];
-}
-
 //
-//template <typename Type_>
-//void *convert(Type_ toConvert, std::string sig) {
-//    if (sig == "*r") {
-//        return toConvert;
-//    } else {
-//        return Prim::createPointer<Type_>(toConvert);
-//    }
+//template<typename Type_, typename Type2_>
+//void setArg(Type2_ expr, NSInvocation *invocation, int i) {
+//    Type_ anArg = static_cast<Type_>(expr);
+//    [invocation setArgument:&anArg atIndex:i+2];
 //}
 
-bool signatureTypeIsPrimitive(std::string type) {
-    if (type == "@") return false;
-    
-    return true;
-}
+
 
 namespace JSNR {
     
@@ -162,10 +148,10 @@ namespace JSNR {
             for (int i=0; i < argumentCount; i++) {
                 JSValueRef valueOfArg = argumentRefs[i];
                 Value val = Value(ctx, valueOfArg);
-                bool isPrimitive= JSValueRefShouldConvertToPrimitive(ctx, valueOfArg);
+                
                 std::string signatureType = [signature getArgumentTypeAtIndex:i+2];
                 printf("arg at index %d is of type %s\n\n", i, [signature getArgumentTypeAtIndex:i+2]);
-                printf("typeIsPrimitive:: %s\n", signatureTypeIsPrimitive([signature getArgumentTypeAtIndex:i+2]) ? "Y":"N");
+                
                 //            const char a ='a';
                 //            [invocation setArgument:Prim::convert(a) atIndex:0];
                 
@@ -192,6 +178,7 @@ namespace JSNR {
             [invocation retainArguments];
             [invocation invoke];
             
+            // *** NOTE THIS RETURN TYPE PARSING IS HACKED TOGETHER
             if (signature.methodReturnLength != 0) {
                 cout << "method returns type "+std::string(signature.methodReturnType)<<endl;
                 
