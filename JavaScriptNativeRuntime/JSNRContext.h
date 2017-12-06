@@ -12,11 +12,12 @@
 @interface JSNRContext : NSObject
 
 + (instancetype)sharedInstance;
-- (JSValue *)evaluateScript:(NSString *)contents;
+- (JSValue *)evaluateScript:(NSString *)contents baseDirectoryPath:(NSString *)baseDirectory;
 - (JSNRClassMap *)mapForClass:(Class)cls;
 
 @property (nonatomic, retain) JSContext *coreContext;
 @property (nonatomic, copy) NSString *scriptContents;
 @property (nonatomic, retain) NSMutableDictionary *allMaps;
+@property (nonatomic, copy) NSString *baseDirectoryPath;
 
 @end

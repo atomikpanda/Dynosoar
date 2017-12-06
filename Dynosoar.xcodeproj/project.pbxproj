@@ -74,6 +74,8 @@
 		66D79D141FD847BE00B297E0 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 66D79D131FD847BE00B297E0 /* main.m */; };
 		66D79D1A1FD847D300B297E0 /* JSNRIOS.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 66D79CDF1FD844F500B297E0 /* JSNRIOS.framework */; };
 		66D79D1C1FD847F300B297E0 /* iostest.js in Resources */ = {isa = PBXBuildFile; fileRef = 66D79D1B1FD847F300B297E0 /* iostest.js */; };
+		66D79D201FD8790100B297E0 /* headers in Resources */ = {isa = PBXBuildFile; fileRef = 66D79D1F1FD8790100B297E0 /* headers */; };
+		66D79D221FD8791300B297E0 /* headers in Resources */ = {isa = PBXBuildFile; fileRef = 66D79D211FD8791200B297E0 /* headers */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -162,6 +164,9 @@
 		66D79D121FD847BE00B297E0 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		66D79D131FD847BE00B297E0 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		66D79D1B1FD847F300B297E0 /* iostest.js */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.javascript; path = iostest.js; sourceTree = "<group>"; };
+		66D79D1D1FD878EC00B297E0 /* headers */ = {isa = PBXFileReference; lastKnownFileType = folder; name = headers; path = JavaScriptNativeRuntime/headers; sourceTree = "<group>"; };
+		66D79D1F1FD8790100B297E0 /* headers */ = {isa = PBXFileReference; lastKnownFileType = folder; name = headers; path = JavaScriptNativeRuntime/headers; sourceTree = "<group>"; };
+		66D79D211FD8791200B297E0 /* headers */ = {isa = PBXFileReference; lastKnownFileType = folder; name = headers; path = JavaScriptNativeRuntime/headers; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -211,6 +216,9 @@
 		665608541FCF5C7000DC7916 = {
 			isa = PBXGroup;
 			children = (
+				66D79D1D1FD878EC00B297E0 /* headers */,
+				66D79D1F1FD8790100B297E0 /* headers */,
+				66D79D211FD8791200B297E0 /* headers */,
 				665608711FCF5D4800DC7916 /* DynoBundle.h */,
 				665608721FCF5D4800DC7916 /* DynoBundle.m */,
 				665608601FCF5C7000DC7916 /* Dynosoar */,
@@ -546,6 +554,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				66D79D201FD8790100B297E0 /* headers in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -564,6 +573,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				66D79D221FD8791300B297E0 /* headers in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

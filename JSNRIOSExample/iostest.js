@@ -1,8 +1,7 @@
-//include("/Users/atomikpanda/Documents/Personal Projects/Dynosoar/JSNRExample/Foundation.js")
+include("@headers/Foundation.js")
+include("@headers/UIKit.js")
+
 interface("ViewController")
-interface("JSNRContext")
-interface("UIColor")
-interface("UILabel")
 
 hook(ViewController,"viewDidLoad", function(self,cmd){
      var label = UILabel()

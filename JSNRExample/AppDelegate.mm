@@ -61,5 +61,5 @@ static void init_hooks() {
     
     JSNRContext *context = [JSNRContext sharedInstance];
     
-    JSValue *retval = [context evaluateScript:scriptContents];
+    JSValue *retval = [context evaluateScript:scriptContents baseDirectoryPath:[[NSBundle mainBundle] resourcePath]];
 }

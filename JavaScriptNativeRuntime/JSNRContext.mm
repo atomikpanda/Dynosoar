@@ -22,7 +22,7 @@
 #import "JSNRInvoke.h"
 
 @implementation JSNRContext
-@synthesize coreContext, scriptContents, allMaps;
+@synthesize coreContext, scriptContents, allMaps, baseDirectoryPath;
 
 + (instancetype)sharedInstance
 {
@@ -180,6 +180,19 @@
     
     self.coreContext[@"include"] = ^JSValue *(NSString *file) {
         NSError *error = nil;
+        NSString *headersFolderInFramework = [[NSBundle bundleForClass:[JSNRContext class]].resourcePath stringByAppendingString:@"/headers/"];
+        
+        file = [file stringByReplacingOccurrencesOfString:@"@headers/" withString:headersFolderInFramework];
+        
+        if (self.baseDirectoryPath) {
+        if (file.pathComponents.count == 1 || [file containsString:@"./"]) {
+            file = [file stringByReplacingOccurrencesOfString:@"./" withString:self.baseDirectoryPath];
+            if (file.pathComponents.count == 1 && ![file hasPrefix:@"/"]) {
+                file = [self.baseDirectoryPath stringByAppendingPathComponent:file];
+            }
+        }
+        }
+        
         
         NSString *scriptContents = [NSString stringWithContentsOfFile:file encoding:NSUTF8StringEncoding error:&error];
         if (error) NSLog(@"include() script contents err: %@", error);
@@ -246,8 +259,9 @@
     };
 }
 
-- (JSValue *)evaluateScript:(NSString *)contents {
+- (JSValue *)evaluateScript:(NSString *)contents baseDirectoryPath:(NSString *)baseDirectory {
     self.scriptContents = contents;
+    self.baseDirectoryPath = baseDirectory;
     return [self.coreContext evaluateScript:self.scriptContents];
 }
 
@@ -260,6 +274,7 @@
     self.coreContext = nil;
     self.scriptContents = nil;
     self.allMaps = nil;
+    self.baseDirectoryPath = nil;
     
     [super dealloc];
 }

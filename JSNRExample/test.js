@@ -1,4 +1,5 @@
-include("/Users/atomikpanda/Documents/Personal Projects/Dynosoar/JSNRExample/Foundation.js")
+include("@headers/Foundation.js")
+include("@headers/AppKit.js")
 interface("AppDelegate")
 interface("JSNRContext")
 
