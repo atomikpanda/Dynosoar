@@ -65,6 +65,7 @@ hook(AppDelegate,"applicationDidFinishLaunching:", function(self,cmd,notificatio
   // self.window().setBackgroundColor$(NSColor.orangeColor())
   self.window().backgroundColor = NSColor.orangeColor();
   self.window().setFrame$display$([700,700,700,700], true);
+  // self.aMethodThatTakePrimitiveArray$([300,400,100,900]); // this doesnt work
 
   // self.window().title = NSString.alloc().initWithString$("qwerty/yuoip").autorelease().lastPathComponent()
   console.log("cmd == "+cmd)

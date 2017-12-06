@@ -41,6 +41,15 @@
 - (void)twoArgMethod:(id)arg1 arg2:(id)arg2 {
     NSLog(@"arg1=%@;arg2=%@;",arg1,arg2);
 }
+
+- (void)aMethodThatTakePrimitiveArray:(int [])array {
+    // this doesnt work
+    int first = array[0];
+    int second = array[1];
+    int third = array[2];
+    int fourth = array[3];
+    printf("the array: %d, %d, %d, %d\n", first, second, third, fourth);
+}
 @end
 
 __attribute__((constructor))
