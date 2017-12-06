@@ -64,7 +64,7 @@ hook(AppDelegate,"applicationDidFinishLaunching:", function(self,cmd,notificatio
   self.twoArgMethod$arg2$("me","notme")
   // self.window().setBackgroundColor$(NSColor.orangeColor())
   self.window().backgroundColor = NSColor.orangeColor();
-  self.window().setFrame$display$({x:700,y:700,width:700,height:700}, true);
+  self.window().setFrame$display$([700,700,700,700], true);
 
   // self.window().title = NSString.alloc().initWithString$("qwerty/yuoip").autorelease().lastPathComponent()
   console.log("cmd == "+cmd)

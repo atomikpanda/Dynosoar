@@ -33,23 +33,16 @@ else if (val.isString()) {
         
         // essentially if {CGRect={CGPoint=dd}{CGSize=dd}} pull out the types and add the sizeof(d)
         int numberOfFields = 4;
-        int sizeOfField = sizeof(double);
-        int sizeOfStruct = sizeOfField*numberOfFields;
-        void *structPtr = (void *)malloc(sizeOfStruct);
-
-        memset(structPtr, 0, sizeOfStruct); // zero out struct
-      
-        for (int i=0; i < numberOfFields; i++) {
-            CGFloat mynum = 400;
-            JSValueRef propAtIdx= JSObjectGetPropertyAtIndex(val.context, val.objectRef, i, NULL);
-            mynum = JSValueToNumber(val.context, propAtIdx, NULL);
-            
-            void *fieldAddr = ((char *)structPtr)+(sizeOfField*i);
-            memcpy(fieldAddr, &mynum, sizeOfField);
-        }
-
+        unsigned long *fieldSizes = (unsigned long *)malloc(sizeof(unsigned long)*numberOfFields);
+        memset(fieldSizes, 0, sizeof(unsigned long)*numberOfFields);
         
-        ptr = structPtr;
+        for(int i=0; i < numberOfFields; i++) {
+            
+            unsigned long aSize = sizeof(CGFloat); // here we would access some array of field sizes that was parsed from sigInfo
+            memcpy(((char *)fieldSizes)+(sizeof(unsigned long)*i), &aSize, sizeof(unsigned long));
+        }
+        
+        ptr = SigType::allocateAggregatePointer(val, fieldSizes, numberOfFields);
     }
 }
 assert(ptr != NULL);

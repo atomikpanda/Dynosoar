@@ -157,6 +157,35 @@ public:
         return reinterpret_cast<Type_ *>(pointer);
     }
     
+    static void *allocateAggregatePointer(Value val, unsigned long *fieldSizes, int numberOfFields) {
+        // i think this function works with carrays in addition to working with structs
+//        int numberOfFields = 4;
+        int sizeOfField = sizeof(double); // actually this math only works if all are same type
+//        int sizeOfStruct = sizeOfField*numberOfFields; // can use a loop to get a correct summation
+        int sizeOfStruct = 0;
+        for (int i=0; i < numberOfFields; i++) {
+            int aSize = fieldSizes[i];
+            sizeOfStruct+=aSize;
+        }
+        
+        void *structPtr = (void *)malloc(sizeOfStruct);
+        
+        memset(structPtr, 0, sizeOfStruct); // zero out struct
+        
+        for (int i=0; i < numberOfFields; i++) {
+            CGFloat mynum = 400;
+            JSValueRef propAtIdx= JSObjectGetPropertyAtIndex(val.context, val.objectRef, i, NULL);
+            // assuming field is double
+            mynum = JSValueToNumber(val.context, propAtIdx, NULL);
+            
+            void *fieldAddr = ((char *)structPtr)+(sizeOfField*i);
+            memcpy(fieldAddr, &mynum, sizeOfField);
+        }
+        
+        
+        return structPtr;
+    }
+    
     void *boolToSig(JSNR::Value val) {
         void *ptr = NULL;
         
