@@ -20,6 +20,7 @@
 #import "JSNRClassMap.h"
 #import "JSNRInstance.h"
 #import "JSNRInvoke.h"
+#import "JSNRSigType.hpp"
 
 @implementation JSNRContext
 @synthesize coreContext, scriptContents, allMaps, baseDirectoryPath;
@@ -130,13 +131,17 @@
     
     
     JSValue *returnVal = [newFn callWithArguments:actualArgs];
-    if (returnVal && !returnVal.isUndefined && !returnVal.isNull) {
-        JSObjectRef obj;
-        void *ptr = NULL;
-        NSString *strstr = [returnVal[@"addr"] toString];
-        const char *str = strstr.UTF8String;
+    if (!returnVal) return nil;
     
-        scanf(str,"%p",&ptr);
+    JSNR::Value val = JSNR::Value(ctx, returnVal.JSValueRef);
+    
+    if (!val.isNull() && !val.isUndefined()) {
+        JSObjectRef obj;
+//        void *ptr = NULL;
+//        NSString *strstr = [returnVal[@"addr"] toString];
+//        const char *str = strstr.UTF8String;
+//
+//        scanf(str,"%p",&ptr);
         
 //        return ptr;
 //        void *nscolor = JSObjectGetPrivate(returnVal.JSValueRef);
@@ -151,8 +156,23 @@
 //            NSLog(@"%@", nsname);
 //
 //        }
+        // return type info
+        NSMethodSignature *signature = [self methodSignatureForSelector:_cmd];
+        const char *returnType = signature.methodReturnType;
+        JSNR::SigType sigInfo = JSNR::SigType(returnType);
         
-        return returnVal.toObject;
+        // if the new JS function returns a string
+        if (val.isString()) {
+            
+            // if the Objective-C method returns a NSObject convert the JSString to NSString
+            if (sigInfo.isEncodingInstanceOrClass())
+                return val.toObjCTypeObject(sigInfo);
+        }
+        
+        // this causes crash
+//        return returnVal.toObject;
+        // this return null
+        return (NSObject *)JSNR::Value::null(ctx).valueRef;
     }
     
     return nil;

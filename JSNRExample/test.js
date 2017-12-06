@@ -3,6 +3,10 @@ include("@headers/AppKit.js")
 interface("AppDelegate")
 interface("JSNRContext")
 
+hook(AppDelegate, "someMethodThatHasNSString", function(self, cmd){
+  return "This is the new APPNAME!!!";
+});
+
 // var base = new Base()
 var something = Base.getSth
 console.log("it is is sL: "+something)
@@ -71,6 +75,8 @@ hook(AppDelegate,"applicationDidFinishLaunching:", function(self,cmd,notificatio
   // self.window().title = NSString.alloc().initWithString$("qwerty/yuoip").autorelease().lastPathComponent()
   console.log("cmd == "+cmd)
   self.boolSet$(true);
+
+  self.window().title = self.someMethodThatHasNSString();
 });
 // hook(AppDelegate,"applicationDidFinishLaunching:", function(self,cmd,notification){
 //

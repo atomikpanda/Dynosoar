@@ -21,6 +21,9 @@
     NSLog(@"This is ORIG@!!!!!!!!!!!!!!!!!!!");
 }
 
+- (NSString *)someMethodThatHasNSString {
+    return @"AppNAME";
+}
 
 - (void)applicationWillTerminate:(NSNotification *)aNotification {
     // Insert code here to tear down your application
