@@ -21,6 +21,7 @@ namespace JSNR {
     JSValueRef thisClass::getCallback(JSContextRef ctx, JSObjectRef objectRef, JSStringRef propertyNameRef, JSValueRef *exceptionRef)
     { JSNRGetCallbackCast
         if (propertyName.string() == "Symbol.toPrimitive") {
+            
             return String("string").value(ctx).valueRef;
         }
         if (propertyName.string() == "toString") {

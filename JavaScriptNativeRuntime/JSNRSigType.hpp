@@ -293,6 +293,9 @@ public:
                 ptr = _CP(NSString *, str.NSString());
                 
                 break;
+            case ENCTypeSelector:
+                ptr = _CP(SEL, NSSelectorFromString(str.NSString()));
+                break;
             default:
                 assert(ptr != NULL);
                 break;

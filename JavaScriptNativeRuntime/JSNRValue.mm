@@ -30,9 +30,14 @@ namespace JSNR {
                 localValueRef = ObjCClass::instanceWithObjCClass(ctx, (id)methodReturnData);
             } else if (sigInfo.type == SigType::ENCTypeObject) {
                 localValueRef = Instance::instanceWithObject(ctx, (id)methodReturnData);
+                
             }
         } else if (sigInfo.type == SigType::ENCTypeCharPointer) {
             localValueRef = JSNR::String((const char *)methodReturnData).value(ctx).valueRef;
+        } else if (sigInfo.isEncodingNumber()) {
+            
+            localValueRef = JSValueMakeNumber(ctx, sigInfo.doubleFromPointer<double>(methodReturnData));
+            
         }
         
         this->valueRef = localValueRef;
@@ -153,6 +158,7 @@ namespace JSNR {
             // handle object classes
             if (isInstance()) {
                 ptr = sigInfo.instanceOrClassToSig(*this);
+                
             } else if (isClass()) {
                 ptr = sigInfo.instanceOrClassToSig(*this);
             } else if (sigInfo.type == SigType::ENCTypeUnknown) {

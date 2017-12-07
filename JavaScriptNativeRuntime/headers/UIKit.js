@@ -5,3 +5,4 @@ interface("UIButton");
 interface("UIGestureRecognizer");
 interface("UITableView");
 interface("UITableViewCell");
+interface("UIAlertView");

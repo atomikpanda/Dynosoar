@@ -20,6 +20,7 @@
 #import "JSNRInstance.h"
 #import "JSNRInvoke.h"
 #import "JSNRSigType.hpp"
+#import "JSNRDelegateClass.h"
 
 @implementation JSNRContext
 @synthesize coreContext, scriptContents, allMaps, baseDirectoryPath;
@@ -70,6 +71,11 @@
         
         JSObjectRef InstanceClassObject = JSObjectMake(ctx, InstanceClassRef, NULL);
         JSObjectSetProperty(ctx, globalObject, JSStringCreateWithUTF8CString("Instance"), InstanceClassObject, kJSPropertyAttributeNone, NULL);
+        
+        JSClassRef DelegateClassRef = JSNR::DelegateClass::classRef();
+        
+        JSObjectRef DelegateClassObject = JSObjectMake(ctx, DelegateClassRef, NULL);
+        JSObjectSetProperty(ctx, globalObject, JSStringCreateWithUTF8CString("Delegate"), DelegateClassObject, kJSPropertyAttributeNone, NULL);
         
     }
     

@@ -113,12 +113,12 @@ namespace JSNR {
             else
                 cout << "invoke " << info->selector << " on object of class " << object_getClassName(target) << endl;
             
-                        if (argumentCount > 0) {
-                            JSValueRef firstArg = argumentRefs[0];
-                            id firstArgId = Value(ctx, firstArg).toObject();
-                            NSLog(@"argument: %@", firstArgId);
-                            
-                        }
+//                        if (argumentCount > 0) {
+//                            JSValueRef firstArg = argumentRefs[0];
+//                            id firstArgId = Value(ctx, firstArg).toObject();
+//                            NSLog(@"argument: %@", firstArgId);
+//                            
+//                        }
             NSString *method = @(info->selector.c_str());
             NSUInteger numberOfArgs = [method componentsSeparatedByString:@":"].count;
             if ([method rangeOfString:@":"].location == NSNotFound) numberOfArgs = 0;
