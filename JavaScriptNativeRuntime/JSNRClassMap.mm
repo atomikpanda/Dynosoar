@@ -7,7 +7,7 @@
 //
 
 #import "JSNRClassMap.h"
-#import "JSNRContext.h"
+#import "JSNRContextManager.h"
 #import <objc/runtime.h>
 
 @implementation JSNRClassMap
@@ -33,7 +33,7 @@
 
 @implementation NSObject (_JSNRClassMap)
 + (JSNRClassMap *)_JSNRClassMap {
-    JSNRContext *context = [JSNRContext sharedInstance];
+    JSNRContextManager *context = [JSNRContextManager sharedInstance];
    return [context mapForClass:self];
 }
 

@@ -1,5 +1,5 @@
 //
-//  JSNRContext.h
+//  JSNRContextManager.h
 //  JavaScriptNativeRuntime
 //
 //  Created by Bailey Seymour on 11/29/17.
@@ -9,7 +9,7 @@
 
 @class JSContext, JSNRClassMap;
 
-@interface JSNRContext : NSObject
+@interface JSNRContextManager : NSObject
 
 + (instancetype)sharedInstance;
 - (JSValue *)evaluateScript:(NSString *)contents baseDirectoryPath:(NSString *)baseDirectory;

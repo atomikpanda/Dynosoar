@@ -11,8 +11,9 @@
 #import "JSNRInvoke.h"
 #import "JSNRSigType.hpp"
 #import <map>
+#import "JSNRInstanceClass.h"
 
-@interface JSNRDelegateForwarder : NSObject <UIAlertViewDelegate>
+@interface JSNRDelegateForwarder : NSObject// <UIAlertViewDelegate>
 @property (nonatomic, retain) JSValue *object;
 //@property (nonatomic, assign) JSContextRef ctx;
 @end
@@ -185,7 +186,11 @@ namespace JSNR {
         JSValue *thisObjectWrapped = [JSValue valueWithJSValueRef:thisObjectRef inContext:[JSContext contextWithJSGlobalContextRef:JSContextGetGlobalContext(ctx)]];
         JSNRDelegateForwarder *delegate = [[[JSNRDelegateForwarder alloc] initWithJSValue:thisObjectWrapped] autorelease];
         
-        return JSNR::Instance::instanceWithObject(ctx, delegate);
+        JSNRInstanceClass *instance = [[JSNRInstanceClass alloc] init];
+        
+        JSObjectRef delobj = [instance createObjectRefWithContext:ctx object:delegate];
+        
+        return delobj;//JSNR::Instance::instanceWithObject(ctx, delegate);
     }
 
     bool thisClass::setCallback(JSContextRef ctx, JSObjectRef objectRef, JSStringRef propertyNameRef, JSValueRef valueRef, JSValueRef *exceptionRef)

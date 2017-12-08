@@ -12,6 +12,8 @@
 #import <iostream>
 #import <objc/runtime.h>
 #import "JSNRInvoke.h"
+#import "JSNRSuperClass.h"
+#import "JSNRInstanceClass.h"
 
 using std::cout; using std::endl;
 
@@ -83,9 +85,11 @@ namespace JSNR {
         
         //    free(wrap);
         id firstObject = [[thisClass alloc] init];
-        InvokeInfo *invokeInfo = new InvokeInfo(firstObject, "");
         
-        function.setPrivate(invokeInfo);
+        InvokeInfo *invokeInfo = new InvokeInfo(firstObject, "");
+        JSNRContainer *container = [[JSNRContainer alloc] initWithJSNRClass:[[JSNRInstanceClass alloc] init] data:invokeInfo];
+        
+        function.setPrivate(container);
         
         return function.valueRef;
     }

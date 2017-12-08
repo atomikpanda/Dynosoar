@@ -9,6 +9,54 @@
 #import "JavaScriptNativeRuntime.h"
 #import "JSNRInvoke.h"
 #import "JSNRSigType.hpp"
+#import "JSNRObjCClassClass.h"
+#import "JSNRInstanceClass.h"
+
+@implementation NSString (JSNR)
+
++ (instancetype)stringWithJSStringRef:(JSStringRef)jsString {
+    size_t maxBufferSize = JSStringGetMaximumUTF8CStringSize(jsString);
+    char* utf8Buffer = new char[maxBufferSize];
+    size_t bytesWritten = JSStringGetUTF8CString(jsString, utf8Buffer, maxBufferSize);
+    std::string utf_string = std::string(utf8Buffer, bytesWritten -1); // the last byte is a null \0 which std::string doesn't need.
+    delete[] utf8Buffer;
+    
+    return @(utf_string.c_str());
+}
+
+- (JSValue *)valueInContext:(JSContext *)context {
+    JSStringRef jsString = JSStringCreateWithUTF8CString(self.UTF8String);
+    return [JSValue valueWithJSValueRef:JSValueMakeString((JSContextRef)context.JSGlobalContextRef, jsString) inContext:context];
+}
+
+@end
+
+@implementation JSValue (JSNRValue)
+
+- (void)setPrivateData:(void *)data {
+    JSObjectSetPrivate((JSObjectRef)self.JSValueRef, data);
+}
+
+- (void *)privateData {
+    return JSObjectGetPrivate((JSObjectRef)self.JSValueRef);
+}
+
+- (BOOL)isClassObject {
+    JSContextRef ctx = (JSContextRef)self.context.JSGlobalContextRef;
+    return JSValueIsObjectOfClass(ctx, self.JSValueRef, [[[JSNRObjCClassClass alloc] init] classReference]);
+}
+
+- (BOOL)isInstanceObject {
+    JSContextRef ctx = (JSContextRef)self.context.JSGlobalContextRef;
+    return JSValueIsObjectOfClass(ctx, self.JSValueRef, [[[JSNRInstanceClass alloc] init] classReference]);
+}
+
+- (void)dealloc {
+    
+    [super dealloc];
+}
+
+@end
 
 namespace JSNR {
     
@@ -27,9 +75,13 @@ namespace JSNR {
             localValueRef = JSValueMakeBoolean(ctx, sigInfo.boolFromPointer<bool>(methodReturnData));
         } else if (sigInfo.isEncodingInstanceOrClass()) {
             if (sigInfo.type == SigType::ENCTypeClass) {
-                localValueRef = ObjCClass::instanceWithObjCClass(ctx, (id)methodReturnData);
+                
+                JSNRObjCClassClass *classClass = [[JSNRObjCClassClass alloc] init];
+                localValueRef = [classClass createObjectRefWithContext:ctx object:methodReturnData];
             } else if (sigInfo.type == SigType::ENCTypeObject) {
-                localValueRef = Instance::instanceWithObject(ctx, (id)methodReturnData);
+                
+                JSNRInstanceClass *instance = [[JSNRInstanceClass alloc] init];
+                localValueRef = [instance createObjectRefWithContext:ctx object:methodReturnData];
                 
             }
         } else if (sigInfo.type == SigType::ENCTypeCharPointer) {
@@ -97,11 +149,11 @@ namespace JSNR {
     }
     
     bool Value::isClass() {
-        return JSValueIsObjectOfClass(context, objectRef, ObjCClass::classRef());
+        return JSValueIsObjectOfClass(context, objectRef, [[[[JSNRObjCClassClass alloc] init] autorelease] classReference]);
     }
     
     bool Value::isInstance() {
-        return JSValueIsObjectOfClass(context, objectRef, Instance::classRef());
+        return JSValueIsObjectOfClass(context, objectRef, [[[[JSNRInstanceClass alloc] init] autorelease] classReference]);
     }
     
     NSString *Value::toString() {

@@ -36,7 +36,7 @@ static void init_hooks() {
     NSString *scriptContents = [NSString stringWithContentsOfFile:[[NSBundle mainBundle] pathForResource:@"iostest.js" ofType:@""] encoding:NSUTF8StringEncoding error:&error];
     if (error) NSLog(@"script contents err: %@", error);
     
-    JSNRContext *context = [JSNRContext sharedInstance];
+    JSNRContextManager *context = [JSNRContextManager sharedInstance];
     
     JSValue *retval = [context evaluateScript:scriptContents baseDirectoryPath:[[NSBundle mainBundle] resourcePath]];
 }

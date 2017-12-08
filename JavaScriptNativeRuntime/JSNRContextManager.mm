@@ -1,12 +1,12 @@
 //
-//  JSNRContext.m
+//  JSNRContextManager.m
 //  JavaScriptNativeRuntime
 //
 //  Created by Bailey Seymour on 11/29/17.
 //  Copyright © 2017 Bailey Seymour. All rights reserved.
 //
 
-#import "JSNRContext.h"
+#import "JSNRContextManager.h"
 #import <objc/runtime.h>
 #import <objc/message.h>
 #import <TargetConditionals.h>
@@ -21,16 +21,19 @@
 #import "JSNRInvoke.h"
 #import "JSNRSigType.hpp"
 #import "JSNRDelegateClass.h"
+#import "JSNRSuperClass.h"
+#import "JSNRInstanceClass.h"
+#import "JSNRObjCClassClass.h"
 
-@implementation JSNRContext
+@implementation JSNRContextManager
 @synthesize coreContext, scriptContents, allMaps, baseDirectoryPath;
 
 + (instancetype)sharedInstance
 {
-    static JSNRContext *sharedInstance = nil;
+    static JSNRContextManager *sharedInstance = nil;
     static dispatch_once_t onceToken;
     dispatch_once(&onceToken, ^{
-        sharedInstance = [[[JSNRContext alloc] init] autorelease];
+        sharedInstance = [[[JSNRContextManager alloc] init] autorelease];
         // Do any other initialisation stuff here
     });
     return sharedInstance;
@@ -62,24 +65,36 @@
         JSObjectRef baseCls = JSObjectMake(ctx, base, NULL);
         JSObjectSetProperty(ctx, globalObject, JSStringCreateWithUTF8CString("Base"), baseCls, kJSPropertyAttributeNone, NULL);
         
-        JSClassRef ObjCClassRef = JSNR::ObjCClass::classRef();
+//        JSClassRef ObjCClassRef = JSNR::ObjCClass::classRef();
+//
+//        JSObjectRef ObjCClassObject = JSObjectMake(ctx, ObjCClassRef, NULL);
+//        JSObjectSetProperty(ctx, globalObject, JSStringCreateWithUTF8CString("ObjCClass"), ObjCClassObject, kJSPropertyAttributeNone, NULL);
         
-        JSObjectRef ObjCClassObject = JSObjectMake(ctx, ObjCClassRef, NULL);
-        JSObjectSetProperty(ctx, globalObject, JSStringCreateWithUTF8CString("ObjCClass"), ObjCClassObject, kJSPropertyAttributeNone, NULL);
+//        JSClassRef InstanceClassRef = JSNR::Instance::classRef();
+//
+//        JSObjectRef InstanceClassObject = JSObjectMake(ctx, InstanceClassRef, NULL);
+//        JSObjectSetProperty(ctx, globalObject, JSStringCreateWithUTF8CString("Instance"), InstanceClassObject, kJSPropertyAttributeNone, NULL);
         
-        JSClassRef InstanceClassRef = JSNR::Instance::classRef();
+        JSNRObjCClassClass *objcClassClass = [[JSNRObjCClassClass alloc] init];
+        [self insertJSClass:objcClassClass];
         
-        JSObjectRef InstanceClassObject = JSObjectMake(ctx, InstanceClassRef, NULL);
-        JSObjectSetProperty(ctx, globalObject, JSStringCreateWithUTF8CString("Instance"), InstanceClassObject, kJSPropertyAttributeNone, NULL);
+        JSNRInstanceClass *instance = [[JSNRInstanceClass alloc] init];
+        [self insertJSClass:instance];
         
         JSClassRef DelegateClassRef = JSNR::DelegateClass::classRef();
         
         JSObjectRef DelegateClassObject = JSObjectMake(ctx, DelegateClassRef, NULL);
         JSObjectSetProperty(ctx, globalObject, JSStringCreateWithUTF8CString("Delegate"), DelegateClassObject, kJSPropertyAttributeNone, NULL);
         
+        JSNRSuperClass *baseClass = [[JSNRSuperClass alloc] init];
+        [self insertJSClass:baseClass];
     }
     
     return self;
+}
+
+- (void)insertJSClass:(JSNRSuperClass *)cls {
+    [cls addClassObjectInContext:self.coreContext];
 }
 
 - (void *)one:(id)o1 two:(id)o2 three:(id)o3 four:(id)o4 five:(id)o5 six:(id)o6 seven:(id)o7 eight:(id)o8 nine:(id)o9 ten:(id)o10 {
@@ -105,12 +120,13 @@
         if (o9 && numberOfArgs >= 9) [actualArgs addObject:o9];
         if (o10 && numberOfArgs >= 10) [actualArgs addObject:o10];
     }
-    JSContextRef ctx = [JSNRContext sharedInstance].coreContext.JSGlobalContextRef;
+    JSContextRef ctx = [JSNRContextManager sharedInstance].coreContext.JSGlobalContextRef;
     
-
-    JSObjectRef selfObj = JSNR::Instance::instanceWithObject(ctx, self);
+    JSNRInstanceClass *instance = [[JSNRInstanceClass alloc] init];
+    
+    JSObjectRef selfObj = [instance createObjectRefWithContext:ctx object:self]; //JSNR::Instance::instanceWithObject(ctx, self);
     // call the js function with self
-    [actualArgs insertObject:[JSValue valueWithJSValueRef:selfObj inContext:[JSNRContext sharedInstance].coreContext] atIndex:0];
+    [actualArgs insertObject:[JSValue valueWithJSValueRef:selfObj inContext:[JSNRContextManager sharedInstance].coreContext] atIndex:0];
     // call the js function with _cmd
     [actualArgs insertObject:selectorString atIndex:1];
     
@@ -138,7 +154,7 @@
 
 - (void)insertNativeBridge {
     [self.coreContext.globalObject setValue:self forProperty:@"__self__"];
-    #define __self ((JSNRContext *)([[JSContext currentContext][@"__self__"] toObject]))
+    #define __self ((JSNRContextManager *)([[JSContext currentContext][@"__self__"] toObject]))
     
     self.coreContext[@"console"][@"log"] = ^(JSValue *str){
         if (str.isNumber) {
@@ -158,7 +174,7 @@
     
     self.coreContext[@"include"] = ^JSValue *(NSString *file) {
         NSError *error = nil;
-        NSString *headersFolderInFramework = [[NSBundle bundleForClass:[JSNRContext class]].resourcePath stringByAppendingString:@"/headers/"];
+        NSString *headersFolderInFramework = [[NSBundle bundleForClass:[JSNRContextManager class]].resourcePath stringByAppendingString:@"/headers/"];
         
         file = [file stringByReplacingOccurrencesOfString:@"@headers/" withString:headersFolderInFramework];
         
@@ -184,7 +200,11 @@
         // here we pass the className string to the ObjCClass constructor
         JSContextRef ctx = [JSContext currentContext].JSGlobalContextRef;
         JSObjectRef globalObject = (JSObjectRef)[JSContext currentContext].globalObject.JSValueRef;
-        JSObjectRef classObject = JSNR::ObjCClass::instanceWithObjCClass(ctx, nil);
+        JSNRObjCClassClass *classClass = [[JSNRObjCClassClass alloc] init];
+        JSObjectRef classObject = [classClass createObjectRefWithContext:ctx];// JSNR::ObjCClass::instanceWithObjCClass(ctx, nil);
+        
+     
+        
         JSValueRef arguments[1];
         
         JSStringRef classNameJSString = JSNR::String(className.UTF8String).JSStringRef();
@@ -198,15 +218,27 @@
         arguments[0] = JSValueMakeString(ctx, classNameJSString);
         // this should now be equivilent to new ObjCClass("className")
         JSStringRef classNameAsCanBeReferencedInJS = usesAliasName ? aliasNameJSString : classNameJSString;
-        JSObjectRef classObjectInJS = JSObjectCallAsConstructor(ctx, classObject, 1, arguments, NULL);
+        
+        Class cls = objc_getClass([NSString stringWithJSStringRef:classNameJSString].UTF8String);
+        JSNR::InvokeInfo *allocInfo = new JSNR::InvokeInfo(cls, "", true);
+        allocInfo->target = cls;
+        JSNRContainer *container = [[JSNRContainer alloc] initWithJSNRClass:classClass data:allocInfo];
+        container.data = allocInfo;
+        JSObjectSetPrivate(classObject, container);
+        JSObjectRef classObjectInJS = classObject;
+        
+//        JSObjectRef classObjectInJS = JSObjectCallAsConstructor(ctx, classObject, 1, arguments, NULL);
         JSObjectSetProperty(ctx, globalObject, classNameAsCanBeReferencedInJS, classObjectInJS, kJSPropertyAttributeNone, NULL);
+        
         
         return [JSValue valueWithJSValueRef:classObjectInJS inContext:[JSContext currentContext]];
     };
     
     self.coreContext[@"hook"] = ^(JSValue *classObjCObject, NSString *selectorString, JSValue *newFn) {
-        JSObjectRef objCObjectRef = (JSObjectRef)classObjCObject.JSValueRef;
-        JSNR::InvokeInfo *info = static_cast<JSNR::InvokeInfo *>(JSObjectGetPrivate(objCObjectRef));
+//        JSObjectRef objCObjectRef = (JSObjectRef)classObjCObject.JSValueRef;
+        JSNRContainer *container = (id)classObjCObject.privateData;
+        
+        JSNR::InvokeInfo *info = static_cast<JSNR::InvokeInfo *>(container.data);
         Class classToBeHooked = info->target;
         
         SEL selector = NSSelectorFromString(selectorString);

@@ -1,5 +1,5 @@
 //
-//  JSNRBaseClass.hpp
+//  JSNRSuperClass.hpp
 //  JavaScriptNativeRuntime
 //
 //  Created by Bailey Seymour on 12/1/17.

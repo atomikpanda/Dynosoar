@@ -12,6 +12,7 @@
 #import <iostream>
 #import <objc/runtime.h>
 #import "JSNRInvoke.h"
+#import "JSNRInstanceClass.h"
 
 using std::cout; using std::endl;
 
@@ -73,7 +74,8 @@ namespace JSNR {
     { JSNRFunctionCallbackCast
         cout << "ObjCClass called as function" << endl;
         
-        InvokeInfo *allocInfo = static_cast<InvokeInfo *>(function.getPrivate());
+        JSNRContainer *container = (id)function.getPrivate();
+        InvokeInfo *allocInfo = static_cast<InvokeInfo *>(container.data);
         Class thisClass = allocInfo->target;
         cout << "looks like: " << class_getName(thisClass) << endl;
         
@@ -81,10 +83,15 @@ namespace JSNR {
         InvokeInfo *invokeInfo = new InvokeInfo(firstObject, "");
         
 //        function.setPrivate(invokeInfo);
-        JSObjectRef instanceObject = Instance::instanceWithObject(ctx, firstObject);
-        Value val = Value(ctx, instanceObject);
-        val.setPrivate(invokeInfo);
-        return val.valueRef;
+        
+        
+        JSNRInstanceClass *instance = [[JSNRInstanceClass alloc] init];
+        JSNRContainer *container = [[JSNRContainer alloc] initWithJSNRClass:instance data:invokeInfo];
+        JSObjectRef instanceObject = [instance createObjectRefWithContext:ctx object:container];
+        JSValue *val = [JSValue valueWithJSValueRef:instanceObject inContext:[JSContext contextWithJSGlobalContextRef:JSContextGetGlobalContext(ctx)]];
+        val.privateData = invokeInfo;
+        
+        return val.JSValueRef;
     }
     
     JSObjectRef thisClass::asConstructor(JSContextRef ctx, JSObjectRef constructorRef, size_t argumentCount, const JSValueRef argumentRefs[], JSValueRef* exception)
@@ -154,6 +161,7 @@ namespace JSNR {
     }
     
     JSObjectRef thisClass::instanceWithObjCClass(JSContextRef ctx, Class objCClass) {
+        
         JSClassRef cls = JSNR::ObjCClass::classRef();
         JSNR::Value selfObj = JSNR::Value(ctx, JSObjectMake(ctx, cls, NULL));
         JSNR::InvokeInfo *invokeInfo = new JSNR::InvokeInfo(objCClass, "");

@@ -1,5 +1,5 @@
 //
-//  JSNRBaseClass.hpp
+//  JSNRSuperClass.hpp
 //  JavaScriptNativeRuntime
 //
 //  Created by Bailey Seymour on 12/1/17.
@@ -31,4 +31,4 @@ namespace JSNR {
     
 }
 
-#endif /* JSNRBaseClass_hpp */
+#endif /* JSNRSuperClass_hpp */

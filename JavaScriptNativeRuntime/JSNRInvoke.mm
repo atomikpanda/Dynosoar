@@ -12,6 +12,7 @@
 #import <objc/runtime.h>
 #import <iostream>
 #import "JSNRSigType.hpp"
+#import "JSNRSuperClass.h"
 
 using std::cout; using std::endl;
 
@@ -103,7 +104,9 @@ namespace JSNR {
     JSValueRef Invoke::invokeFunction(JSContextRef ctx, JSObjectRef functionRef, JSObjectRef thisObjectRef, size_t argumentCount, const JSValueRef argumentRefs[], JSValueRef* exceptionRef)
     { JSNRFunctionCallbackCast
         
-        InvokeInfo *info = static_cast<InvokeInfo *>(thisObject.getPrivate());
+        JSNRContainer *container = (id)thisObject.getPrivate();
+        InvokeInfo *info = static_cast<InvokeInfo *>(container.data);
+        
         id target = info->target;
         BOOL targetIsClass = info->targetIsClass;//class_isMetaClass(object_getClass(target));
         

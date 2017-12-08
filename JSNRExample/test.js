@@ -1,7 +1,7 @@
 include("@headers/Foundation.js")
 include("@headers/AppKit.js")
 interface("AppDelegate")
-interface("JSNRContext")
+interface("JSNRContextManager")
 
 hook(AppDelegate, "someMethodThatHasNSString", function(self, cmd){
   return "This is the new APPNAME!!!";
@@ -25,7 +25,7 @@ console.log("bid: "+bundleIdentifier)
 /*
 var f = Filesystem("ytt")
 var hello = Filesystem.helloWorld
-var bundle = JSNRContext().mainBundle;
+var bundle = JSNRContextManager().mainBundle;
 console.log("it is: "+hello)
 console.log("fromJS "+Filesystem().internalClassName)
 */
@@ -35,7 +35,8 @@ console.log("fromJS "+Filesystem().internalClassName)
 function showAlert() {
 
   var alert = NSAlert()
-  console.log("ISKOFK: "+alert.isKindOfClass$(NSAlert))
+  // console.log("ISKOFK: "+alert.isKindOfClass$(NSAlert))
+  console.log("ALERT: "+alert + "  "+new ObjCClass("NSAlert"))
   alert.addButtonWithTitle$("OK")
   alert.addButtonWithTitle$("Cancel")
   alert.messageText = "Delete the record?"
@@ -78,6 +79,9 @@ hook(AppDelegate,"applicationDidFinishLaunching:", function(self,cmd,notificatio
 
   self.window().title = self.someMethodThatHasNSString();
 });
+
+var test = BaseClass2;
+console.log("thisn is a: "+test.hhhhh);
 // hook(AppDelegate,"applicationDidFinishLaunching:", function(self,cmd,notification){
 //
 //      self.$.makeRed();

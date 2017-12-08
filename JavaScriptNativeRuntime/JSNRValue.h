@@ -12,6 +12,16 @@
 #import "JSNRInternal.h"
 #import <string>
 
+@interface NSString (JSNR)
++ (instancetype)stringWithJSStringRef:(JSStringRef)jsString;
+- (JSValue *)valueInContext:(JSContext *)context;
+@end
+
+@interface JSValue (JSNRValue)
+
+@property (nonatomic, assign) void *privateData;
+@end
+
 namespace JSNR {
     class String; class SigType;
     class Value {

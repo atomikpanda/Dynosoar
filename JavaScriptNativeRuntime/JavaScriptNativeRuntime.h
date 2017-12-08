@@ -14,7 +14,7 @@
 #import "JSNRString.h"
 #import "BaseClass.h"
 #import "JSNRObjCClass.h"
-#import "JSNRContext.h"
+#import "JSNRContextManager.h"
 #import "JSNRInstance.h"
 
 //! Project version number for JavaScriptNativeRuntime.
