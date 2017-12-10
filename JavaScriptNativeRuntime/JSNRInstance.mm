@@ -87,7 +87,7 @@ namespace JSNR {
         id firstObject = [[thisClass alloc] init];
         
         InvokeInfo *invokeInfo = new InvokeInfo(firstObject, "");
-        JSNRContainer *container = [[JSNRContainer alloc] initWithJSNRClass:[[JSNRInstanceClass alloc] init] data:invokeInfo];
+        JSNRContainer *container = [[JSNRContainer alloc] initWithJSNRClass:[JSNRInstanceClass sharedReference] data:invokeInfo];
         
         function.setPrivate(container);
         

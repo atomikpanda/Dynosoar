@@ -12,13 +12,14 @@
 #import "JSNRInternal.h"
 #import <string>
 
+@class JSNRContainer;
 @interface NSString (JSNR)
 + (instancetype)stringWithJSStringRef:(JSStringRef)jsString;
 - (JSValue *)valueInContext:(JSContext *)context;
 @end
 
 @interface JSValue (JSNRValue)
-
+@property (nonatomic, assign)  JSNRContainer *container;
 @property (nonatomic, assign) void *privateData;
 @end
 

@@ -68,10 +68,11 @@ bool JSNRObjectDeletePropertyCallbackWrap(JSContextRef ctx, JSObjectRef objectRe
 
 JSValueRef JSNRObjectCallAsFunctionCallbackWrap(JSContextRef ctx, JSObjectRef functionRef, JSObjectRef thisObjectRef, size_t argumentCount, const JSValueRef argumentRefs[], JSValueRef *exception)
 {
+    
     JSContext *context = [JSContext contextWithJSGlobalContextRef:JSContextGetGlobalContext(ctx)];
     JSValue *function = [JSValue valueWithJSValueRef:functionRef inContext:context];
     JSValue *thisObject = [JSValue valueWithJSValueRef:thisObjectRef inContext:context];
-    JSNRContainer *container = (id)[thisObject privateData];
+    JSNRContainer *container = (id)[function container];
     
     JSValue *result = [container.JSNRClass calledAsFunction:function thisObject:thisObject argumentCount:argumentCount argumentRefs:argumentRefs inContext:context];
     
@@ -83,9 +84,10 @@ JSObjectRef JSNRObjectCallAsConstructorCallbackWrap(JSContextRef ctx, JSObjectRe
     JSContext *context = [JSContext contextWithJSGlobalContextRef:JSContextGetGlobalContext(ctx)];
     JSValue *constructor = [JSValue valueWithJSValueRef:constructorRef inContext:context];
     
-    JSNRContainer *container = (id)[constructor privateData];
-    if (![container.JSNRClass respondsToSelector:@selector(calledAsConstructor:argumentCount:argumentRefs:inContext:)])
-        return (JSObjectRef)[JSValue valueWithNullInContext:context].JSValueRef;
+    JSNRContainer *container = constructor.container;
+    
+//    if (![container.JSNRClass respondsToSelector:@selector(calledAsConstructor:argumentCount:argumentRefs:inContext:)])
+//        return (JSObjectRef)[JSValue valueWithNullInContext:context].JSValueRef;
     
     JSValue *result = [container.JSNRClass calledAsConstructor:constructor argumentCount:argumentCount argumentRefs:argumentRefs inContext:context];
     
@@ -103,20 +105,25 @@ JSValueRef JSNRConvertToTypeWrap(JSContextRef ctx, JSObjectRef objectRef, JSType
 }
 
 @implementation JSNRContainer
-@synthesize JSNRClass=_JSNRClass, data=_data;
+@synthesize JSNRClass=_JSNRClass, info=_info;
 
-- (id)initWithJSNRClass:(id)cls data:(void *)data {
+- (id)initWithJSNRClass:(id)cls info:(NSObject *)info {
     self = [super init];
     if (self) {
         self.JSNRClass = cls;
-        self.data = data;
+        self.info  = info;
+        
     }
     return self;
 }
 
++ (instancetype)containerForClass:(id)cls info:(NSObject *)info {
+    return [[[self alloc] initWithJSNRClass:cls info:info] autorelease];
+}
+
 - (void)dealloc {
     self.JSNRClass = nil;
-    self.data = NULL;
+    self.info = nil;
     
     [super dealloc];
 }
@@ -130,8 +137,15 @@ JSValueRef JSNRConvertToTypeWrap(JSContextRef ctx, JSObjectRef objectRef, JSType
 @implementation JSNRSuperClass
 @synthesize classReference=_classReference, classDefinition=_classDefinition;
 
-+ (NSString *)JSClassName {
-    return @"BaseClass2";
++ (instancetype)sharedReference
+{
+    static NSObject *sharedInstance = nil;
+    static dispatch_once_t onceToken;
+    dispatch_once(&onceToken, ^{
+        sharedInstance = [[[self alloc] init] autorelease];
+        // Do any other initialisation stuff here
+    });
+    return (id)sharedInstance;
 }
 
 - (id)init {
@@ -143,33 +157,35 @@ JSValueRef JSNRConvertToTypeWrap(JSContextRef ctx, JSObjectRef objectRef, JSType
         classDef.className = [[self class] JSClassName].UTF8String;
         classDef.attributes = kJSClassAttributeNone;
         
-        if ([self respondsToSelector:@selector(initializeWithObject:inContext:)])
-            classDef.initialize = JSNRObjectInitializeCallbackWrap;
-        
-        if ([self respondsToSelector:@selector(finalizeWithObject:)])
-            classDef.finalize = JSNRObjectFinalizeCallbackWrap;
-        
-        if ([self respondsToSelector:@selector(object:hasPropertyWithName:inContext:)])
-            classDef.hasProperty = JSNRObjectHasPropertyCallbackWrap;
-        
-        if ([self respondsToSelector:@selector(getPropertyWithName:fromObject:inContext:)])
-            classDef.getProperty = JSNRObjectGetPropertyCallbackWrap;
-        
-        if ([self respondsToSelector:@selector(setPropertyWithName:onObject:value:inContext:)])
-            classDef.setProperty = JSNRObjectSetPropertyCallbackWrap;
-        
-        if ([self respondsToSelector:@selector(deletePropertyWithName:onObject:inContext:)])
-            classDef.deleteProperty = JSNRObjectDeletePropertyCallbackWrap;
-        
-        if ([self respondsToSelector:@selector(calledAsFunction:thisObject:argumentCount:argumentRefs:inContext:)])
-            classDef.callAsFunction = JSNRObjectCallAsFunctionCallbackWrap;
-        
-        if ([self respondsToSelector:@selector(calledAsConstructor:argumentCount:argumentRefs:inContext:)])
-            classDef.callAsConstructor = JSNRObjectCallAsConstructorCallbackWrap;
-        
-        if ([self respondsToSelector:@selector(convertObject:toType:inContext:)])
-            classDef.convertToType = JSNRConvertToTypeWrap;
-        
+        if ([self conformsToProtocol:@protocol(JSNRClass)]) {
+            
+            if ([self respondsToSelector:@selector(initializeWithObject:inContext:)])
+                classDef.initialize = JSNRObjectInitializeCallbackWrap;
+            
+            if ([self respondsToSelector:@selector(finalizeWithObject:)])
+                classDef.finalize = JSNRObjectFinalizeCallbackWrap;
+            
+            if ([self respondsToSelector:@selector(object:hasPropertyWithName:inContext:)])
+                classDef.hasProperty = JSNRObjectHasPropertyCallbackWrap;
+            
+            if ([self respondsToSelector:@selector(getPropertyWithName:fromObject:inContext:)])
+                classDef.getProperty = JSNRObjectGetPropertyCallbackWrap;
+            
+            if ([self respondsToSelector:@selector(setPropertyWithName:onObject:value:inContext:)])
+                classDef.setProperty = JSNRObjectSetPropertyCallbackWrap;
+            
+            if ([self respondsToSelector:@selector(deletePropertyWithName:onObject:inContext:)])
+                classDef.deleteProperty = JSNRObjectDeletePropertyCallbackWrap;
+            
+            if ([self respondsToSelector:@selector(calledAsFunction:thisObject:argumentCount:argumentRefs:inContext:)])
+                classDef.callAsFunction = JSNRObjectCallAsFunctionCallbackWrap;
+            
+            if ([self respondsToSelector:@selector(calledAsConstructor:argumentCount:argumentRefs:inContext:)])
+                classDef.callAsConstructor = JSNRObjectCallAsConstructorCallbackWrap;
+            
+            if ([self respondsToSelector:@selector(convertObject:toType:inContext:)])
+                classDef.convertToType = JSNRConvertToTypeWrap;
+        }
         
         self.classDefinition = classDef;
         [self _createReferenceFromDefinition];
@@ -182,33 +198,14 @@ JSValueRef JSNRConvertToTypeWrap(JSContextRef ctx, JSObjectRef objectRef, JSType
     _classReference = JSClassCreate(&_classDefinition);
 }
 
-- (JSNRContainer *)_createContainer {
-    JSNRContainer *container = [[JSNRContainer alloc] initWithJSNRClass:self data:NULL];
-    // set any extra props on container here
-    return container;
-}
-
-- (JSObjectRef)createObjectRefWithContext:(JSContextRef)ctx {
-    JSObjectRef classObject = JSObjectMake(ctx, self.classReference, NULL);
++ (JSObjectRef)createEmptyObjectRefWithContext:(JSContextRef)ctx classRef:(JSNRSuperClass *)jsnrclass {
+    JSObjectRef classObject = JSObjectMake(ctx, jsnrclass.classReference, [JSNRContainer containerForClass:jsnrclass info:nil]);
+    
     return classObject;
 }
 
-- (JSValue *)addClassObjectInContext:(JSContext *)context {
-    JSContextRef ctx = (JSContextRef)context.JSGlobalContextRef;
-    
-    JSObjectRef classObject = [self createObjectRefWithContext:ctx];
-    
-    JSValue *val =  [JSValue valueWithJSValueRef:classObject inContext:context];
-    JSNRContainer *container = [self _createContainer];
-    [val setPrivateData:container];
-    NSLog(@"** INSERTING: %@", [self class].JSClassName);
-    [context.globalObject setValue:val forProperty:[[self class] JSClassName]];
-    
-    return val;
-}
-
-- (JSValue *)getPropertyWithName:(NSString *)propertyName fromObject:(JSValue *)object inContext:(JSContext *)context {
-    return [propertyName valueInContext:context];
++ (JSValue *)createEmptyObjectWithContext:(JSContext *)context classRef:(JSNRSuperClass *)jsnrclass {
+    return [JSValue valueWithJSValueRef:[JSNRSuperClass createEmptyObjectRefWithContext:context.JSGlobalContextRef classRef:jsnrclass] inContext:context];
 }
 
 - (void)dealloc {

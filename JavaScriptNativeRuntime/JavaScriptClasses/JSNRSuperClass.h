@@ -10,13 +10,15 @@
 #import <JavaScriptCore/JavaScriptCore.h>
 #import "JSNRContextManager.h"
 
-@class JSNRSuperClass;
+@protocol JSNRClass;
 @interface JSNRContainer : NSObject
 
-- (id)initWithJSNRClass:(id)cls data:(void *)data;
++ (instancetype)containerForClass:(id)cls info:(id)info;
+- (id)initWithJSNRClass:(id)cls info:(id)info;
 
-@property (nonatomic, retain) JSNRSuperClass *JSNRClass;
-@property (nonatomic, assign) void *data;
+@property (nonatomic, retain) id<JSNRClass> JSNRClass;
+@property (nonatomic, retain) id info;
+//@property (nonatomic, assign) void *data;
 
 @end
 
@@ -24,12 +26,19 @@
 
 @property (nonatomic, assign) JSClassRef classReference;
 
-+ (NSString *)JSClassName;
-- (id)init;
-- (JSObjectRef)createObjectRefWithContext:(JSContextRef)ctx;
-- (JSValue *)addClassObjectInContext:(JSContext *)context;
-- (JSNRContainer *)_createContainer;
++ (instancetype)sharedReference;
 
++ (JSObjectRef)createEmptyObjectRefWithContext:(JSContextRef)ctx classRef:(JSNRSuperClass *)jsnrclass;
++ (JSValue *)createEmptyObjectWithContext:(JSContext *)context classRef:(JSNRSuperClass *)jsnrclass;
+
+
+@end
+
+@protocol JSNRClass
+@required
++ (NSString *)JSClassName;
+
+@optional
 - (void)initializeWithObject:(JSValue *)object inContext:(JSContext *)context;
 - (void)finalizeWithObject:(JSValue *)object;
 - (BOOL)object:(JSValue *)object hasPropertyWithName:(NSString *)propertyName inContext:(JSContext *)context;

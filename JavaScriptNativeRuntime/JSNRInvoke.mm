@@ -13,6 +13,7 @@
 #import <iostream>
 #import "JSNRSigType.hpp"
 #import "JSNRSuperClass.h"
+#import "JSNRInvokeInfo.h"
 
 using std::cout; using std::endl;
 
@@ -105,16 +106,18 @@ namespace JSNR {
     { JSNRFunctionCallbackCast
         
         JSNRContainer *container = (id)thisObject.getPrivate();
-        InvokeInfo *info = static_cast<InvokeInfo *>(container.data);
+        JSNRInvokeInfo *info = container.info;
         
-        id target = info->target;
-        BOOL targetIsClass = info->targetIsClass;//class_isMetaClass(object_getClass(target));
+        id target = info.target;
+        BOOL targetIsClass = info.targetIsClass;//class_isMetaClass(object_getClass(target));
         
-        if (info->selector.length() > 0) {
+        
+        
+        if (info.selector != nil) {
             if (targetIsClass)
-                cout << "invoke " << info->selector << " on class " << class_getName(target) << endl;
+                cout << "invoke " << info.selectorString.UTF8String << " on class " << class_getName(target) << endl;
             else
-                cout << "invoke " << info->selector << " on object of class " << object_getClassName(target) << endl;
+                cout << "invoke " << info.selectorString.UTF8String << " on object of class " << object_getClassName(target) << endl;
             
 //                        if (argumentCount > 0) {
 //                            JSValueRef firstArg = argumentRefs[0];
@@ -122,7 +125,7 @@ namespace JSNR {
 //                            NSLog(@"argument: %@", firstArgId);
 //                            
 //                        }
-            NSString *method = @(info->selector.c_str());
+            NSString *method = info.selectorString;
             NSUInteger numberOfArgs = [method componentsSeparatedByString:@":"].count;
             if ([method rangeOfString:@":"].location == NSNotFound) numberOfArgs = 0;
             if (numberOfArgs != argumentCount) {
@@ -170,6 +173,7 @@ namespace JSNR {
 //                [target makePurple:arg1];
 //                return NULL;
 //            }
+            
             
             [invocation retainArguments];
             [invocation invoke];

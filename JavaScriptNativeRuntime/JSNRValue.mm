@@ -11,6 +11,7 @@
 #import "JSNRSigType.hpp"
 #import "JSNRObjCClassClass.h"
 #import "JSNRInstanceClass.h"
+#import "JSNRInvokeInfo.h"
 
 @implementation NSString (JSNR)
 
@@ -39,6 +40,14 @@
 
 - (void *)privateData {
     return JSObjectGetPrivate((JSObjectRef)self.JSValueRef);
+}
+
+- (void)setContainer:(JSNRContainer *)container {
+    self.privateData = container;
+}
+
+- (JSNRContainer *)container {
+    return (JSNRContainer *)self.privateData;
 }
 
 - (BOOL)isClassObject {
@@ -76,13 +85,15 @@ namespace JSNR {
         } else if (sigInfo.isEncodingInstanceOrClass()) {
             if (sigInfo.type == SigType::ENCTypeClass) {
                 
-                JSNRObjCClassClass *classClass = [[JSNRObjCClassClass alloc] init];
-                localValueRef = [classClass createObjectRefWithContext:ctx object:methodReturnData];
+                localValueRef = [JSNRSuperClass createEmptyObjectRefWithContext:ctx classRef:[JSNRObjCClassClass sharedReference]];
+                JSNRContainer *container = (id)JSObjectGetPrivate((JSObjectRef)localValueRef);
+                container.info = [JSNRInvokeInfo infoWithTarget:(id)methodReturnData selector:nil isClass:YES];
+                
             } else if (sigInfo.type == SigType::ENCTypeObject) {
                 
-                JSNRInstanceClass *instance = [[JSNRInstanceClass alloc] init];
-                localValueRef = [instance createObjectRefWithContext:ctx object:methodReturnData];
-                
+                localValueRef = [JSNRSuperClass createEmptyObjectRefWithContext:ctx classRef:[JSNRInstanceClass sharedReference]];
+                JSNRContainer *container = (id)JSObjectGetPrivate((JSObjectRef)localValueRef);
+                container.info = [JSNRInvokeInfo infoWithTarget:(id)methodReturnData selector:nil isClass:NO];
             }
         } else if (sigInfo.type == SigType::ENCTypeCharPointer) {
             localValueRef = JSNR::String((const char *)methodReturnData).value(ctx).valueRef;
@@ -149,11 +160,11 @@ namespace JSNR {
     }
     
     bool Value::isClass() {
-        return JSValueIsObjectOfClass(context, objectRef, [[[[JSNRObjCClassClass alloc] init] autorelease] classReference]);
+        return JSValueIsObjectOfClass(context, objectRef, [JSNRObjCClassClass sharedReference].classReference);
     }
     
     bool Value::isInstance() {
-        return JSValueIsObjectOfClass(context, objectRef, [[[[JSNRInstanceClass alloc] init] autorelease] classReference]);
+        return JSValueIsObjectOfClass(context, objectRef, [JSNRInstanceClass sharedReference].classReference);
     }
     
     NSString *Value::toString() {
@@ -162,11 +173,10 @@ namespace JSNR {
     
     id Value::toObject() {
         if (isClass() || isInstance()) {
-            InvokeInfo *info = static_cast<InvokeInfo *>(getPrivate());
+            JSNRContainer *container = (id)getPrivate();
+            JSNRInvokeInfo *info = container.info;
             
-            id target = info->target;
-            
-            return target;
+            return info.target;
         }
         
         return nil;

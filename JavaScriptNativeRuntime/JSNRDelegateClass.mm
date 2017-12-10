@@ -12,6 +12,7 @@
 #import "JSNRSigType.hpp"
 #import <map>
 #import "JSNRInstanceClass.h"
+#import "JSNRInvokeInfo.h"
 
 @interface JSNRDelegateForwarder : NSObject// <UIAlertViewDelegate>
 @property (nonatomic, retain) JSValue *object;
@@ -185,10 +186,18 @@ namespace JSNR {
         
         JSValue *thisObjectWrapped = [JSValue valueWithJSValueRef:thisObjectRef inContext:[JSContext contextWithJSGlobalContextRef:JSContextGetGlobalContext(ctx)]];
         JSNRDelegateForwarder *delegate = [[[JSNRDelegateForwarder alloc] initWithJSValue:thisObjectWrapped] autorelease];
+
         
-        JSNRInstanceClass *instance = [[JSNRInstanceClass alloc] init];
         
-        JSObjectRef delobj = [instance createObjectRefWithContext:ctx object:delegate];
+//        JSObjectRef delobj = [[JSNRInstanceClass sharedReference] createObjectRefWithContext:ctx info:(JSNRInvokeInfo *)delegate];
+        JSObjectRef delobj = [JSNRSuperClass createEmptyObjectRefWithContext:ctx classRef:[JSNRInstanceClass sharedReference]];
+        #warning bad code below
+        
+        JSNRContainer *container = (id)JSObjectGetPrivate(delobj);
+        
+        JSNRInvokeInfo *info = [JSNRInvokeInfo infoWithTarget:delegate selector:nil isClass:NO];
+        container.info = info;
+        
         
         return delobj;//JSNR::Instance::instanceWithObject(ctx, delegate);
     }

@@ -8,6 +8,7 @@
 
 #import "JSNRSuperClass.h"
 
-@interface JSNRInstanceClass : JSNRSuperClass
-- (JSObjectRef)createObjectRefWithContext:(JSContextRef)ctx object:(void *)obj;
+@class JSNRInvokeInfo;
+@interface JSNRInstanceClass : JSNRSuperClass <JSNRClass>
+
 @end

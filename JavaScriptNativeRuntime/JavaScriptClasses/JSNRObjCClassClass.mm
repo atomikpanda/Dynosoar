@@ -11,11 +11,23 @@
 #import <objc/runtime.h>
 #import "JSNRValue.h"
 #import "JSNRInstanceClass.h"
+#import "JSNRInvokeInfo.h"
 
 @implementation JSNRObjCClassClass
 
 + (NSString *)JSClassName {
     return @"ObjCClass";
+}
+
++ (instancetype)sharedReference
+{
+    static NSObject *sharedInstance = nil;
+    static dispatch_once_t onceToken;
+    dispatch_once(&onceToken, ^{
+        sharedInstance = [[[self alloc] init] autorelease];
+        // Do any other initialisation stuff here
+    });
+    return (id)sharedInstance;
 }
 
 - (JSValue *)getPropertyWithName:(NSString *)propertyName fromObject:(JSValue *)object inContext:(JSContext *)context
@@ -40,16 +52,16 @@
     
     JSObjectRef invokeFn = JSObjectMakeFunctionWithCallback((JSContextRef)context.JSGlobalContextRef, NULL, JSNR::Invoke::invokeFunction);
     
-    JSNRContainer *container = (id)[object privateData];
-    JSNR::InvokeInfo *invokeInfo = static_cast<JSNR::InvokeInfo *>(container.data);
-    invokeInfo->selector = selectorStr;
-    invokeInfo->targetIsClass = true;
+    JSNRContainer *container = object.container;
+    JSNRInvokeInfo *invokeInfo = container.info;
+    invokeInfo.selectorString = @(selectorStr.c_str());
+    invokeInfo.targetIsClass = YES;
     //        InvokeInfo *methodCallInfo = new InvokeInfo(invokeInfo->target, selector.string());
     
     //    free(wrap);
     
     //        JSObjectSetPrivate(invokeFn, methodCallInfo); // appears not nessicary
-    container.data = invokeInfo;
+    container.info = invokeInfo;
     
     return [JSValue valueWithJSValueRef:invokeFn inContext:context];
 }
@@ -60,14 +72,15 @@
     printf("should invoke from set %s",  selectorStr.c_str());
     
     JSObjectRef invokeFn = JSObjectMakeFunctionWithCallback((JSContextRef)context.JSGlobalContextRef, NULL, JSNR::Invoke::invokeFunction);
-    JSNRContainer *container = (id)[object privateData];
+    JSNRContainer *container = object.container;
     
-    JSNR::InvokeInfo *info = static_cast<JSNR::InvokeInfo *>(container.data);
-    info->selector = selectorStr;
-    info->targetIsClass = true;
+    JSNRInvokeInfo *info = container.info;
+    info.selectorString = @(selectorStr.c_str());
+    info.targetIsClass = YES;
     
     //        JSObjectSetPrivate(invokeFn, methodCallInfo); // appears not nessicary
-    container.data = info;
+    container.info = info;
+    
     JSValueRef setArguments[1]; // the set of args to be passed to the set method
     setArguments[0] = value.JSValueRef;
     JSObjectCallAsFunction((JSContextRef)context.JSGlobalContextRef, invokeFn, (JSObjectRef)object.JSValueRef, 1, setArguments, NULL);
@@ -78,74 +91,62 @@
 - (JSValue *)calledAsFunction:(JSValue *)function thisObject:(JSValue *)thisObject argumentCount:(size_t)argumentCount argumentRefs:(const JSValueRef[])argumentRefs inContext:(JSContext *)context
 {
     printf("Class called as function\n");
-    JSNRContainer *container = (id)[function privateData];
+    JSNRContainer *container = function.container;
     
-    JSNR::InvokeInfo *allocInfo = static_cast<JSNR::InvokeInfo *>(container.data);
-    Class thisClass = allocInfo->target;
+    JSNRInvokeInfo *allocInfo = container.info;
+    Class thisClass = allocInfo.target;
     printf("looks like %s\n", class_getName(thisClass));
     
     //    free(wrap);
     id firstObject = [[thisClass alloc] init];
-    JSNR::InvokeInfo *invokeInfo = new JSNR::InvokeInfo(firstObject, "");
+    JSNRInvokeInfo *invokeInfo = [JSNRInvokeInfo info];
+    invokeInfo.target = firstObject;
     
-    JSNRInstanceClass *instance = [[[JSNRInstanceClass alloc] init] autorelease];
-    JSNRContainer *newContainer = [[JSNRContainer alloc] initWithJSNRClass:instance data:invokeInfo];
-    JSContextRef ctx = [context JSGlobalContextRef];
-    JSObjectRef instanceObjectRef = [instance createObjectRefWithContext:ctx object:newContainer];
+//    JSObjectRef instanceObjectRef = [[JSNRInstanceClass sharedReference] createObjectRefWithContext:ctx info:invokeInfo];
+    JSValue *instanceObject = [JSNRSuperClass createEmptyObjectWithContext:context classRef:[JSNRInstanceClass sharedReference]];
 //    container.data = invokeInfo;
-    return [JSValue valueWithJSValueRef:instanceObjectRef inContext:context];
+    instanceObject.container.info = invokeInfo;
+    
+    return instanceObject;
     
     return function;
 }
 
 - (JSValue *)calledAsConstructor:(JSValue *)constructor argumentCount:(size_t)argumentCount argumentRefs:(const JSValueRef[])argumentRefs inContext:(JSContext *)context
 {
+    
     JSValueRef classNameValueRef = argumentRefs[0];
+    
     NSString *className = [[JSValue valueWithJSValueRef:classNameValueRef inContext:context] toString];
     printf("returning class: %s\n", className.UTF8String);
     
     Class cls = objc_getClass(className.UTF8String);
-    JSNR::InvokeInfo *allocInfo = new JSNR::InvokeInfo(cls, "", true);
-    JSNRContainer *container = [[JSNRContainer alloc] initWithJSNRClass:[[JSNRObjCClassClass alloc] init] data:allocInfo];
-    constructor.privateData = container;
+    
+    JSNRInvokeInfo *allocInfo = [JSNRInvokeInfo infoWithTarget:cls selector:nil isClass:YES];
+    
+    constructor.container.info = allocInfo;
     
     return constructor;
 }
 
-- (JSObjectRef)createObjectRefWithContext:(JSContextRef)ctx {
-    JSObjectRef objectRef = [super createObjectRefWithContext:ctx];
+- (void)initializeWithObject:(JSValue *)object inContext:(JSContext *)context {
+    JSNRContainer *container = [JSNRContainer containerForClass:[JSNRObjCClassClass sharedReference] info:nil];
     
-    JSNRContainer *container = [self _createContainer];
-    JSObjectSetPrivate(objectRef, container);
-    
-    JSNR::InvokeInfo *invokeInfo = new JSNR::InvokeInfo(nil, "");
-    invokeInfo->targetIsClass = true;
-    container.data = invokeInfo;
-    
-    return objectRef;
-}
-
-- (JSObjectRef)createObjectRefWithContext:(JSContextRef)ctx object:(void *)obj {
-    JSObjectRef objRef = [self createObjectRefWithContext:ctx];
-    JSNRContainer *container = (id)JSObjectGetPrivate(objRef);
-    JSNR::InvokeInfo *invokeInfo = static_cast<JSNR::InvokeInfo *>(container.data);
-    invokeInfo->target = (id)obj;
-    invokeInfo->targetIsClass = true;
-    
-    return objRef;
+    object.container = [container retain];
 }
 
 - (void)finalizeWithObject:(JSValue *)object {
-    JSNRContainer *container = (id)[object privateData];
-    JSNR::InvokeInfo *info = static_cast<JSNR::InvokeInfo *>(container.data);
-    delete info;
+    JSNRContainer *container = [object container];
+    if (container) {
+        [container release];
+    }
 }
 
 - (JSValue *)convertObject:(JSValue *)object toType:(JSType)type inContext:(JSContext *)context {
-    JSNRContainer *container = (id)[object privateData];
-    JSNR::InvokeInfo *info = static_cast<JSNR::InvokeInfo *>(container.data);
+    JSNRContainer *container = object.container;
+    JSNRInvokeInfo *info = container.info;
     
-    id target = info->target;
+    id target = info.target;
     
     
     return [@(class_getName(target)) valueInContext:context];

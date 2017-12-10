@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		6608AAEA1FDD7B0800AD3491 /* JSNRInvokeInfo.h in Headers */ = {isa = PBXBuildFile; fileRef = 6608AAE81FDD7B0800AD3491 /* JSNRInvokeInfo.h */; };
+		6608AAEB1FDD7B0800AD3491 /* JSNRInvokeInfo.mm in Sources */ = {isa = PBXBuildFile; fileRef = 6608AAE91FDD7B0800AD3491 /* JSNRInvokeInfo.mm */; };
 		6656086B1FCF5CA000DC7916 /* Dynosoar.h in Headers */ = {isa = PBXBuildFile; fileRef = 665608691FCF5CA000DC7916 /* Dynosoar.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		6656086C1FCF5CA000DC7916 /* Dynosoar.m in Sources */ = {isa = PBXBuildFile; fileRef = 6656086A1FCF5CA000DC7916 /* Dynosoar.m */; };
 		665608731FCF5D4800DC7916 /* DynoBundle.h in Headers */ = {isa = PBXBuildFile; fileRef = 665608711FCF5D4800DC7916 /* DynoBundle.h */; };
@@ -102,6 +104,8 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		6608AAE81FDD7B0800AD3491 /* JSNRInvokeInfo.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = JSNRInvokeInfo.h; sourceTree = "<group>"; };
+		6608AAE91FDD7B0800AD3491 /* JSNRInvokeInfo.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = JSNRInvokeInfo.mm; sourceTree = "<group>"; };
 		6656085E1FCF5C7000DC7916 /* Dynosoar.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Dynosoar.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		665608621FCF5C7000DC7916 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		665608691FCF5CA000DC7916 /* Dynosoar.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Dynosoar.h; sourceTree = SOURCE_ROOT; };
@@ -314,6 +318,8 @@
 			children = (
 				667184FA1FD999E30006F20C /* JSNRSuperClass.h */,
 				667184FB1FD999E30006F20C /* JSNRSuperClass.mm */,
+				6608AAE81FDD7B0800AD3491 /* JSNRInvokeInfo.h */,
+				6608AAE91FDD7B0800AD3491 /* JSNRInvokeInfo.mm */,
 				667184FF1FD9CE2C0006F20C /* JSNRInstanceClass.h */,
 				667185001FD9CE2C0006F20C /* JSNRInstanceClass.mm */,
 				667185051FD9DAC20006F20C /* JSNRObjCClassClass.h */,
@@ -373,6 +379,7 @@
 				66D79D271FD8B62000B297E0 /* JSNRDelegateClass.h in Headers */,
 				665608BB1FD226E400DC7916 /* BaseClass.h in Headers */,
 				665608BF1FD2281E00DC7916 /* JSNRString.h in Headers */,
+				6608AAEA1FDD7B0800AD3491 /* JSNRInvokeInfo.h in Headers */,
 				665608841FCF5F7D00DC7916 /* JSNRContextManager.h in Headers */,
 				667185061FD9DAC20006F20C /* JSNRObjCClassClass.h in Headers */,
 				665608A61FCF6C6300DC7916 /* JSNRClassMap.h in Headers */,
@@ -499,7 +506,7 @@
 		665608551FCF5C7000DC7916 /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
-				LastUpgradeCheck = 0910;
+				LastUpgradeCheck = 0920;
 				ORGANIZATIONNAME = "Bailey Seymour";
 				TargetAttributes = {
 					6656085D1FCF5C7000DC7916 = {
@@ -618,6 +625,7 @@
 				667184FD1FD999E30006F20C /* JSNRSuperClass.mm in Sources */,
 				665608B61FD21F5C00DC7916 /* JSNRValue.mm in Sources */,
 				665608851FCF5F7D00DC7916 /* JSNRContextManager.mm in Sources */,
+				6608AAEB1FDD7B0800AD3491 /* JSNRInvokeInfo.mm in Sources */,
 				665608A71FCF6C6300DC7916 /* JSNRClassMap.mm in Sources */,
 				665608BE1FD2281E00DC7916 /* JSNRString.mm in Sources */,
 				66D79D251FD8B62000B297E0 /* JSNRDelegateClass.mm in Sources */,
@@ -941,6 +949,7 @@
 			buildSettings = {
 				CLANG_ENABLE_OBJC_ARC = NO;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
 				CODE_SIGN_STYLE = Automatic;
 				DEFINES_MODULE = YES;
 				DEVELOPMENT_TEAM = CMADB5PKU7;
@@ -964,6 +973,7 @@
 			buildSettings = {
 				CLANG_ENABLE_OBJC_ARC = NO;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
 				CODE_SIGN_STYLE = Automatic;
 				DEFINES_MODULE = YES;
 				DEVELOPMENT_TEAM = CMADB5PKU7;
