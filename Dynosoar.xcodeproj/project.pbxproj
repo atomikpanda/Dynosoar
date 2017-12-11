@@ -17,7 +17,6 @@
 		6608AAF21FDE06D000AD3491 /* JSNRInvokeInfo.mm in Sources */ = {isa = PBXBuildFile; fileRef = 6608AAE91FDD7B0800AD3491 /* JSNRInvokeInfo.mm */; };
 		6608AAF31FDE06D700AD3491 /* JSNRClassMap.mm in Sources */ = {isa = PBXBuildFile; fileRef = 665608A51FCF6C6300DC7916 /* JSNRClassMap.mm */; };
 		6608AAF41FDE06DC00AD3491 /* JSNRString.mm in Sources */ = {isa = PBXBuildFile; fileRef = 665608BC1FD2281E00DC7916 /* JSNRString.mm */; };
-		6608AAF51FDE06E100AD3491 /* JSNRDelegateClass_old.mm in Sources */ = {isa = PBXBuildFile; fileRef = 66D79D231FD8B61F00B297E0 /* JSNRDelegateClass_old.mm */; };
 		6608AAF61FDE06E600AD3491 /* JSNRInvoke.mm in Sources */ = {isa = PBXBuildFile; fileRef = 66D79CD31FD4A7EB00B297E0 /* JSNRInvoke.mm */; };
 		6608AAF71FDE06EB00AD3491 /* BaseClass.mm in Sources */ = {isa = PBXBuildFile; fileRef = 665608B81FD226E400DC7916 /* BaseClass.mm */; };
 		6608AAFA1FDF1DAA00AD3491 /* JSNRDelegateClass.h in Headers */ = {isa = PBXBuildFile; fileRef = 6608AAF81FDF1DAA00AD3491 /* JSNRDelegateClass.h */; };
@@ -78,7 +77,6 @@
 		66D79D1C1FD847F300B297E0 /* iostest.js in Resources */ = {isa = PBXBuildFile; fileRef = 66D79D1B1FD847F300B297E0 /* iostest.js */; };
 		66D79D201FD8790100B297E0 /* headers in Resources */ = {isa = PBXBuildFile; fileRef = 66D79D1F1FD8790100B297E0 /* headers */; };
 		66D79D221FD8791300B297E0 /* headers in Resources */ = {isa = PBXBuildFile; fileRef = 66D79D211FD8791200B297E0 /* headers */; };
-		66D79D251FD8B62000B297E0 /* JSNRDelegateClass_old.mm in Sources */ = {isa = PBXBuildFile; fileRef = 66D79D231FD8B61F00B297E0 /* JSNRDelegateClass_old.mm */; };
 		66D79D271FD8B62000B297E0 /* JSNRDelegateClass_old.h in Headers */ = {isa = PBXBuildFile; fileRef = 66D79D241FD8B62000B297E0 /* JSNRDelegateClass_old.h */; };
 		66D79D281FD8B62000B297E0 /* JSNRDelegateClass_old.h in Headers */ = {isa = PBXBuildFile; fileRef = 66D79D241FD8B62000B297E0 /* JSNRDelegateClass_old.h */; };
 		66DBA82C1FDA180500F9C942 /* JSNRInstanceClass.mm in Sources */ = {isa = PBXBuildFile; fileRef = 667185001FD9CE2C0006F20C /* JSNRInstanceClass.mm */; };
@@ -639,7 +637,6 @@
 				665608A71FCF6C6300DC7916 /* JSNRClassMap.mm in Sources */,
 				665608BE1FD2281E00DC7916 /* JSNRString.mm in Sources */,
 				6608AAFB1FDF1DAA00AD3491 /* JSNRDelegateClass.mm in Sources */,
-				66D79D251FD8B62000B297E0 /* JSNRDelegateClass_old.mm in Sources */,
 				66D79CD51FD4A7EB00B297E0 /* JSNRInvoke.mm in Sources */,
 				665608BA1FD226E400DC7916 /* BaseClass.mm in Sources */,
 			);
@@ -661,7 +658,6 @@
 				6608AAFC1FDF1F6C00AD3491 /* JSNRDelegateClass.mm in Sources */,
 				6608AAF71FDE06EB00AD3491 /* BaseClass.mm in Sources */,
 				6608AAF61FDE06E600AD3491 /* JSNRInvoke.mm in Sources */,
-				6608AAF51FDE06E100AD3491 /* JSNRDelegateClass_old.mm in Sources */,
 				6608AAF41FDE06DC00AD3491 /* JSNRString.mm in Sources */,
 				6608AAF31FDE06D700AD3491 /* JSNRClassMap.mm in Sources */,
 				6608AAF21FDE06D000AD3491 /* JSNRInvokeInfo.mm in Sources */,

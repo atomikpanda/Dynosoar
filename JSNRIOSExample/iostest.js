@@ -4,10 +4,10 @@ include("@headers/UIKit.js")
 interface("ViewController")
 var viewControllerInstance = null;
 // Delegate should create a object that forwards all method calls on it, to JSFunctions on the delegate JSObjectRef
-var delegate = new Delegate()
+var delegate = new Delegate("UIAlertViewDelegate")
 
 delegate.alertView$didDismissWithButtonIndex$ = function(self, cmd, alert, buttonIndex) {
-  console.log("self::: "+buttonIndex)
+  console.log("self::: "+self)
   if (buttonIndex == 0) {
   viewControllerInstance.view().backgroundColor = UIColor.greenColor()
   }

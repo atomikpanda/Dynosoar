@@ -12,6 +12,157 @@
 #import "JSNRValue.h"
 #import "JSNRInstanceClass.h"
 #import <objc/runtime.h>
+#import "JSNRString.h"
+#import "JSNRSigType.hpp"
+
+@interface JSNRDelegateForwarder : NSProxy {
+    JSValue *_object;
+    NSString *_protocolName;
+}
+- (id)initWithJSValue:(JSValue *)object protocol:(NSString *)protocolName;
+@end
+
+@implementation JSNRDelegateForwarder
+//@synthesize object;//objectRef, ctx;
+
+- (id)initWithJSValue:(JSValue *)object protocol:(NSString *)protocolName {
+    
+    if (self) {
+        self->_object = [object retain];
+        self->_protocolName = [protocolName copy];
+        NSLog(@"OBJE: %@", self->_object.toString);
+        //        JSValueProtect(ctx, object);
+        //        self.objectRef = object;
+        //        self.ctx = ctx;
+    }
+    
+    return self;
+}
+
+- (BOOL)respondsToSelector:(SEL)aSelector {
+    return YES;
+}
+
+//- (id)forwardingTargetForSelector:(SEL)aSelector {
+//    return nil;
+//}
+
+- (NSDictionary *)requiredInstanceMethods {
+    unsigned int count = 0;
+    struct objc_method_description *methodDescriptions = protocol_copyMethodDescriptionList(NSProtocolFromString(_protocolName), NO, YES, &count);
+    
+    NSMutableDictionary *protoMethods = [NSMutableDictionary dictionary];
+    
+    if (methodDescriptions != NULL) {
+        for (int i=0; i < count; i++) {
+            struct objc_method_description methodDescription = methodDescriptions[i];
+            SEL selector = methodDescription.name;
+            NSString *typeEncoding = [NSString stringWithUTF8String:methodDescription.types];
+            [protoMethods setObject:typeEncoding forKey:NSStringFromSelector(selector)];
+        }
+        
+        free(methodDescriptions);
+    }
+    
+    return protoMethods;
+}
+
+- (BOOL)conformsToProtocol:(Protocol *)aProtocol {
+    if (aProtocol == NSProtocolFromString(_protocolName))
+        return YES;
+    else
+        return [super conformsToProtocol:aProtocol];
+}
+
+- (NSMethodSignature *)methodSignatureForSelector:(SEL)aSelector {
+    NSDictionary *methods = [self requiredInstanceMethods];
+    if ([[methods allKeys] containsObject:NSStringFromSelector(aSelector)]) {
+        NSString *typeEncoding = [methods objectForKey:NSStringFromSelector(aSelector)];
+        
+        return [NSMethodSignature signatureWithObjCTypes:typeEncoding.UTF8String];
+    }
+    else
+        return [NSMethodSignature signatureWithObjCTypes:"v@:@"];
+}
+
+//+ (BOOL)instancesRespondToSelector:(SEL)aSelector {
+//    return YES;
+//}
+//
+//- (BOOL)respondsToSelector:(SEL)aSelector {
+//    return YES;
+//}
+
+- (void)forwardInvocation:(NSInvocation *)anInvocation {
+    
+    SEL cmd = anInvocation.selector;
+    
+    
+    
+    
+    NSString *stringSelector = NSStringFromSelector(cmd);
+    stringSelector = [stringSelector stringByReplacingOccurrencesOfString:@":" withString:@"$"];
+    
+    JSObjectRef objectRef = (JSObjectRef)self->_object.JSValueRef;
+    JSContextRef ctx = self->_object.context.JSGlobalContextRef;
+    if (objectRef == NULL || ctx == NULL) return;
+    JSNR::Value obj = JSNR::Value(ctx, objectRef);
+    
+    BOOL hasProp = [self->_object hasProperty:stringSelector];
+    NSLog(@"HAS %@ == %s", stringSelector, hasProp ?"Y":"N");
+    
+    //    if (self->_object.isObject) return;
+    
+    
+    if (!hasProp) return;
+    
+    JSValueRef function = [self->_object valueForProperty:stringSelector].JSValueRef;
+    
+    JSValue *fn = [JSValue valueWithJSValueRef:function inContext:self->_object.context];
+    
+    if (JSValueIsObject(ctx, function) && JSObjectIsFunction(ctx, (JSObjectRef)function)) {
+        NSMethodSignature *signature = anInvocation.methodSignature;
+        
+        
+//        JSValueRef *args = (JSValueRef *)malloc(sizeof(JSValueRef)*signature.numberOfArguments);
+        NSMutableArray *argsArr = [NSMutableArray array];
+        
+        for (int i=0; i < signature.numberOfArguments; i++) {
+            JSNR::SigType sigInfo = JSNR::SigType(std::string([signature getArgumentTypeAtIndex:i]));
+            void *originalArgument = NULL;
+            [anInvocation getArgument:&originalArgument atIndex:i];
+            
+            if (i==1 && originalArgument == NULL) originalArgument = cmd;
+            
+            if (originalArgument == NULL) {
+                originalArgument = malloc(sigInfo.sizeOfType());
+                [anInvocation getArgument:&originalArgument atIndex:i];
+            }
+            
+            JSNR::Value val = JSNR::Value(ctx, sigInfo, originalArgument);
+            
+            [argsArr addObject:[JSValue valueWithJSValueRef:val.valueRef inContext:[JSContext contextWithJSGlobalContextRef:JSContextGetGlobalContext(ctx)]]];
+            
+            //            memcpy(args, &val.valueRef, sizeof(JSValueRef));
+        }
+        
+        [fn callWithArguments:argsArr];
+        //        JSObjectCallAsFunction(ctx, (JSObjectRef)function, objectRef, signature.numberOfArguments, args, NULL);
+        //        free(args);
+    }
+}
+
+- (void)finalize {
+    if (_object) [_object release];
+    if (_protocolName) [_protocolName release];
+    //    JSValueUnprotect(ctx, objectRef);
+    //    self.objectRef = nil;
+    //    self.ctx = nil;
+    
+    //    [super dealloc];
+}
+
+@end
 
 JSValueRef createDelegateFn(JSContextRef ctx, JSObjectRef functionRef, JSObjectRef thisObjectRef, size_t argumentCount, const JSValueRef argumentRefs[], JSValueRef *exception)
 {
@@ -21,7 +172,16 @@ JSValueRef createDelegateFn(JSContextRef ctx, JSObjectRef functionRef, JSObjectR
     
     JSNRContainer *container = thisObject.container;
     
-    id delegate = [[objc_getClass("JSNRDelegateForwarder") alloc] initWithJSValue:thisObject];
+    NSString *protocolName = nil;
+    
+    if ([thisObject hasProperty:@"__protocolName__"]) {
+        JSValue *arg0;
+        arg0 = [thisObject valueForProperty:@"__protocolName__"];
+        protocolName = arg0.toString;
+        
+    }
+    
+    id delegate = [[JSNRDelegateForwarder alloc] initWithJSValue:thisObject protocol:protocolName?protocolName:nil];
     
     BOOL hasProp = [thisObject hasProperty:@"alertView$didDismissWithButtonIndex$"];
     NSLog(@"HHAS %@ == %s", @"alertView$didDismissWithButtonIndex$", hasProp ?"Y":"N");
@@ -54,6 +214,18 @@ JSValueRef createDelegateFn(JSContextRef ctx, JSObjectRef functionRef, JSObjectR
 
 - (JSValue *)calledAsConstructor:(JSValue *)constructor argumentCount:(size_t)argumentCount argumentRefs:(const JSValueRef [])argumentRefs inContext:(JSContext *)context
 {
+    JSNRContainer *container = constructor.container;
+    NSMutableDictionary *info = container.info;
+    if (!info)
+        info = [NSMutableDictionary dictionary];
+    
+    if (argumentCount > 0) {
+        JSValueRef arg0 = argumentRefs[0];
+        [info setObject:[JSValue valueWithJSValueRef:arg0 inContext:context] forKey:@"__protocolName__"];
+    }
+    
+    container.info = info;
+    
     return constructor;
 }
 
