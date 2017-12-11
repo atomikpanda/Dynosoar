@@ -52,12 +52,12 @@
 
 - (BOOL)isClassObject {
     JSContextRef ctx = (JSContextRef)self.context.JSGlobalContextRef;
-    return JSValueIsObjectOfClass(ctx, self.JSValueRef, [[[JSNRObjCClassClass alloc] init] classReference]);
+    return JSValueIsObjectOfClass(ctx, self.JSValueRef, JSNRObjCClassClass.sharedReference.classReference);
 }
 
 - (BOOL)isInstanceObject {
     JSContextRef ctx = (JSContextRef)self.context.JSGlobalContextRef;
-    return JSValueIsObjectOfClass(ctx, self.JSValueRef, [[[JSNRInstanceClass alloc] init] classReference]);
+    return JSValueIsObjectOfClass(ctx, self.JSValueRef, JSNRInstanceClass.sharedReference.classReference);
 }
 
 - (void)dealloc {
@@ -101,6 +101,9 @@ namespace JSNR {
             
             localValueRef = JSValueMakeNumber(ctx, sigInfo.doubleFromPointer<double>(methodReturnData));
             
+        } else if (sigInfo.isEncodingSelector()) {
+            
+            localValueRef = JSValueMakeString(ctx, JSStringCreateWithUTF8CString(NSStringFromSelector((SEL)methodReturnData).UTF8String));
         }
         
         this->valueRef = localValueRef;

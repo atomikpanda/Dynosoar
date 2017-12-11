@@ -7,7 +7,7 @@ var viewControllerInstance = null;
 var delegate = new Delegate()
 
 delegate.alertView$didDismissWithButtonIndex$ = function(self, cmd, alert, buttonIndex) {
-  console.log("self::: "+alert)
+  console.log("self::: "+buttonIndex)
   if (buttonIndex == 0) {
   viewControllerInstance.view().backgroundColor = UIColor.greenColor()
   }
@@ -16,6 +16,7 @@ delegate.alertView$didDismissWithButtonIndex$ = function(self, cmd, alert, butto
 delegate = delegate.create()
 
 function alert() {
+
   var alert = UIAlertView.alloc().initWithTitle$message$delegate$cancelButtonTitle$otherButtonTitles$("ROFL","Dee dee doo doo.",delegate,"OK",null)
   alert.show()
   // console.log("desc is: "+alert.description())
@@ -40,5 +41,5 @@ hook(ViewController,"viewDidLoad", function(self,cmd){
      button.addTarget$action$forControlEvents$(buttonHandler, "buttonWasPressed:", (1<<6))
      self.view().addSubview$(button);
      self.view().backgroundColor = UIColor.redColor();
-     // alert();
+     alert();
 });

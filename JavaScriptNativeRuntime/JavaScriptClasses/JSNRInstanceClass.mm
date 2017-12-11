@@ -12,6 +12,23 @@
 #import "JSNRValue.h"
 #import "JSNRInvokeInfo.h"
 
+JSValueRef symbolToPrimitiveFn(JSContextRef ctx, JSObjectRef functionRef, JSObjectRef thisObjectRef, size_t argumentCount, const JSValueRef argumentRefs[], JSValueRef *exception)
+{
+    JSContext *context = [JSContext contextWithJSGlobalContextRef:JSContextGetGlobalContext(ctx)];
+    JSValue *function = [JSValue valueWithJSValueRef:functionRef inContext:context];
+    JSValue *thisObject = [JSValue valueWithJSValueRef:thisObjectRef inContext:context];
+    
+    JSNRContainer *container = thisObject.container;
+    
+    if ([(NSObject *)container.JSNRClass isKindOfClass:[JSNRInstanceClass class]]) {
+        NSString *desc = [[container.info target] description];
+        desc = [NSString stringWithFormat:@"[object Instance] %@", desc];
+        return [desc valueInContext:context].JSValueRef;
+    }
+    
+    return JSValueMakeUndefined(ctx);
+}
+
 @implementation JSNRInstanceClass
 
 + (NSString *)JSClassName {
@@ -33,7 +50,8 @@
 {
     if ([propertyName isEqualToString:@"Symbol.toPrimitive"]) {
         
-        return [@"" valueInContext:context];
+        JSObjectRef fn = JSObjectMakeFunctionWithCallback(context.JSGlobalContextRef, NULL, symbolToPrimitiveFn);
+        return [JSValue valueWithJSValueRef:fn inContext:context];
     }
     if ([propertyName isEqualToString:@"toString"]) {
         return [propertyName valueInContext:context];
@@ -45,15 +63,15 @@
         return [propertyName valueInContext:context];
     }
     
-    std::string selectorStr = JSNR::Invoke::parseGetSelector(propertyName.UTF8String);
-    
-    printf("should invoke %s\n", selectorStr.c_str());
     
     JSObjectRef invokeFn = JSObjectMakeFunctionWithCallback((JSContextRef)context.JSGlobalContextRef, NULL, JSNR::Invoke::invokeFunction);
     
     JSNRContainer *container = object.container;
     JSNRInvokeInfo *invokeInfo = container.info;
-    invokeInfo.selectorString = @(selectorStr.c_str());
+    invokeInfo.selectorString = propertyName;
+    [invokeInfo parseSelectorAsGetSelector];
+    
+    printf("should invoke %s\n", invokeInfo.selectorString.UTF8String);
     //        InvokeInfo *methodCallInfo = new InvokeInfo(invokeInfo->target, selector.string());
     
     //    free(wrap);
@@ -67,14 +85,15 @@
 
 - (BOOL)setPropertyWithName:(NSString *)propertyName onObject:(JSValue *)object value:(JSValue *)value inContext:(JSContext *)context
 {
-    std::string selectorStr = JSNR::Invoke::parseSetSelector(propertyName.UTF8String);
-    printf("should invoke from set %s",  selectorStr.c_str());
     
     JSObjectRef invokeFn = JSObjectMakeFunctionWithCallback((JSContextRef)context.JSGlobalContextRef, NULL, JSNR::Invoke::invokeFunction);
     JSNRContainer *container = object.container;
     
     JSNRInvokeInfo *info = container.info;
-    info.selectorString = @(selectorStr.c_str());
+    info.selectorString = propertyName;
+    [info parseSelectorAsSetSelector];
+    
+    printf("should invoke from set %s",  info.selectorString.UTF8String);
     
     //        JSObjectSetPrivate(invokeFn, methodCallInfo); // appears not nessicary
     container.info = info;

@@ -39,7 +39,7 @@
     });
     return sharedInstance;
 }
-+(void)printy {
++ (void)printy {
     NSLog(@"PRINTY has been called");
 }
 
@@ -79,13 +79,15 @@
         JSNRObjCClassClass *objcClassClass = [JSNRObjCClassClass sharedReference];
         [self insertJSClass:objcClassClass];
         
-        JSNRInstanceClass *instance = [JSNRInstanceClass sharedReference];
-        [self insertJSClass:instance];
+        JSNRInstanceClass *instanceClass = [JSNRInstanceClass sharedReference];
+        [self insertJSClass:instanceClass];
         
-        JSClassRef DelegateClassRef = JSNR::DelegateClass::classRef();
-        
-        JSObjectRef DelegateClassObject = JSObjectMake(ctx, DelegateClassRef, NULL);
-        JSObjectSetProperty(ctx, globalObject, JSStringCreateWithUTF8CString("Delegate"), DelegateClassObject, kJSPropertyAttributeNone, NULL);
+        JSNRDelegateClass *delegateClass = [JSNRDelegateClass sharedReference];
+        [self insertJSClass:delegateClass];
+//        JSClassRef DelegateClassRef = JSNR::DelegateClass::classRef();
+//
+//        JSObjectRef DelegateClassObject = JSObjectMake(ctx, DelegateClassRef, NULL);
+//        JSObjectSetProperty(ctx, globalObject, JSStringCreateWithUTF8CString("Delegate"), DelegateClassObject, kJSPropertyAttributeNone, NULL);
         
 //        JSNRSuperClass *baseClass = [JSNRSuperClass sharedReference];
 //        [self insertJSClass:baseClass];

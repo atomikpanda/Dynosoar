@@ -9,6 +9,20 @@
 /* Begin PBXBuildFile section */
 		6608AAEA1FDD7B0800AD3491 /* JSNRInvokeInfo.h in Headers */ = {isa = PBXBuildFile; fileRef = 6608AAE81FDD7B0800AD3491 /* JSNRInvokeInfo.h */; };
 		6608AAEB1FDD7B0800AD3491 /* JSNRInvokeInfo.mm in Sources */ = {isa = PBXBuildFile; fileRef = 6608AAE91FDD7B0800AD3491 /* JSNRInvokeInfo.mm */; };
+		6608AAEC1FDE06A700AD3491 /* JSNRInstanceClass.mm in Sources */ = {isa = PBXBuildFile; fileRef = 667185001FD9CE2C0006F20C /* JSNRInstanceClass.mm */; };
+		6608AAED1FDE06AC00AD3491 /* JSNRObjCClassClass.mm in Sources */ = {isa = PBXBuildFile; fileRef = 667185031FD9DAB80006F20C /* JSNRObjCClassClass.mm */; };
+		6608AAEF1FDE06BA00AD3491 /* JSNRSuperClass.mm in Sources */ = {isa = PBXBuildFile; fileRef = 667184FB1FD999E30006F20C /* JSNRSuperClass.mm */; };
+		6608AAF01FDE06C400AD3491 /* JSNRValue.mm in Sources */ = {isa = PBXBuildFile; fileRef = 665608B41FD21F5C00DC7916 /* JSNRValue.mm */; };
+		6608AAF11FDE06CB00AD3491 /* JSNRContextManager.mm in Sources */ = {isa = PBXBuildFile; fileRef = 665608831FCF5F7D00DC7916 /* JSNRContextManager.mm */; };
+		6608AAF21FDE06D000AD3491 /* JSNRInvokeInfo.mm in Sources */ = {isa = PBXBuildFile; fileRef = 6608AAE91FDD7B0800AD3491 /* JSNRInvokeInfo.mm */; };
+		6608AAF31FDE06D700AD3491 /* JSNRClassMap.mm in Sources */ = {isa = PBXBuildFile; fileRef = 665608A51FCF6C6300DC7916 /* JSNRClassMap.mm */; };
+		6608AAF41FDE06DC00AD3491 /* JSNRString.mm in Sources */ = {isa = PBXBuildFile; fileRef = 665608BC1FD2281E00DC7916 /* JSNRString.mm */; };
+		6608AAF51FDE06E100AD3491 /* JSNRDelegateClass_old.mm in Sources */ = {isa = PBXBuildFile; fileRef = 66D79D231FD8B61F00B297E0 /* JSNRDelegateClass_old.mm */; };
+		6608AAF61FDE06E600AD3491 /* JSNRInvoke.mm in Sources */ = {isa = PBXBuildFile; fileRef = 66D79CD31FD4A7EB00B297E0 /* JSNRInvoke.mm */; };
+		6608AAF71FDE06EB00AD3491 /* BaseClass.mm in Sources */ = {isa = PBXBuildFile; fileRef = 665608B81FD226E400DC7916 /* BaseClass.mm */; };
+		6608AAFA1FDF1DAA00AD3491 /* JSNRDelegateClass.h in Headers */ = {isa = PBXBuildFile; fileRef = 6608AAF81FDF1DAA00AD3491 /* JSNRDelegateClass.h */; };
+		6608AAFB1FDF1DAA00AD3491 /* JSNRDelegateClass.mm in Sources */ = {isa = PBXBuildFile; fileRef = 6608AAF91FDF1DAA00AD3491 /* JSNRDelegateClass.mm */; };
+		6608AAFC1FDF1F6C00AD3491 /* JSNRDelegateClass.mm in Sources */ = {isa = PBXBuildFile; fileRef = 6608AAF91FDF1DAA00AD3491 /* JSNRDelegateClass.mm */; };
 		6656086B1FCF5CA000DC7916 /* Dynosoar.h in Headers */ = {isa = PBXBuildFile; fileRef = 665608691FCF5CA000DC7916 /* Dynosoar.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		6656086C1FCF5CA000DC7916 /* Dynosoar.m in Sources */ = {isa = PBXBuildFile; fileRef = 6656086A1FCF5CA000DC7916 /* Dynosoar.m */; };
 		665608731FCF5D4800DC7916 /* DynoBundle.h in Headers */ = {isa = PBXBuildFile; fileRef = 665608711FCF5D4800DC7916 /* DynoBundle.h */; };
@@ -43,14 +57,6 @@
 		66D79CD61FD4A7EB00B297E0 /* JSNRInvoke.h in Headers */ = {isa = PBXBuildFile; fileRef = 66D79CD41FD4A7EB00B297E0 /* JSNRInvoke.h */; };
 		66D79CD91FD7895E00B297E0 /* tweak.js in Resources */ = {isa = PBXBuildFile; fileRef = 66D79CD81FD7895E00B297E0 /* tweak.js */; };
 		66D79CE31FD844F500B297E0 /* JSNRIOS.h in Headers */ = {isa = PBXBuildFile; fileRef = 66D79CE11FD844F500B297E0 /* JSNRIOS.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		66D79CE71FD8451000B297E0 /* JSNRContextManager.mm in Sources */ = {isa = PBXBuildFile; fileRef = 665608831FCF5F7D00DC7916 /* JSNRContextManager.mm */; };
-		66D79CE81FD8451700B297E0 /* JSNRString.mm in Sources */ = {isa = PBXBuildFile; fileRef = 665608BC1FD2281E00DC7916 /* JSNRString.mm */; };
-		66D79CE91FD8451D00B297E0 /* BaseClass.mm in Sources */ = {isa = PBXBuildFile; fileRef = 665608B81FD226E400DC7916 /* BaseClass.mm */; };
-		66D79CEA1FD8452100B297E0 /* JSNRObjCClass.mm in Sources */ = {isa = PBXBuildFile; fileRef = 665608C21FD249EE00DC7916 /* JSNRObjCClass.mm */; };
-		66D79CEB1FD8452600B297E0 /* JSNRInvoke.mm in Sources */ = {isa = PBXBuildFile; fileRef = 66D79CD31FD4A7EB00B297E0 /* JSNRInvoke.mm */; };
-		66D79CEC1FD8452C00B297E0 /* JSNRInstance.mm in Sources */ = {isa = PBXBuildFile; fileRef = 66D79CCF1FD49FD800B297E0 /* JSNRInstance.mm */; };
-		66D79CED1FD8453400B297E0 /* JSNRValue.mm in Sources */ = {isa = PBXBuildFile; fileRef = 665608B41FD21F5C00DC7916 /* JSNRValue.mm */; };
-		66D79CEE1FD8453A00B297E0 /* JSNRClassMap.mm in Sources */ = {isa = PBXBuildFile; fileRef = 665608A51FCF6C6300DC7916 /* JSNRClassMap.mm */; };
 		66D79CEF1FD8454100B297E0 /* JSNRContextManager.h in Headers */ = {isa = PBXBuildFile; fileRef = 665608821FCF5F7D00DC7916 /* JSNRContextManager.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		66D79CF11FD8454800B297E0 /* JSNRString.h in Headers */ = {isa = PBXBuildFile; fileRef = 665608BD1FD2281E00DC7916 /* JSNRString.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		66D79CF21FD8454D00B297E0 /* JSNRCCallback.h in Headers */ = {isa = PBXBuildFile; fileRef = 66D79CC41FD3030B00B297E0 /* JSNRCCallback.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -72,10 +78,9 @@
 		66D79D1C1FD847F300B297E0 /* iostest.js in Resources */ = {isa = PBXBuildFile; fileRef = 66D79D1B1FD847F300B297E0 /* iostest.js */; };
 		66D79D201FD8790100B297E0 /* headers in Resources */ = {isa = PBXBuildFile; fileRef = 66D79D1F1FD8790100B297E0 /* headers */; };
 		66D79D221FD8791300B297E0 /* headers in Resources */ = {isa = PBXBuildFile; fileRef = 66D79D211FD8791200B297E0 /* headers */; };
-		66D79D251FD8B62000B297E0 /* JSNRDelegateClass.mm in Sources */ = {isa = PBXBuildFile; fileRef = 66D79D231FD8B61F00B297E0 /* JSNRDelegateClass.mm */; };
-		66D79D261FD8B62000B297E0 /* JSNRDelegateClass.mm in Sources */ = {isa = PBXBuildFile; fileRef = 66D79D231FD8B61F00B297E0 /* JSNRDelegateClass.mm */; };
-		66D79D271FD8B62000B297E0 /* JSNRDelegateClass.h in Headers */ = {isa = PBXBuildFile; fileRef = 66D79D241FD8B62000B297E0 /* JSNRDelegateClass.h */; };
-		66D79D281FD8B62000B297E0 /* JSNRDelegateClass.h in Headers */ = {isa = PBXBuildFile; fileRef = 66D79D241FD8B62000B297E0 /* JSNRDelegateClass.h */; };
+		66D79D251FD8B62000B297E0 /* JSNRDelegateClass_old.mm in Sources */ = {isa = PBXBuildFile; fileRef = 66D79D231FD8B61F00B297E0 /* JSNRDelegateClass_old.mm */; };
+		66D79D271FD8B62000B297E0 /* JSNRDelegateClass_old.h in Headers */ = {isa = PBXBuildFile; fileRef = 66D79D241FD8B62000B297E0 /* JSNRDelegateClass_old.h */; };
+		66D79D281FD8B62000B297E0 /* JSNRDelegateClass_old.h in Headers */ = {isa = PBXBuildFile; fileRef = 66D79D241FD8B62000B297E0 /* JSNRDelegateClass_old.h */; };
 		66DBA82C1FDA180500F9C942 /* JSNRInstanceClass.mm in Sources */ = {isa = PBXBuildFile; fileRef = 667185001FD9CE2C0006F20C /* JSNRInstanceClass.mm */; };
 /* End PBXBuildFile section */
 
@@ -106,6 +111,8 @@
 /* Begin PBXFileReference section */
 		6608AAE81FDD7B0800AD3491 /* JSNRInvokeInfo.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = JSNRInvokeInfo.h; sourceTree = "<group>"; };
 		6608AAE91FDD7B0800AD3491 /* JSNRInvokeInfo.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = JSNRInvokeInfo.mm; sourceTree = "<group>"; };
+		6608AAF81FDF1DAA00AD3491 /* JSNRDelegateClass.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = JSNRDelegateClass.h; sourceTree = "<group>"; };
+		6608AAF91FDF1DAA00AD3491 /* JSNRDelegateClass.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = JSNRDelegateClass.mm; sourceTree = "<group>"; };
 		6656085E1FCF5C7000DC7916 /* Dynosoar.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Dynosoar.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		665608621FCF5C7000DC7916 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		665608691FCF5CA000DC7916 /* Dynosoar.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Dynosoar.h; sourceTree = SOURCE_ROOT; };
@@ -169,8 +176,8 @@
 		66D79D1D1FD878EC00B297E0 /* headers */ = {isa = PBXFileReference; lastKnownFileType = folder; name = headers; path = JavaScriptNativeRuntime/headers; sourceTree = "<group>"; };
 		66D79D1F1FD8790100B297E0 /* headers */ = {isa = PBXFileReference; lastKnownFileType = folder; name = headers; path = JavaScriptNativeRuntime/headers; sourceTree = "<group>"; };
 		66D79D211FD8791200B297E0 /* headers */ = {isa = PBXFileReference; lastKnownFileType = folder; name = headers; path = JavaScriptNativeRuntime/headers; sourceTree = "<group>"; };
-		66D79D231FD8B61F00B297E0 /* JSNRDelegateClass.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = JSNRDelegateClass.mm; sourceTree = "<group>"; };
-		66D79D241FD8B62000B297E0 /* JSNRDelegateClass.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JSNRDelegateClass.h; sourceTree = "<group>"; };
+		66D79D231FD8B61F00B297E0 /* JSNRDelegateClass_old.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = JSNRDelegateClass_old.mm; sourceTree = "<group>"; };
+		66D79D241FD8B62000B297E0 /* JSNRDelegateClass_old.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JSNRDelegateClass_old.h; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -282,8 +289,8 @@
 				665608B41FD21F5C00DC7916 /* JSNRValue.mm */,
 				665608A41FCF6C6300DC7916 /* JSNRClassMap.h */,
 				665608A51FCF6C6300DC7916 /* JSNRClassMap.mm */,
-				66D79D241FD8B62000B297E0 /* JSNRDelegateClass.h */,
-				66D79D231FD8B61F00B297E0 /* JSNRDelegateClass.mm */,
+				66D79D241FD8B62000B297E0 /* JSNRDelegateClass_old.h */,
+				66D79D231FD8B61F00B297E0 /* JSNRDelegateClass_old.mm */,
 			);
 			path = JavaScriptNativeRuntime;
 			sourceTree = "<group>";
@@ -324,6 +331,8 @@
 				667185001FD9CE2C0006F20C /* JSNRInstanceClass.mm */,
 				667185051FD9DAC20006F20C /* JSNRObjCClassClass.h */,
 				667185031FD9DAB80006F20C /* JSNRObjCClassClass.mm */,
+				6608AAF81FDF1DAA00AD3491 /* JSNRDelegateClass.h */,
+				6608AAF91FDF1DAA00AD3491 /* JSNRDelegateClass.mm */,
 			);
 			path = JavaScriptClasses;
 			sourceTree = "<group>";
@@ -375,8 +384,9 @@
 				665608B71FD21F5C00DC7916 /* JSNRValue.h in Headers */,
 				665608C51FD249EE00DC7916 /* JSNRObjCClass.h in Headers */,
 				6656087E1FCF5F3600DC7916 /* JavaScriptNativeRuntime.h in Headers */,
+				6608AAFA1FDF1DAA00AD3491 /* JSNRDelegateClass.h in Headers */,
 				66D79CD21FD49FD800B297E0 /* JSNRInstance.h in Headers */,
-				66D79D271FD8B62000B297E0 /* JSNRDelegateClass.h in Headers */,
+				66D79D271FD8B62000B297E0 /* JSNRDelegateClass_old.h in Headers */,
 				665608BB1FD226E400DC7916 /* BaseClass.h in Headers */,
 				665608BF1FD2281E00DC7916 /* JSNRString.h in Headers */,
 				6608AAEA1FDD7B0800AD3491 /* JSNRInvokeInfo.h in Headers */,
@@ -402,7 +412,7 @@
 				66D79CF71FD8456100B297E0 /* JSNRInstance.h in Headers */,
 				66D79CF81FD8456400B297E0 /* JSNRValue.h in Headers */,
 				66D79CFA1FD8457000B297E0 /* JSNRClassMap.h in Headers */,
-				66D79D281FD8B62000B297E0 /* JSNRDelegateClass.h in Headers */,
+				66D79D281FD8B62000B297E0 /* JSNRDelegateClass_old.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -628,7 +638,8 @@
 				6608AAEB1FDD7B0800AD3491 /* JSNRInvokeInfo.mm in Sources */,
 				665608A71FCF6C6300DC7916 /* JSNRClassMap.mm in Sources */,
 				665608BE1FD2281E00DC7916 /* JSNRString.mm in Sources */,
-				66D79D251FD8B62000B297E0 /* JSNRDelegateClass.mm in Sources */,
+				6608AAFB1FDF1DAA00AD3491 /* JSNRDelegateClass.mm in Sources */,
+				66D79D251FD8B62000B297E0 /* JSNRDelegateClass_old.mm in Sources */,
 				66D79CD51FD4A7EB00B297E0 /* JSNRInvoke.mm in Sources */,
 				665608BA1FD226E400DC7916 /* BaseClass.mm in Sources */,
 			);
@@ -647,15 +658,18 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				66D79CEC1FD8452C00B297E0 /* JSNRInstance.mm in Sources */,
-				66D79CE71FD8451000B297E0 /* JSNRContextManager.mm in Sources */,
-				66D79CE81FD8451700B297E0 /* JSNRString.mm in Sources */,
-				66D79CE91FD8451D00B297E0 /* BaseClass.mm in Sources */,
-				66D79CEA1FD8452100B297E0 /* JSNRObjCClass.mm in Sources */,
-				66D79D261FD8B62000B297E0 /* JSNRDelegateClass.mm in Sources */,
-				66D79CEB1FD8452600B297E0 /* JSNRInvoke.mm in Sources */,
-				66D79CED1FD8453400B297E0 /* JSNRValue.mm in Sources */,
-				66D79CEE1FD8453A00B297E0 /* JSNRClassMap.mm in Sources */,
+				6608AAFC1FDF1F6C00AD3491 /* JSNRDelegateClass.mm in Sources */,
+				6608AAF71FDE06EB00AD3491 /* BaseClass.mm in Sources */,
+				6608AAF61FDE06E600AD3491 /* JSNRInvoke.mm in Sources */,
+				6608AAF51FDE06E100AD3491 /* JSNRDelegateClass_old.mm in Sources */,
+				6608AAF41FDE06DC00AD3491 /* JSNRString.mm in Sources */,
+				6608AAF31FDE06D700AD3491 /* JSNRClassMap.mm in Sources */,
+				6608AAF21FDE06D000AD3491 /* JSNRInvokeInfo.mm in Sources */,
+				6608AAF11FDE06CB00AD3491 /* JSNRContextManager.mm in Sources */,
+				6608AAF01FDE06C400AD3491 /* JSNRValue.mm in Sources */,
+				6608AAEF1FDE06BA00AD3491 /* JSNRSuperClass.mm in Sources */,
+				6608AAED1FDE06AC00AD3491 /* JSNRObjCClassClass.mm in Sources */,
+				6608AAEC1FDE06A700AD3491 /* JSNRInstanceClass.mm in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

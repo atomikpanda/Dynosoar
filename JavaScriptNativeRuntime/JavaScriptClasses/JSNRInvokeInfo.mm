@@ -32,6 +32,19 @@
     return [[[self alloc] initWithTarget:nil selectorString:nil isClass:NO] autorelease];
 }
 
+- (void)parseSelectorAsSetSelector {
+
+    NSString *selectorStr = self.selectorString;
+    
+    selectorStr = [NSString stringWithFormat:@"set%c%@:", toupper([selectorStr characterAtIndex:0]), [selectorStr substringFromIndex:1]];
+    
+    self.selectorString = selectorStr;
+}
+- (void)parseSelectorAsGetSelector {
+    NSString *selectorStr = [self.selectorString stringByReplacingOccurrencesOfString:@"$" withString:@":"];
+    self.selectorString = selectorStr;
+}
+
 - (SEL)selector {
     return NSSelectorFromString(self.selectorString);
 }

@@ -19,6 +19,8 @@
 @property (nonatomic, copy) NSString *selectorString;
 @property (assign) BOOL targetIsClass;
 
+- (void)parseSelectorAsGetSelector;
+- (void)parseSelectorAsSetSelector;
 - (SEL)selector;
 
 @end
