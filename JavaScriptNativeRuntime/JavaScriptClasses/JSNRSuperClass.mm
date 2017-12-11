@@ -9,6 +9,27 @@
 #import "JSNRSuperClass.h"
 #import "JSNRValue.h"
 
+JSValueRef symbolToPrimitiveFn(JSContextRef ctx, JSObjectRef functionRef, JSObjectRef thisObjectRef, size_t argumentCount, const JSValueRef argumentRefs[], JSValueRef *exception)
+{
+    JSContext *context = [JSContext contextWithJSGlobalContextRef:JSContextGetGlobalContext(ctx)];
+    JSValue *function = [JSValue valueWithJSValueRef:functionRef inContext:context];
+    JSValue *thisObject = [JSValue valueWithJSValueRef:thisObjectRef inContext:context];
+    
+    JSNRContainer *container = thisObject.container;
+    
+    if ([(NSObject *)container.JSNRClass isKindOfClass:NSClassFromString(@"JSNRInstanceClass")]) {
+        NSString *desc = [[container.info target] description];
+        desc = [NSString stringWithFormat:@"[object Instance] %@", desc];
+        return [desc valueInContext:context].JSValueRef;
+    } else if ([(NSObject *)container.JSNRClass isKindOfClass:NSClassFromString(@"JSNRObjCClassClass")]) {
+        NSString *desc = NSStringFromClass([container.info target]);
+        desc = [NSString stringWithFormat:@"[object ObjCClass] %@", desc];
+        return [desc valueInContext:context].JSValueRef;
+    }
+    
+    return JSValueMakeUndefined(ctx);
+}
+
 void JSNRObjectInitializeCallbackWrap(JSContextRef ctx, JSObjectRef objectRef) {
     JSContext *context = [JSContext contextWithJSGlobalContextRef:JSContextGetGlobalContext(ctx)];
     JSValue *object = [JSValue valueWithJSValueRef:objectRef inContext:context];

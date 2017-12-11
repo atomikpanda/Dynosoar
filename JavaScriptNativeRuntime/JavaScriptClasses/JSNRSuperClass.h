@@ -10,6 +10,8 @@
 #import <JavaScriptCore/JavaScriptCore.h>
 #import "JSNRContextManager.h"
 
+JSValueRef symbolToPrimitiveFn(JSContextRef ctx, JSObjectRef functionRef, JSObjectRef thisObjectRef, size_t argumentCount, const JSValueRef argumentRefs[], JSValueRef *exception);
+
 @protocol JSNRClass;
 @interface JSNRContainer : NSObject
 

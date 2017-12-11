@@ -12,22 +12,7 @@
 #import "JSNRValue.h"
 #import "JSNRInvokeInfo.h"
 
-JSValueRef symbolToPrimitiveFn(JSContextRef ctx, JSObjectRef functionRef, JSObjectRef thisObjectRef, size_t argumentCount, const JSValueRef argumentRefs[], JSValueRef *exception)
-{
-    JSContext *context = [JSContext contextWithJSGlobalContextRef:JSContextGetGlobalContext(ctx)];
-    JSValue *function = [JSValue valueWithJSValueRef:functionRef inContext:context];
-    JSValue *thisObject = [JSValue valueWithJSValueRef:thisObjectRef inContext:context];
-    
-    JSNRContainer *container = thisObject.container;
-    
-    if ([(NSObject *)container.JSNRClass isKindOfClass:[JSNRInstanceClass class]]) {
-        NSString *desc = [[container.info target] description];
-        desc = [NSString stringWithFormat:@"[object Instance] %@", desc];
-        return [desc valueInContext:context].JSValueRef;
-    }
-    
-    return JSValueMakeUndefined(ctx);
-}
+
 
 @implementation JSNRInstanceClass
 

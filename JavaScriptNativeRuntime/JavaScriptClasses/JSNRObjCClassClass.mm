@@ -34,7 +34,8 @@
 {
     if ([propertyName isEqualToString:@"Symbol.toPrimitive"]) {
         
-        return [@"" valueInContext:context];
+        JSObjectRef fn = JSObjectMakeFunctionWithCallback(context.JSGlobalContextRef, NULL, symbolToPrimitiveFn);
+        return [JSValue valueWithJSValueRef:fn inContext:context];
     }
     if ([propertyName isEqualToString:@"toString"]) {
         return [propertyName valueInContext:context];

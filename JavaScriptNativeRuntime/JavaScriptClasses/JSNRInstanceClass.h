@@ -8,6 +8,7 @@
 
 #import "JSNRSuperClass.h"
 
+
 @class JSNRInvokeInfo;
 @interface JSNRInstanceClass : JSNRSuperClass <JSNRClass>
 

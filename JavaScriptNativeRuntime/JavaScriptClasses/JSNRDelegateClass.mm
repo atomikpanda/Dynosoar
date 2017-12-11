@@ -109,7 +109,7 @@
     JSNR::Value obj = JSNR::Value(ctx, objectRef);
     
     BOOL hasProp = [self->_object hasProperty:stringSelector];
-    NSLog(@"HAS %@ == %s", stringSelector, hasProp ?"Y":"N");
+    
     
     //    if (self->_object.isObject) return;
     
@@ -182,9 +182,6 @@ JSValueRef createDelegateFn(JSContextRef ctx, JSObjectRef functionRef, JSObjectR
     }
     
     id delegate = [[JSNRDelegateForwarder alloc] initWithJSValue:thisObject protocol:protocolName?protocolName:nil];
-    
-    BOOL hasProp = [thisObject hasProperty:@"alertView$didDismissWithButtonIndex$"];
-    NSLog(@"HHAS %@ == %s", @"alertView$didDismissWithButtonIndex$", hasProp ?"Y":"N");
 
     JSObjectRef delobj = [JSNRSuperClass createEmptyObjectRefWithContext:ctx classRef:[JSNRInstanceClass sharedReference]];
     JSValue *delobjValue = [JSValue valueWithJSValueRef:delobj inContext:context];
