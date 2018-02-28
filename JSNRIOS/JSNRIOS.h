@@ -8,6 +8,13 @@
 
 #import <UIKit/UIKit.h>
 
+#import "JSNRValue.h"
+#import "JSNRString.h"
+#import "BaseClass.h"
+#import "JSNRObjCClass.h"
+#import "JSNRContextManager.h"
+#import "JSNRInstance.h"
+
 //! Project version number for JSNRIOS.
 FOUNDATION_EXPORT double JSNRIOSVersionNumber;
 

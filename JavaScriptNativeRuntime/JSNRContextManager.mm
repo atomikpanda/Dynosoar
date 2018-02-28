@@ -177,9 +177,9 @@
     
     self.coreContext[@"include"] = ^JSValue *(NSString *file) {
         NSError *error = nil;
-        NSString *headersFolderInFramework = [[NSBundle bundleForClass:[JSNRContextManager class]].resourcePath stringByAppendingString:@"/headers/"];
+        NSString *headersFolderInFramework = [[NSBundle bundleForClass:[JSNRContextManager class]].resourcePath stringByAppendingString:@"/JSHeaders/"];
         
-        file = [file stringByReplacingOccurrencesOfString:@"@headers/" withString:headersFolderInFramework];
+        file = [file stringByReplacingOccurrencesOfString:@"@JSHeaders/" withString:headersFolderInFramework];
         
         if (self.baseDirectoryPath) {
         if (file.pathComponents.count == 1 || [file containsString:@"./"]) {
