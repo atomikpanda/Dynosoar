@@ -1,5 +1,5 @@
-include("@headers/Foundation.js")
-include("@headers/UIKit.js")
+include("@JSHeaders/Foundation.js")
+include("@JSHeaders/UIKit.js")
 
 interface("ViewController")
 var viewControllerInstance = null;

@@ -1,5 +1,5 @@
-include("@headers/Foundation.js")
-include("@headers/AppKit.js")
+include("@JSHeaders/Foundation.js")
+include("@JSHeaders/AppKit.js")
 interface("AppDelegate")
 interface("JSNRContextManager")
 
