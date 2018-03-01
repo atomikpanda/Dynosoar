@@ -129,8 +129,14 @@
     JSNRContainer *container = (id)[object privateData];
     JSNRInvokeInfo *info = (id)container.info;
     
+    
+    
     id target = info.target;
     BOOL targetIsClass = class_isMetaClass(object_getClass(target));
+    
+    if (type == kJSTypeNumber) {
+        return [JSValue valueWithDouble:[target hash] inContext:context];
+    }
     
     if (targetIsClass) {
         return [@(class_getName(target)) valueInContext:context];
@@ -140,6 +146,8 @@
         return [[target description] valueInContext:context];
         
     }
+    
+   
     
     return [@"unknown" valueInContext:context];
 }

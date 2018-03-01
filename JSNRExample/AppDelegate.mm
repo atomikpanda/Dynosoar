@@ -63,6 +63,7 @@ static void init_hooks() {
     if (error) NSLog(@"script contents err: %@", error);
     
     JSNRContextManager *context = [JSNRContextManager sharedInstance];
-    
-    JSValue *retval = [context evaluateScript:scriptContents baseDirectoryPath:[[NSBundle mainBundle] resourcePath]];
+    if (scriptContents) {
+        JSValue *retval = [context evaluateScript:scriptContents baseDirectoryPath:[[NSBundle mainBundle] resourcePath]];
+    }
 }

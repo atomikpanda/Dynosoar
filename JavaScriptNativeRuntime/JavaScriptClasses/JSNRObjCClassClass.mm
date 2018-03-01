@@ -148,6 +148,10 @@
     
     id target = info.target;
     
+    if (type == kJSTypeNumber) {
+        
+        return [JSValue valueWithDouble:[target hash] inContext:context];
+    }
     
     return [@(class_getName(target)) valueInContext:context];
 

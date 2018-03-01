@@ -28,6 +28,8 @@ buttonHandler.buttonWasPressed$ = function(self,cmd,sender){
   console.log("\nlooks like you touched the button!\n")
   console.log("sender:::: "+sender)
   console.log("cls:::: "+sender.class())
+  var eq = sender.isKindOfClass$(UIButton);
+  console.log("eq-> "+eq)
   sender.setTitle$forState$("Button Pressed",0)
 }
 buttonHandler = buttonHandler.create();

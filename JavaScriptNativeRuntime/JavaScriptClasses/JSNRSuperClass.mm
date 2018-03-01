@@ -17,6 +17,17 @@ JSValueRef symbolToPrimitiveFn(JSContextRef ctx, JSObjectRef functionRef, JSObje
     
     JSNRContainer *container = thisObject.container;
     
+    if (argumentCount > 0) {
+        NSString *toType = [[JSValue valueWithJSValueRef:argumentRefs[0] inContext:context] toString];
+        
+        if ([toType isEqualToString:@"default"]) {
+            
+            return [JSValue valueWithDouble:[[container.info target] hash] inContext:context].JSValueRef;
+        }
+        
+    }
+    
+    
     if ([(NSObject *)container.JSNRClass isKindOfClass:NSClassFromString(@"JSNRInstanceClass")]) {
         NSString *desc = [[container.info target] description];
         desc = [NSString stringWithFormat:@"[object Instance] %@", desc];
