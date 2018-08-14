@@ -79,6 +79,7 @@
 		66D79D281FD8B62000B297E0 /* JSNRDelegateClass_old.h in Headers */ = {isa = PBXBuildFile; fileRef = 66D79D241FD8B62000B297E0 /* JSNRDelegateClass_old.h */; };
 		66DBA82C1FDA180500F9C942 /* JSNRInstanceClass.mm in Sources */ = {isa = PBXBuildFile; fileRef = 667185001FD9CE2C0006F20C /* JSNRInstanceClass.mm */; };
 		66DBF63D21230D1900E4008F /* JSHeaders in Resources */ = {isa = PBXBuildFile; fileRef = 66DBF63C21230D1900E4008F /* JSHeaders */; };
+		66DBF63F21230DD500E4008F /* JSHeaders in Resources */ = {isa = PBXBuildFile; fileRef = 66DBF63C21230D1900E4008F /* JSHeaders */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -592,6 +593,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				66DBF63F21230DD500E4008F /* JSHeaders in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
