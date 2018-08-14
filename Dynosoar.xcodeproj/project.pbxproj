@@ -75,11 +75,10 @@
 		66D79D141FD847BE00B297E0 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 66D79D131FD847BE00B297E0 /* main.m */; };
 		66D79D1A1FD847D300B297E0 /* JSNRIOS.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 66D79CDF1FD844F500B297E0 /* JSNRIOS.framework */; };
 		66D79D1C1FD847F300B297E0 /* iostest.js in Resources */ = {isa = PBXBuildFile; fileRef = 66D79D1B1FD847F300B297E0 /* iostest.js */; };
-		66D79D201FD8790100B297E0 /* headers in Resources */ = {isa = PBXBuildFile; fileRef = 66D79D1F1FD8790100B297E0 /* headers */; };
-		66D79D221FD8791300B297E0 /* headers in Resources */ = {isa = PBXBuildFile; fileRef = 66D79D211FD8791200B297E0 /* headers */; };
 		66D79D271FD8B62000B297E0 /* JSNRDelegateClass_old.h in Headers */ = {isa = PBXBuildFile; fileRef = 66D79D241FD8B62000B297E0 /* JSNRDelegateClass_old.h */; };
 		66D79D281FD8B62000B297E0 /* JSNRDelegateClass_old.h in Headers */ = {isa = PBXBuildFile; fileRef = 66D79D241FD8B62000B297E0 /* JSNRDelegateClass_old.h */; };
 		66DBA82C1FDA180500F9C942 /* JSNRInstanceClass.mm in Sources */ = {isa = PBXBuildFile; fileRef = 667185001FD9CE2C0006F20C /* JSNRInstanceClass.mm */; };
+		66DBF63D21230D1900E4008F /* JSHeaders in Resources */ = {isa = PBXBuildFile; fileRef = 66DBF63C21230D1900E4008F /* JSHeaders */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -171,11 +170,9 @@
 		66D79D121FD847BE00B297E0 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		66D79D131FD847BE00B297E0 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		66D79D1B1FD847F300B297E0 /* iostest.js */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.javascript; path = iostest.js; sourceTree = "<group>"; };
-		66D79D1D1FD878EC00B297E0 /* headers */ = {isa = PBXFileReference; lastKnownFileType = folder; name = headers; path = JavaScriptNativeRuntime/headers; sourceTree = "<group>"; };
-		66D79D1F1FD8790100B297E0 /* headers */ = {isa = PBXFileReference; lastKnownFileType = folder; name = headers; path = JavaScriptNativeRuntime/headers; sourceTree = "<group>"; };
-		66D79D211FD8791200B297E0 /* headers */ = {isa = PBXFileReference; lastKnownFileType = folder; name = headers; path = JavaScriptNativeRuntime/headers; sourceTree = "<group>"; };
 		66D79D231FD8B61F00B297E0 /* JSNRDelegateClass_old.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = JSNRDelegateClass_old.mm; sourceTree = "<group>"; };
 		66D79D241FD8B62000B297E0 /* JSNRDelegateClass_old.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JSNRDelegateClass_old.h; sourceTree = "<group>"; };
+		66DBF63C21230D1900E4008F /* JSHeaders */ = {isa = PBXFileReference; lastKnownFileType = folder; name = JSHeaders; path = JavaScriptNativeRuntime/JSHeaders; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -225,9 +222,7 @@
 		665608541FCF5C7000DC7916 = {
 			isa = PBXGroup;
 			children = (
-				66D79D1D1FD878EC00B297E0 /* headers */,
-				66D79D1F1FD8790100B297E0 /* headers */,
-				66D79D211FD8791200B297E0 /* headers */,
+				66DBF63C21230D1900E4008F /* JSHeaders */,
 				665608711FCF5D4800DC7916 /* DynoBundle.h */,
 				665608721FCF5D4800DC7916 /* DynoBundle.m */,
 				665608601FCF5C7000DC7916 /* Dynosoar */,
@@ -514,7 +509,7 @@
 		665608551FCF5C7000DC7916 /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
-				LastUpgradeCheck = 0920;
+				LastUpgradeCheck = 0940;
 				ORGANIZATIONNAME = "Bailey Seymour";
 				TargetAttributes = {
 					6656085D1FCF5C7000DC7916 = {
@@ -578,7 +573,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				66D79D201FD8790100B297E0 /* headers in Resources */,
+				66DBF63D21230D1900E4008F /* JSHeaders in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -597,7 +592,6 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				66D79D221FD8791300B297E0 /* headers in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -741,6 +735,7 @@
 				CLANG_WARN_BOOL_CONVERSION = YES;
 				CLANG_WARN_COMMA = YES;
 				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
 				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
 				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
 				CLANG_WARN_EMPTY_BODY = YES;
@@ -748,6 +743,7 @@
 				CLANG_WARN_INFINITE_RECURSION = YES;
 				CLANG_WARN_INT_CONVERSION = YES;
 				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
 				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
 				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
@@ -799,6 +795,7 @@
 				CLANG_WARN_BOOL_CONVERSION = YES;
 				CLANG_WARN_COMMA = YES;
 				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
 				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
 				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
 				CLANG_WARN_EMPTY_BODY = YES;
@@ -806,6 +803,7 @@
 				CLANG_WARN_INFINITE_RECURSION = YES;
 				CLANG_WARN_INT_CONVERSION = YES;
 				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
 				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
 				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
@@ -882,6 +880,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				CLANG_ENABLE_OBJC_ARC = NO;
+				CLANG_ENABLE_OBJC_WEAK = YES;
 				CODE_SIGN_IDENTITY = "";
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
@@ -906,6 +905,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				CLANG_ENABLE_OBJC_ARC = NO;
+				CLANG_ENABLE_OBJC_WEAK = YES;
 				CODE_SIGN_IDENTITY = "";
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
@@ -958,6 +958,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				CLANG_ENABLE_OBJC_ARC = NO;
+				CLANG_ENABLE_OBJC_WEAK = YES;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
 				CODE_SIGN_STYLE = Automatic;
@@ -982,6 +983,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				CLANG_ENABLE_OBJC_ARC = NO;
+				CLANG_ENABLE_OBJC_WEAK = YES;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
 				CODE_SIGN_STYLE = Automatic;
